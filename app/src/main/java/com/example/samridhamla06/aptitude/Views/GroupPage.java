@@ -13,7 +13,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.samridhamla06.aptitude.R;
-import com.example.samridhamla06.aptitude.User;
+import com.example.samridhamla06.aptitude.Modals.User;
 
 import org.json.JSONArray;
 import org.json.JSONException;

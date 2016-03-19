@@ -12,7 +12,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".LoginPage"
+            android:name=".Views.LoginPage"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
@@ -22,11 +22,11 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".MainPage"
+            android:name=".Views.MainPage"
             android:label="@string/title_activity_main_page"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".GroupPage"
+            android:name=".Views.GroupPage"
             android:label="@string/title_activity_group_page"
             android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
