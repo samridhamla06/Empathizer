@@ -1,4 +1,4 @@
-package com.example.samridhamla06.aptitude;
+package com.example.samridhamla06.aptitude.Views;
 
 import android.content.Context;
 import android.content.Intent;
@@ -20,6 +20,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.samridhamla06.aptitude.R;
 
 import java.util.HashMap;
 import java.util.Map;

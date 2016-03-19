@@ -1,4 +1,4 @@
-package com.example.samridhamla06.aptitude;
+package com.example.samridhamla06.aptitude.Views;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -16,6 +16,9 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.samridhamla06.aptitude.Community;
+import com.example.samridhamla06.aptitude.R;
+import com.example.samridhamla06.aptitude.User;
 
 import org.json.JSONArray;
 import org.json.JSONException;

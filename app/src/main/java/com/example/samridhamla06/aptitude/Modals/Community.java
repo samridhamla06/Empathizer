@@ -1,4 +1,4 @@
-package com.example.samridhamla06.aptitude;
+package com.example.samridhamla06.aptitude.Modals;
 
 /**
  * Created by samridhamla06 on 14/03/16.

@@ -1,4 +1,4 @@
-package com.example.samridhamla06.aptitude;
+package com.example.samridhamla06.aptitude.Modals;
 
 import android.os.Parcel;
 import android.os.Parcelable;
