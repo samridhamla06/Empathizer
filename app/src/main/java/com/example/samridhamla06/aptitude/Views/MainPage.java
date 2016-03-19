@@ -19,6 +19,7 @@ import com.android.volley.toolbox.Volley;
 import com.example.samridhamla06.aptitude.Modals.Community;
 import com.example.samridhamla06.aptitude.R;
 import com.example.samridhamla06.aptitude.Modals.User;
+import com.example.samridhamla06.aptitude.Service.MainPageServices;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -51,6 +52,7 @@ public class MainPage extends AppCompatActivity {
     private Community community;
     private Intent intentToGroupPage;
     private List<User> usersList;
+    private MainPageServices mainPageServices;
 
 
     @Override
@@ -65,6 +67,7 @@ public class MainPage extends AppCompatActivity {
 
 
     private void retrieveGroupsFromTheServer() {
+
         try {
             myJson.put("username", username);
             myJson.put("token", token);
@@ -150,12 +153,11 @@ public class MainPage extends AppCompatActivity {
         token = sharedPreferences.getString("token", "000");
         myJson = new JSONObject();
         listView = (ListView)findViewById(R.id.groups);
+    //    mainPageServic
         communityList = new ArrayList<>();
         usersList = new ArrayList<>();
-        //communityList.add(new Community("HIV","G02"));
         intentToGroupPage = new Intent(MainPage.this,GroupPage.class);
         arrayAdapter = new ArrayAdapter(MainPage.this, R.layout.support_simple_spinner_dropdown_item, communityList);
-        //listView.setAdapter(arrayAdapter);
         addListViewParameters(listView);
         Log.d("token", token);
     }

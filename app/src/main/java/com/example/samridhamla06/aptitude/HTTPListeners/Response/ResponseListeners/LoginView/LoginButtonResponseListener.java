@@ -7,10 +7,7 @@ import android.util.Log;
 import android.widget.Toast;
 
 import com.android.volley.Response;
-import com.example.samridhamla06.aptitude.Views.GroupPage;
-import com.example.samridhamla06.aptitude.Views.LoginPage;
 import com.example.samridhamla06.aptitude.Views.MainPage;
-
 import org.json.JSONException;
 import org.json.JSONObject;
 
