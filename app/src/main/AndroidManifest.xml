@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.samridhamla06.aptitude">
+
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
@@ -23,6 +24,10 @@
         <activity
             android:name=".MainPage"
             android:label="@string/title_activity_main_page"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".GroupPage"
+            android:label="@string/title_activity_group_page"
             android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 

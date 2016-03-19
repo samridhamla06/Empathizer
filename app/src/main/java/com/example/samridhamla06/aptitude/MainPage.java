@@ -1,12 +1,14 @@
 package com.example.samridhamla06.aptitude;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
@@ -27,20 +29,25 @@ import java.util.Map;
 
 public class MainPage extends AppCompatActivity {
 
-    public final String URL = "http://192.168.2.3:8000/authLogin";
+    public final String LOGIN_URL = "http://192.168.2.3:8000/authLogin";
     public static final String USER_NAME = "USER_NAME";
     private SharedPreferences sharedPreferences;
     private String username;
     private String token;
     private JSONObject myJson;
     private JSONArray myJsonArray;
-    private JsonArrayRequest jsonArrayRequest;
-    private Response.Listener<JSONArray> jsonArrayListener;
-    private Response.ErrorListener jsonErrorListener;
+    private JsonArrayRequest jsonArrayRequestForGroups;
+    private JsonArrayRequest jsonArrayRequestForUsers;
+    private Response.Listener<JSONArray> jsonArrayListenerForGroups;
+    private Response.ErrorListener jsonErrorListenerForGroups;
+    private Response.Listener<JSONArray> jsonArrayListenerForUsers;
+    private Response.ErrorListener jsonErrorListenerForUsers;
     private ListView listView;
     private ArrayAdapter arrayAdapter;
     private List<Community> communityList;
     private Community community;
+    private Intent intentToGroupPage;
+    private List<User> usersList;
 
 
     @Override
@@ -59,8 +66,8 @@ public class MainPage extends AppCompatActivity {
             myJson.put("username", username);
             myJson.put("token", token);
             Log.d("JSON_SENT", myJson.toString());
-            initialiseListeners();
-            jsonArrayRequest = new JsonArrayRequest(Request.Method.POST, URL, myJson,jsonArrayListener, jsonErrorListener){
+            initialiseListenersForGroups();
+            jsonArrayRequestForGroups = new JsonArrayRequest(Request.Method.POST, LOGIN_URL, myJson, jsonArrayListenerForGroups, jsonErrorListenerForGroups){
                 @Override
                 public Map<String, String> getHeaders() throws AuthFailureError {
                     HashMap<String, String> headers = new HashMap<String, String>();
@@ -70,7 +77,7 @@ public class MainPage extends AppCompatActivity {
                 }
             };
 
-            Volley.newRequestQueue(this).add(jsonArrayRequest);
+            Volley.newRequestQueue(this).add(jsonArrayRequestForGroups);
 
         }catch (JSONException e){
             e.printStackTrace();
@@ -78,13 +85,13 @@ public class MainPage extends AppCompatActivity {
 
     }
 
-    private void initialiseListeners() {
-        initialiseResponseListeners();
-        initialiseErrorListeners();
+    private void initialiseListenersForGroups() {
+        initialiseResponseListenersForGroups();
+        initialiseErrorListenersForGroups();
     }
 
-    private void initialiseErrorListeners() {
-        jsonErrorListener = new Response.ErrorListener() {
+    private void initialiseErrorListenersForGroups() {
+        jsonErrorListenerForGroups = new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
                 Log.d("ERROR_VOLLEY", error.toString());
@@ -92,8 +99,8 @@ public class MainPage extends AppCompatActivity {
         };
     }
 
-    private void initialiseResponseListeners() {
-        jsonArrayListener = new Response.Listener<JSONArray>() {
+    private void initialiseResponseListenersForGroups() {
+        jsonArrayListenerForGroups = new Response.Listener<JSONArray>() {
             @Override
             public void onResponse(JSONArray response) {
                 myJsonArray = response;
@@ -141,10 +148,28 @@ public class MainPage extends AppCompatActivity {
         myJson = new JSONObject();
         listView = (ListView)findViewById(R.id.groups);
         communityList = new ArrayList<>();
-        communityList.add(new Community("HIV","G02"));
+        usersList = new ArrayList<>();
+        //communityList.add(new Community("HIV","G02"));
+        intentToGroupPage = new Intent(MainPage.this,GroupPage.class);
         arrayAdapter = new ArrayAdapter(MainPage.this, R.layout.support_simple_spinner_dropdown_item, communityList);
-        listView.setAdapter(arrayAdapter);
-        Log.d("token",token);
+        //listView.setAdapter(arrayAdapter);
+        addListViewParameters(listView);
+        Log.d("token", token);
     }
+
+    private void addListViewParameters(ListView listView) {
+        listView.setAdapter(arrayAdapter);
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Log.d("id selected:", Long.toString(id) + " position Selected: " + Integer.toString(position));
+                //retrieveGroupsInfoFromTheServer(id);
+                intentToGroupPage.putExtra(GroupPage.GROUP_ID,id);
+                startActivity(intentToGroupPage);
+            }
+        });
+    }
+
+
 
 }
