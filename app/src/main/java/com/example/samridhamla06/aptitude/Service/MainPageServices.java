@@ -1,8 +1,92 @@
 package com.example.samridhamla06.aptitude.Service;
 
+import android.content.Context;
+import android.content.SharedPreferences;
+import android.util.Log;
+import android.widget.ArrayAdapter;
+import android.widget.Toast;
+
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.toolbox.JsonArrayRequest;
+import com.android.volley.toolbox.Volley;
+import com.example.samridhamla06.aptitude.HTTPListeners.Response.ResponseListeners.MainPageView.MainPageErrorListener;
+import com.example.samridhamla06.aptitude.HTTPListeners.Response.ResponseListeners.MainPageView.MainPageResponseListener;
+import com.example.samridhamla06.aptitude.Modals.Community;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 /**
  * Created by samridhamla06 on 20/03/16.
  */
 public class MainPageServices {
+
+
+    private final Context mainPageContext;
+    private ArrayAdapter arrayAdapterForGroups;
+    public final String LOGIN_URL = "http://192.168.2.3:8000/authLogin";
+    private SharedPreferences sharedPreferences;
+    private String token;
+    private JSONObject myJson;
+    private JsonArrayRequest jsonArrayRequestForGroups;
+    private MainPageResponseListener mainPageResponseListener;
+    private MainPageErrorListener mainPageErrorListener;
+    private RequestQueue mainPageRequestQueue;
+    private List<Community> communityList;
+
+    public MainPageServices(Context mainPageContext, ArrayAdapter arrayAdapterForGroups, List<Community> communityList) {
+        this.mainPageContext  = mainPageContext;
+        this.arrayAdapterForGroups = arrayAdapterForGroups;
+        this.communityList = communityList;
+        initialiseLocalVariables();
+    }
+
+    private void initialiseLocalVariables() {
+        sharedPreferences = mainPageContext.getSharedPreferences("PREFERENCES", Context.MODE_PRIVATE);
+        myJson = new JSONObject();
+        mainPageRequestQueue = Volley.newRequestQueue(mainPageContext);
+        token = sharedPreferences.getString("token", "000");
+    }
+
+    public void getGroupsFromTheServer() {
+
+        try {
+            prepareJSONObjectToSend(token);
+            Log.d("JSON_SENT", myJson.toString());
+            initialiseListenersForGroups();
+            jsonArrayRequestForGroups = new JsonArrayRequest(Request.Method.POST, LOGIN_URL, myJson, mainPageResponseListener, mainPageErrorListener){
+                @Override
+                public Map<String, String> getHeaders() throws AuthFailureError {
+                    HashMap<String, String> headers = new HashMap<String, String>();
+                    headers.put("Content-Type", "application/json");
+                    headers.put("User-agent", System.getProperty("http.agent"));
+                    return headers;
+                }
+            };
+            mainPageRequestQueue.add(jsonArrayRequestForGroups);
+        }catch (JSONException e){
+            Toast.makeText(mainPageContext,"Connection gone suddenly",Toast.LENGTH_LONG).show();//when after login connection goes away
+            e.printStackTrace();
+        }
+
+    }
+
+    private void prepareJSONObjectToSend(String token) throws JSONException{
+        myJson.put("token", token);
+    }
+
+    private void initialiseListenersForGroups() {
+        mainPageResponseListener = new MainPageResponseListener(mainPageContext,arrayAdapterForGroups,communityList);
+        mainPageErrorListener = new MainPageErrorListener();
+    }
+
 
 }

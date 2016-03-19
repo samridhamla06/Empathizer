@@ -34,8 +34,7 @@ public class LoginButtonResponseListener implements Response.Listener<JSONObject
         Log.d("ReceivedJSONwithToken", response.toString());
         responseServer = response;
         try {
-            if(refreshSharedPreferences(responseServer))
-                logInToMainPage();
+            actOnResponse(responseServer);
         } catch (JSONException e) {
             e.printStackTrace();
             Log.d("receivedJSON", "JSON NOT IN RIGHT FORMAT");
@@ -43,6 +42,10 @@ public class LoginButtonResponseListener implements Response.Listener<JSONObject
         }
     }
 
+    private void actOnResponse(JSONObject responseServer) throws JSONException{
+        if(refreshSharedPreferences(responseServer))
+            logInToMainPage();
+    }
     
     private boolean refreshSharedPreferences(JSONObject responseServer) throws JSONException{
 
