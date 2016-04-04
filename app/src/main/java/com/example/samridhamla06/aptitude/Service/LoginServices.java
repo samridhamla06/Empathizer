@@ -18,14 +18,11 @@ import org.json.JSONObject;
 import java.util.HashMap;
 import java.util.Map;
 
-/**
- * Created by samridhamla06 on 20/03/16.
- */
 public class LoginServices {
 
     private  JSONObject myJson;
     private JsonObjectRequest myJsonRequest;
-    public final String URL = "http://192.168.2.3:8000/login";
+    public final String URL = "http://192.168.2.2:8000/login";
     private final Context loginContext; //IMPORTANT
     private RequestQueue loginRequestQueue;
     private LoginButtonResponseListener loginButtonResponseListener;

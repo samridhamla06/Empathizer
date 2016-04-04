@@ -3,31 +3,24 @@ package com.example.samridhamla06.aptitude.HTTPListeners.Response.ResponseListen
 import android.content.Context;
 import android.util.Log;
 import android.widget.ArrayAdapter;
-
 import com.android.volley.Response;
 import com.example.samridhamla06.aptitude.Modals.User;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import java.util.List;
-
-/**
- * Created by samridhamla06 on 20/03/16.
- */
 
 
 public class GroupPageResponseListener implements Response.Listener<JSONArray> {
     private final Context groupPageContext;
-    private  ArrayAdapter adapterForUsers;
+    private  ArrayAdapter groupPageAdapter;
     private  List<User> userList;
     private JSONArray jsonArrayReceived;
 
 
     public GroupPageResponseListener(Context groupPageContext, ArrayAdapter adapterForUsers, List<User> userList) {
         this.groupPageContext = groupPageContext;
-        this.adapterForUsers = adapterForUsers;
+        this.groupPageAdapter = adapterForUsers;
         this.userList = userList;
     }
 
@@ -57,7 +50,7 @@ public class GroupPageResponseListener implements Response.Listener<JSONArray> {
                 userList.add(user);
             }
 
-            adapterForUsers.notifyDataSetChanged();
+            groupPageAdapter.notifyDataSetChanged();
         }catch (JSONException e){
             e.printStackTrace();
             Log.d("Error","Wrong JSON received");
@@ -66,6 +59,10 @@ public class GroupPageResponseListener implements Response.Listener<JSONArray> {
     }
 
     private User addJSONToUserObject(JSONObject myJson) throws JSONException{
-        return User.createUser(myJson.getString("username"), 20, "Pune");
+        String name = myJson.getString("name");
+        int age = myJson.getInt("age");
+        String location = myJson.getString("location");
+        long id = myJson.getLong("userId");
+        return User.createUser(name, age, location,id);
     }
 }

@@ -3,33 +3,46 @@ package com.example.samridhamla06.aptitude.Modals;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-public class User implements Parcelable {
+public class User  {
     private String username;
+    private String name;
     private int age;
     private String location;
+    private long id;
 
-    @Override
-    public String toString() {
-        return "Name = " + username;
+    public long getId() {
+        return id;
     }
 
-    public User(String username, int age, String location) {
-        this.username = username;
+    public String getName() {
+        return name;
+
+    }
+
+    public String toString() {
+        return username;
+    }
+
+    public User(String name, int age, String location,long id) {
+        this.name = name;
         this.age = age;
         this.location = location;
+        this.id = id;
     }
 
-    public static User createUser(String username, int age, String location){
-        return new User(username,age,location);
+    public static User createUser(String username, int age, String location,long id){
+        return new User(username,age,location,id);
     }
 
-    @Override
-    public int describeContents() {
-        return 0;
+    public String getUsername() {
+        return username;
     }
 
-    @Override
-    public void writeToParcel(Parcel dest, int flags) {
+    public int getAge() {
+        return age;
+    }
 
+    public String getLocation() {
+        return location;
     }
 }

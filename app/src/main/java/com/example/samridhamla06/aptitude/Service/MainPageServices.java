@@ -5,34 +5,27 @@ import android.content.SharedPreferences;
 import android.util.Log;
 import android.widget.ArrayAdapter;
 import android.widget.Toast;
-
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
-import com.android.volley.Response;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.samridhamla06.aptitude.HTTPListeners.Response.ResponseListeners.MainPageView.MainPageErrorListener;
 import com.example.samridhamla06.aptitude.HTTPListeners.Response.ResponseListeners.MainPageView.MainPageResponseListener;
 import com.example.samridhamla06.aptitude.Modals.Community;
-
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-/**
- * Created by samridhamla06 on 20/03/16.
- */
+
 public class MainPageServices {
 
 
     private final Context mainPageContext;
     private ArrayAdapter arrayAdapterForGroups;
-    public final String LOGIN_URL = "http://192.168.2.3:8000/authLogin";
+    public final String LOGIN_URL = "http://192.168.2.2:8000/authLogin";
     private SharedPreferences sharedPreferences;
     private String token;
     private JSONObject myJson;
@@ -68,6 +61,7 @@ public class MainPageServices {
                     HashMap<String, String> headers = new HashMap<String, String>();
                     headers.put("Content-Type", "application/json");
                     headers.put("User-agent", System.getProperty("http.agent"));
+                    headers.put("authorization",token);
                     return headers;
                 }
             };

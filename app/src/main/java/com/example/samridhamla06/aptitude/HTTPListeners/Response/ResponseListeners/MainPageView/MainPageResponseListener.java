@@ -10,8 +10,6 @@ import com.example.samridhamla06.aptitude.Modals.Community;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
-import java.util.ArrayList;
 import java.util.List;
 
 public class MainPageResponseListener implements Response.Listener<JSONArray>{
@@ -46,11 +44,8 @@ public class MainPageResponseListener implements Response.Listener<JSONArray>{
         try{
             for(int i = 0 ; i < myJsonArray.length();i++ ){
                 communityJSONObject = myJsonArray.getJSONObject(i);
-                System.out.println("*********** "+ i + " JSON object is " + communityJSONObject.toString());
                 community = convertJSONToObject(communityJSONObject);
-                System.out.println("*********** " + i + " Community is " + community.toString());
                 communityList.add(community);
-                System.out.println("************ LIST STATUS  " + communityList.toString());
             }
             adapterForGroups.notifyDataSetChanged();
             System.out.println("ended addJSONArrayToList");
@@ -60,9 +55,7 @@ public class MainPageResponseListener implements Response.Listener<JSONArray>{
     }
 
     private Community convertJSONToObject(JSONObject communityJSONObject) throws JSONException{
-        return new Community(communityJSONObject.getString("name"), "G01");
+        return new Community(communityJSONObject.getString("name"), communityJSONObject.getInt("_id"));
     }
-
-
-    }
+}
 

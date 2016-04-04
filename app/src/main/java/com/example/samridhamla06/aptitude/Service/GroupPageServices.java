@@ -11,20 +11,17 @@ import com.example.samridhamla06.aptitude.HTTPListeners.Response.ResponseListene
 import com.example.samridhamla06.aptitude.HTTPListeners.Response.ResponseListeners.GroupPageView.GroupPageResponseListener;
 import com.example.samridhamla06.aptitude.Modals.User;
 
-import org.json.JSONArray;
 
 import java.util.List;
 
-/**
- * Created by samridhamla06 on 20/03/16.
- */
+
 public class GroupPageServices {
 
     private final long id;
     private  ArrayAdapter adapterForUsers;
     private  List<User> userList;
-    private JsonArrayRequest userJSONRequest;
-    public final String URL_GROUP_DESC = "http://192.168.2.3:8000/groups/";
+    private JsonArrayRequest requestToGetGroupInfo;
+    public final String URL_GROUP_DESC = "http://192.168.2.2:8000/groups/";
     private RequestQueue requestQueue;
     private final Context groupPageContext;
     private GroupPageResponseListener groupPageResponseListener;
@@ -45,12 +42,11 @@ public class GroupPageServices {
 
     public void getUsersForParticularGroup() {
         initialiseListenersForUsers();
-        userJSONRequest = new JsonArrayRequest(Request.Method.GET, URL_GROUP_DESC + Long.toString(id),groupPageResponseListener, groupPageErrorListener);
-        requestQueue.add(userJSONRequest);
+        requestToGetGroupInfo = new JsonArrayRequest(Request.Method.GET, URL_GROUP_DESC + Long.toString(id),groupPageResponseListener, groupPageErrorListener);
+        requestQueue.add(requestToGetGroupInfo);
     }
     private void initialiseListenersForUsers() {
         groupPageResponseListener = new GroupPageResponseListener(groupPageContext,adapterForUsers,userList);
         groupPageErrorListener = new GroupPageErrorListener();
-
     }
 }

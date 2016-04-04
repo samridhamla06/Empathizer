@@ -28,6 +28,14 @@
         <activity
             android:name=".Views.GroupPage"
             android:label="@string/title_activity_group_page"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".Views.UserPage"
+            android:label="@string/title_activity_user_page"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".Views.RegisterPage"
+            android:label="@string/title_activity_register_page"
             android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 

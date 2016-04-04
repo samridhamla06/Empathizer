@@ -1,7 +1,7 @@
 package com.example.samridhamla06.aptitude.Views;
 
 import android.content.Context;
-
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -18,6 +18,7 @@ public class LoginPage extends AppCompatActivity {
     private String username_android;
     private String password_android;
     private LoginServices loginServices;
+    private Intent intentToRegisterPage;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,7 +28,7 @@ public class LoginPage extends AppCompatActivity {
     }
 
     private void instantiateLocalVariables() {
-        userName = (EditText)findViewById(R.id.userName);
+        userName = (EditText)findViewById(R.id.name);
         password = (EditText)findViewById(R.id.password);
         context = getApplicationContext();
         loginServices = new LoginServices(context);
@@ -39,6 +40,11 @@ public class LoginPage extends AppCompatActivity {
          password_android = password.getText().toString();
          loginServices.hitLogInRequest(username_android, password_android);
 
+    }
+
+    public void onRegister(View view){
+        intentToRegisterPage = new Intent(this,RegisterPage.class);
+        startActivity(intentToRegisterPage);
     }
 
 }
