@@ -12,7 +12,7 @@ import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.samridhamla06.aptitude.HTTPListeners.Response.ResponseListeners.MainPageView.MainPageErrorListener;
 import com.example.samridhamla06.aptitude.HTTPListeners.Response.ResponseListeners.MainPageView.MainPageResponseListener;
-import com.example.samridhamla06.aptitude.Modals.Community;
+import com.example.samridhamla06.aptitude.Modals.Group;
 import org.json.JSONException;
 import org.json.JSONObject;
 import java.util.HashMap;
@@ -33,12 +33,12 @@ public class MainPageServices {
     private MainPageResponseListener mainPageResponseListener;
     private MainPageErrorListener mainPageErrorListener;
     private RequestQueue mainPageRequestQueue;
-    private List<Community> communityList;
+    private List<Group> groupList;
 
-    public MainPageServices(Context mainPageContext, ArrayAdapter arrayAdapterForGroups, List<Community> communityList) {
+    public MainPageServices(Context mainPageContext, ArrayAdapter arrayAdapterForGroups, List<Group> groupList) {
         this.mainPageContext  = mainPageContext;
         this.arrayAdapterForGroups = arrayAdapterForGroups;
-        this.communityList = communityList;
+        this.groupList = groupList;
         initialiseLocalVariables();
     }
 
@@ -78,7 +78,7 @@ public class MainPageServices {
     }
 
     private void initialiseListenersForGroups() {
-        mainPageResponseListener = new MainPageResponseListener(mainPageContext,arrayAdapterForGroups,communityList);
+        mainPageResponseListener = new MainPageResponseListener(mainPageContext,arrayAdapterForGroups, groupList);
         mainPageErrorListener = new MainPageErrorListener();
     }
 

@@ -3,11 +3,11 @@ package com.example.samridhamla06.aptitude.Modals;
 /**
  * Created by samridhamla06 on 14/03/16.
  */
-public class Community {
+public class Group {
     private String name;
     private long id;
 
-    public Community(String name, long id) {
+    public Group(String name, long id) {
         this.name = name;
         this.id = id;
     }

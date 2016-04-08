@@ -1,12 +1,11 @@
 package com.example.samridhamla06.aptitude.Views;
 
-import android.app.Activity;
-import android.content.Context;
+
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.widget.TextView;
-import android.widget.Toast;
+
 
 import com.example.samridhamla06.aptitude.Modals.User;
 import com.example.samridhamla06.aptitude.R;

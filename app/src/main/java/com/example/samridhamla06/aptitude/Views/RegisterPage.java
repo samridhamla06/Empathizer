@@ -1,5 +1,6 @@
 package com.example.samridhamla06.aptitude.Views;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -8,27 +9,30 @@ import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
-import android.widget.Toast;
+
 
 import com.example.samridhamla06.aptitude.AndroidListeners.RegisterPageView.RegisterPageCurrentStatusSpinnerListener;
 import com.example.samridhamla06.aptitude.AndroidListeners.RegisterPageView.RegisterPageSufferingSpinnerListener;
 import com.example.samridhamla06.aptitude.R;
+import com.example.samridhamla06.aptitude.Service.RegisterPageServices;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
 public class RegisterPage extends AppCompatActivity {
 
-    //TEXT VIEWS,SPINNERS,BUTTONS-----------------
+    //TEXT VIEWS-----------------
     private EditText name;
     private EditText username;
     private EditText password;
     private EditText location;
     private EditText age;
-    private Spinner sufferingsDropMenu;//drop box
     private EditText email;
     private EditText aboutMe;
+
+    //SPINNERS,BUTTONS-----------------
     private Spinner currentStatusDropDown;//drop box
+    private Spinner sufferingsDropMenu;//drop box
     private RadioGroup genderGroup;
     private RadioButton gender_male;
     private RadioButton gender_female;
@@ -48,6 +52,8 @@ public class RegisterPage extends AppCompatActivity {
     private JSONObject user_JSON_object;
     private RegisterPageSufferingSpinnerListener registerPageSufferingSpinnerListener;
     private RegisterPageCurrentStatusSpinnerListener registerPageCurrentStatusSpinnerListener;
+    private RegisterPageServices registerPageServices;
+    private Intent intentToLoginPage;
 
 
     public void setCurrentStatus(String currentStatus) {
@@ -84,18 +90,27 @@ public class RegisterPage extends AppCompatActivity {
         gender_female = (RadioButton)findViewById(R.id.female);
         gender_other = (RadioButton)findViewById(R.id.other);
         user_JSON_object = new JSONObject();
-
+        intentToLoginPage = new Intent(getBaseContext(),LoginPage.class);
     }
 
     public void onSignUp(View view){
         try {
             mapUserInfoToUserJSONObject();
-            Toast.makeText(getApplicationContext(),user_JSON_object.toString(),Toast.LENGTH_LONG).show();
-            Log.d("JSON_SENT",user_JSON_object.toString());
+            sendUserDataToServer();
         } catch (JSONException e) {
             e.printStackTrace();
         }
 
+    }
+
+    private void sendUserDataToServer() {
+        Log.d("JSON_SENT",user_JSON_object.toString());
+        instantiateRegisterPageServices();
+        registerPageServices.sendUserDataToServer();
+    }
+
+    private void instantiateRegisterPageServices() {
+        registerPageServices = new RegisterPageServices(this,user_JSON_object);
     }
 
     private void mapUserInfoToUserJSONObject() throws JSONException {
@@ -130,5 +145,18 @@ public class RegisterPage extends AppCompatActivity {
     }
 
 
+    public void resetAllViews() {
+        name.setText(null);
+        username.setText(null);
+        password.setText(null);
+        location.setText(null);
+        age.setText(null);
+        email.setText(null);
+        aboutMe.setText(null);
+        name.requestFocus();
+    }
 
+    public void goToLogInPage() {
+        startActivity(intentToLoginPage);
+    }
 }

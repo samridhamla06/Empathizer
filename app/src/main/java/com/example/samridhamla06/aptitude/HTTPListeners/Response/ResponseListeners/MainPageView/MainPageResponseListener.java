@@ -5,7 +5,7 @@ import android.util.Log;
 import android.widget.ArrayAdapter;
 
 import com.android.volley.Response;
-import com.example.samridhamla06.aptitude.Modals.Community;
+import com.example.samridhamla06.aptitude.Modals.Group;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -17,12 +17,12 @@ public class MainPageResponseListener implements Response.Listener<JSONArray>{
     private final Context mainPageContext;
     private ArrayAdapter adapterForGroups;
     private JSONArray myJsonArray;
-    private List<Community> communityList;
+    private List<Group> groupList;
 
-    public MainPageResponseListener(Context mainPageContext, ArrayAdapter arrayAdapterForGroups, List<Community> communityList) {
+    public MainPageResponseListener(Context mainPageContext, ArrayAdapter arrayAdapterForGroups, List<Group> groupList) {
         this.mainPageContext = mainPageContext;
         this.adapterForGroups = arrayAdapterForGroups;
-        this.communityList = communityList;
+        this.groupList = groupList;
     }
 
     @Override
@@ -39,13 +39,13 @@ public class MainPageResponseListener implements Response.Listener<JSONArray>{
 
     private void addJSONArrayToList(JSONArray myJsonArray) {
         JSONObject communityJSONObject;
-        Community community;
+        Group group;
         System.out.println("entered addJSONArrayToList");
         try{
             for(int i = 0 ; i < myJsonArray.length();i++ ){
                 communityJSONObject = myJsonArray.getJSONObject(i);
-                community = convertJSONToObject(communityJSONObject);
-                communityList.add(community);
+                group = convertJSONToObject(communityJSONObject);
+                groupList.add(group);
             }
             adapterForGroups.notifyDataSetChanged();
             System.out.println("ended addJSONArrayToList");
@@ -54,8 +54,8 @@ public class MainPageResponseListener implements Response.Listener<JSONArray>{
         }
     }
 
-    private Community convertJSONToObject(JSONObject communityJSONObject) throws JSONException{
-        return new Community(communityJSONObject.getString("name"), communityJSONObject.getInt("_id"));
+    private Group convertJSONToObject(JSONObject communityJSONObject) throws JSONException{
+        return new Group(communityJSONObject.getString("name"), communityJSONObject.getInt("_id"));
     }
 }
 

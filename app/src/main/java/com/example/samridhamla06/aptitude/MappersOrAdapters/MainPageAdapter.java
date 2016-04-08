@@ -7,7 +7,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
-import com.example.samridhamla06.aptitude.Modals.Community;
+import com.example.samridhamla06.aptitude.Modals.Group;
 import com.example.samridhamla06.aptitude.R;
 
 import java.util.List;
@@ -15,17 +15,17 @@ import java.util.List;
 /**
  * Created by samridhamla06 on 20/03/16.
  */
-public class MainPageAdapter extends ArrayAdapter<Community> {
+public class MainPageAdapter extends ArrayAdapter<Group> {
 
     private TextView groupName;
-    private List<Community> communityList;
+    private List<Group> groupList;
     private Context mainPageContext;
     private long groupId;//as groupID could be huge one day or may be
 
-    public MainPageAdapter(Context mainPageContext, List<Community> communityList) {
-        super(mainPageContext, R.layout.main_page_list_view_layout, communityList);
+    public MainPageAdapter(Context mainPageContext, List<Group> groupList) {
+        super(mainPageContext, R.layout.main_page_list_view_layout, groupList);
         this.mainPageContext = mainPageContext;
-        this.communityList = communityList;
+        this.groupList = groupList;
     }
 
     @Override
@@ -39,8 +39,8 @@ public class MainPageAdapter extends ArrayAdapter<Community> {
     }
 
     private void mapViewsWithCommunityList(int position) {
-        groupName.setText(communityList.get(position).getName());
-        groupId = communityList.get(position).getId();
+        groupName.setText(groupList.get(position).getName());
+        groupId = groupList.get(position).getId();
     }
 
     private void initializeTextViewsForSelectedView(View rowView) {

@@ -12,6 +12,10 @@ import com.example.samridhamla06.aptitude.Service.LoginServices;
 
 public class LoginPage extends AppCompatActivity {
 
+    //GLOBAL VARIABLES
+    public static final String VALID = "Valid";
+    public static final String INVALID = "Invalid";
+
     private  EditText userName;
     private  EditText password;
     private Context context;
@@ -19,6 +23,9 @@ public class LoginPage extends AppCompatActivity {
     private String password_android;
     private LoginServices loginServices;
     private Intent intentToRegisterPage;
+
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

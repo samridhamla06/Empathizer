@@ -11,9 +11,7 @@ import com.example.samridhamla06.aptitude.Views.MainPage;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-/**
- * Created by samridhamla06 on 20/03/16.
- */
+
 public class LoginButtonResponseListener implements Response.Listener<JSONObject> {
 
     private JSONObject responseServer;
