@@ -108,23 +108,27 @@
 
         </RadioGroup>
 
-        <EditText
+
+        <Spinner
             android:id="@+id/suffering"
             style="@style/editext_graybg"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:entries = "@array/TYPES_OF_SUFFERINGS"
             android:layout_marginTop="@dimen/pad_5dp"
-            android:hint="@string/disease" >
-        </EditText>
+            android:hint="@string/suffering" >
+        </Spinner>
 
-        <EditText
+        <Spinner
             android:id="@+id/status"
             style="@style/editext_graybg"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:entries = "@array/CURRENT_STATUS"
             android:layout_marginTop="@dimen/pad_5dp"
             android:hint="@string/current_status" >
-        </EditText>
+        </Spinner>
+
 
         <EditText
             android:id="@+id/email"
@@ -162,7 +166,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/pad_10dp"
                 android:layout_weight="1"
-                android:text="@string/sign_up" />
+                android:text="@string/sign_up"
+                android:onClick="onSignUp"/>
         </LinearLayout>
     </LinearLayout>
 </ScrollView>

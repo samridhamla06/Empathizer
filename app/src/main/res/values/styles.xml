@@ -25,7 +25,7 @@
 
     <style name="editext_graybg" parent="android:Widget.EditText">
         <item name="android:background">@drawable/editext_bg_gray</item>
-        <item name="android:drawablePadding">@dimen/pad_10dp</item>
+        <item name="android:drawablePadding">@dimen/pad_5dp</item>
         <item name="android:ems">10</item>
         <item name="android:inputType">textEmailAddress</item>
         <item name="android:paddingLeft">@dimen/pad_10dp</item>

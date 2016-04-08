@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="TYPES_OF_SUFFERINGS" >
+    <item>OCD</item>
+        <item>Insomnia</item>
+        <item>Stammering</item>
+    </string-array>
+
+    <string-array name="CURRENT_STATUS" >
+        <item>Totally Overcome</item>
+        <item>Undergoing</item>
+        <item>Started</item>
+    </string-array>
+</resources>
