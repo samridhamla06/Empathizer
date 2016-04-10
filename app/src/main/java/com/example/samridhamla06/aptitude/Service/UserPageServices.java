@@ -2,8 +2,10 @@ package com.example.samridhamla06.aptitude.Service;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.view.View;
 
+import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.JsonArrayRequest;
@@ -14,6 +16,8 @@ import com.example.samridhamla06.aptitude.HTTPListeners.Response.ResponseListene
 import com.example.samridhamla06.aptitude.Modals.User;
 import com.example.samridhamla06.aptitude.Views.UserPage;
 
+import java.util.HashMap;
+import java.util.Map;
 
 
 public class UserPageServices {
@@ -25,6 +29,8 @@ public class UserPageServices {
     private UserPageErrorListener userPageErrorListener;
     private JsonArrayRequest requestToGetUserInfo;
     private RequestQueue requestQueue;
+    private String token;
+    private SharedPreferences sharedPreferences;
 
     public UserPageServices(UserPage userPageReference, long userId) {
         this.userPageReference = userPageReference;
@@ -34,8 +40,10 @@ public class UserPageServices {
 
     private void initialiseLocalVariables() {
         requestQueue = Volley.newRequestQueue(userPageReference);
+        sharedPreferences = userPageReference.getSharedPreferences("PREFERENCES", Context.MODE_PRIVATE);
+        token = sharedPreferences.getString("token", "000");
 
-    }
+        }
 
   /*  public UserPageServices(Context userPageContext, long userId) {
         this.userPageContext = userPageContext;
@@ -45,7 +53,16 @@ public class UserPageServices {
     public void retrieveInfoFromServer(){
         initialiseListeners();
         requestToGetUserInfo = new JsonArrayRequest(Request.Method.GET,URL + Long.toString(userId),
-                userPageResponseListener,userPageErrorListener);
+                userPageResponseListener,userPageErrorListener){
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                HashMap<String, String> headers = new HashMap<String, String>();
+                headers.put("Content-Type", "application/json");
+                headers.put("User-agent", System.getProperty("http.agent"));
+                headers.put("authorization", token);
+                return headers;
+            }
+        };
         requestQueue.add(requestToGetUserInfo);
     }
 

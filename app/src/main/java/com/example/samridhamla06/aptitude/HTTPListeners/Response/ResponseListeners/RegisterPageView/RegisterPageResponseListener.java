@@ -35,6 +35,7 @@ public class RegisterPageResponseListener implements Response.Listener<JSONObjec
         if(responseReceived.getString("status").equals(LoginPage.VALID)){
             Toast.makeText(registerPageReference, "You are Registered", Toast.LENGTH_LONG).show();
             goToLogInPage();
+            registerPageReference.finish();
         }else{          //have to add for existing username
             Toast.makeText(registerPageReference, "Please re-enter your Details", Toast.LENGTH_LONG).show();
             registerPageReference.resetAllViews();

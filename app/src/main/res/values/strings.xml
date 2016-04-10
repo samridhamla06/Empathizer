@@ -44,5 +44,6 @@
     <string name="female">Female</string>
     <string name="other">Other</string>
     <string name="suffering">Suffering</string>
+    <string name="log_out">Log Out</string>
 
 </resources>

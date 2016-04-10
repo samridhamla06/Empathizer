@@ -15,7 +15,7 @@ public class RegisterPageServices {
     //CONSTANTS----------
     private final RegisterPage registerPageReference;
     private final JSONObject user_JSON_object;
-    private final String  REGISTER_URL  = "http://192.168.2.2:8000/register";
+    private final String REGISTER_URL = "http://192.168.2.2:8000/register";
 
     //OTHER OBJECTS--------
     private JsonObjectRequest requestToregister;
@@ -23,7 +23,7 @@ public class RegisterPageServices {
     private RegisterPageErrorListener registerPageErrorListener;
     private RequestQueue requestQueue;
 
-    public RegisterPageServices(RegisterPage registerPageReference,JSONObject user_JSON_object) {
+    public RegisterPageServices(RegisterPage registerPageReference, JSONObject user_JSON_object) {
         this.registerPageReference = registerPageReference;
         this.user_JSON_object = user_JSON_object;
         initializeLocalVariables();
@@ -34,10 +34,10 @@ public class RegisterPageServices {
 
     }
 
-    public void sendUserDataToServer(){
+    public void sendUserDataToServer() {
         initialiseListeners();
-        requestToregister = new JsonObjectRequest(Request.Method.POST,REGISTER_URL,user_JSON_object,
-                registerPageResponseListener,registerPageErrorListener);
+        requestToregister = new JsonObjectRequest(Request.Method.POST, REGISTER_URL, user_JSON_object,
+                registerPageResponseListener, registerPageErrorListener);
         requestQueue.add(requestToregister);
     }
 
