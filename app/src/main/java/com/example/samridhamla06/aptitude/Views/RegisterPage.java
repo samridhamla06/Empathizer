@@ -22,8 +22,7 @@ import org.json.JSONObject;
 public class RegisterPage extends AppCompatActivity {
 
     //TEXT VIEWS-----------------
-    private EditText name;
-    private EditText username;
+    private EditText userName;
     private EditText password;
     private EditText location;
     private EditText age;
@@ -72,8 +71,8 @@ public class RegisterPage extends AppCompatActivity {
     }
 
     private void initializeLocalVariables() {
-        name = (EditText)findViewById(R.id.name);
-        username = (EditText)findViewById(R.id.userName);
+        email = (EditText)findViewById(R.id.email);
+        userName = (EditText)findViewById(R.id.name);
         password = (EditText)findViewById(R.id.password);
         location = (EditText)findViewById(R.id.location);
         age = (EditText)findViewById(R.id.age);
@@ -83,7 +82,6 @@ public class RegisterPage extends AppCompatActivity {
         sufferingsDropMenu.setOnItemSelectedListener(registerPageSufferingSpinnerListener);
         currentStatusDropDown = (Spinner)findViewById(R.id.status);
         currentStatusDropDown.setOnItemSelectedListener(registerPageCurrentStatusSpinnerListener);
-        email = (EditText)findViewById(R.id.email);
         aboutMe =(EditText)findViewById(R.id.aboutMe);
         genderGroup = (RadioGroup)findViewById(R.id.gender);
         gender_male = (RadioButton)findViewById(R.id.male);
@@ -114,14 +112,13 @@ public class RegisterPage extends AppCompatActivity {
     }
 
     private void mapUserInfoToUserJSONObject() throws JSONException {
-        user_JSON_object.put("name", getValueForEditTextView(name));
-        user_JSON_object.put("username", getValueForEditTextView(username));
+        user_JSON_object.put(LoginPage.USER_NAME, getValueForEditTextView(userName));
         user_JSON_object.put("password", getValueForEditTextView(password));
         user_JSON_object.put("location", getValueForEditTextView(location));
         user_JSON_object.put("age", getValueForEditTextView(age));
         user_JSON_object.put("email", getValueForEditTextView(email));
         user_JSON_object.put("aboutMe", getValueForEditTextView(aboutMe));
-        user_JSON_object.put("suffering", suffering);
+        user_JSON_object.put(LoginPage.SUFFERING_NAME, suffering);
         user_JSON_object.put("currentStatus", currentStatus);
         user_JSON_object.put("gender", getValueForRadioGroup(genderGroup));//radio
     }
@@ -146,14 +143,13 @@ public class RegisterPage extends AppCompatActivity {
 
 
     public void resetAllViews() {
-        name.setText(null);
-        username.setText(null);
+        //userName.setText(null);
         password.setText(null);
-        location.setText(null);
-        age.setText(null);
+        //location.setText(null);
+       // age.setText(null);
         email.setText(null);
-        aboutMe.setText(null);
-        name.requestFocus();
+        //aboutMe.setText(null);
+        password.requestFocus();
     }
 
     public void goToLogInPage() {

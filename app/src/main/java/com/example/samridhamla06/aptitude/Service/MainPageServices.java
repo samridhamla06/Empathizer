@@ -15,6 +15,7 @@ import com.android.volley.toolbox.Volley;
 import com.example.samridhamla06.aptitude.HTTPListeners.Response.ResponseListeners.MainPageView.MainPageErrorListener;
 import com.example.samridhamla06.aptitude.HTTPListeners.Response.ResponseListeners.MainPageView.MainPageResponseListener;
 import com.example.samridhamla06.aptitude.Modals.Group;
+import com.example.samridhamla06.aptitude.Views.LoginPage;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -29,7 +30,7 @@ public class MainPageServices {
 
     private final Context mainPageContext;
     private ArrayAdapter arrayAdapterForGroups;
-    public final String LOGIN_URL = "http://192.168.2.2:8000/readGroups/";
+    public final String LOGIN_URL = LoginPage.URL + "readGroups/";
     private SharedPreferences sharedPreferences;
     private String token;
     private JSONObject myJson;
@@ -51,8 +52,8 @@ public class MainPageServices {
         sharedPreferences = mainPageContext.getSharedPreferences("PREFERENCES", Context.MODE_PRIVATE);
         myJson = new JSONObject();
         mainPageRequestQueue = Volley.newRequestQueue(mainPageContext);
-        token = sharedPreferences.getString("token", "000");
-        sufferingName = sharedPreferences.getString("suffering", "Stammer");
+        token = sharedPreferences.getString(LoginPage.TOKEN, "000");
+        sufferingName = sharedPreferences.getString(LoginPage.SUFFERING_NAME, "Stammer");
     }
 
     public void getGroupsFromTheServer() {

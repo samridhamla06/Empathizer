@@ -1,6 +1,5 @@
 package com.example.samridhamla06.aptitude.Service;
 
-import android.content.Context;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -24,9 +23,9 @@ import java.util.Map;
 
 public class LoginServices {
 
-    private  JSONObject myJson;
+    private JSONObject myJson;
     private JsonObjectRequest myJsonRequest;
-    private final String URL = LoginPage.URL+"login";
+    private final String URL = LoginPage.URL + "login";
     private RequestQueue loginRequestQueue;
     private LoginButtonResponseListener loginButtonResponseListener;
     private LoginButtonErrorListener loginButtonErrorListener;
@@ -46,12 +45,12 @@ public class LoginServices {
     }
 
 
-    public void hitLogInRequest(String username_android, String password_android) {
+    public void hitLogInRequest(String email_android, String password_android) {
         try {
-            prepareJSONObjectToSend(username_android, password_android);
+            prepareJSONObjectToSend(email_android, password_android);
             Log.d("JSON_SENT", myJson.toString());
             initialiseListeners();
-            myJsonRequest = new JsonObjectRequest(Request.Method.POST, URL, myJson,loginButtonResponseListener, loginButtonErrorListener){
+            myJsonRequest = new JsonObjectRequest(Request.Method.POST, URL, myJson, loginButtonResponseListener, loginButtonErrorListener) {
                 @Override
                 public Map<String, String> getHeaders() throws AuthFailureError {
                     HashMap<String, String> headers = new HashMap<>();
@@ -70,12 +69,12 @@ public class LoginServices {
 
     }
 
-    private void prepareJSONObjectToSend(String username_android,String password_android) throws JSONException{
-        myJson.put("username",username_android);
-        myJson.put("password", password_android);
+    private void prepareJSONObjectToSend(String email_android, String password_android) throws JSONException {
+        myJson.put(LoginPage.EMAIL, email_android);
+        myJson.put(LoginPage.PASSWORD, password_android);
     }
 
-    private void initialiseLocalVariables(){
+    private void initialiseLocalVariables() {
         myJson = new JSONObject();
         loginRequestQueue = Volley.newRequestQueue(loginPageReference);
     }

@@ -15,6 +15,7 @@ import com.example.samridhamla06.aptitude.R;
 import com.example.samridhamla06.aptitude.Service.MainPageServices;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 
 public class MainPage extends AppCompatActivity {
@@ -26,9 +27,9 @@ public class MainPage extends AppCompatActivity {
     private MainPageListViewListener mainPageListViewListener;
     private MainPageAdapter mainPageAdapter;
     private Intent intentToLoginPage;
+    private Intent intentToAddGroupPage;
     private SharedPreferences sharedPreferences;
-
-
+    public static final int REQUEST_CODE_FOR_ADD_GROUP_PAGE = new Random().nextInt(10);//limit [0,10]
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,8 +39,22 @@ public class MainPage extends AppCompatActivity {
         retrieveGroupsFromTheServer();
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if(requestCode == REQUEST_CODE_FOR_ADD_GROUP_PAGE){
+            refreshPage();
+        }
+    }
+
+    private void refreshPage() {
+        startActivity(getIntent());
+        finish();
+    }
+
     private void retrieveGroupsFromTheServer() {
         mainPageServices.getGroupsFromTheServer();}
+
+
 
 
     private void initialiseLocalVariables() {
@@ -52,6 +67,7 @@ public class MainPage extends AppCompatActivity {
         intentToLoginPage = new Intent(this,LoginPage.class);
         addListViewParameters(listView);
         sharedPreferences = getBaseContext().getSharedPreferences("PREFERENCES",Context.MODE_PRIVATE);
+        intentToAddGroupPage = new Intent(this,AddGroupPage.class);
     }
 
     private void addListViewParameters(ListView listView) {
@@ -61,10 +77,14 @@ public class MainPage extends AppCompatActivity {
 
     public void onLogOut(View view){
 
-        //ALERT BOX
+        //--------------------------------------------------------ALERT BOX
         refreshSharedPreferences();//-----------------------------VERY IMPORTANT OTHERWISE YOU WILL LAND HERE ONLY EVERYTIME.
         startActivity(intentToLoginPage);
         finish();
+    }
+
+    public void onAddGroup(View view){
+        startActivityForResult(intentToAddGroupPage, REQUEST_CODE_FOR_ADD_GROUP_PAGE);
     }
 
     private void refreshSharedPreferences() {
@@ -72,6 +92,11 @@ public class MainPage extends AppCompatActivity {
         editor.clear();
         editor.commit();
     }
+
+    public void onRefresh(View view){
+        refreshPage();
+    }
+
 
 
 }

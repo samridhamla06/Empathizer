@@ -6,11 +6,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
-
 import com.example.samridhamla06.aptitude.Modals.User;
 import com.example.samridhamla06.aptitude.R;
-
 import java.util.List;
+
 public class GroupPageAdapter extends ArrayAdapter<User> {
 
     private Context groupPageContext;
@@ -18,7 +17,7 @@ public class GroupPageAdapter extends ArrayAdapter<User> {
     private TextView userAge;
     private TextView location;
     private List<User> userList;
-    private long userId;
+    private String userId;
     public static final int USER_ID = 123;
 
     public GroupPageAdapter(Context context, List<User> userList) {
@@ -38,7 +37,7 @@ public class GroupPageAdapter extends ArrayAdapter<User> {
     }
 
     private void initializeTextViewsForSelectedView(View rowView) {
-        name = (TextView)rowView.findViewById(R.id.name);
+        name = (TextView)rowView.findViewById(R.id.email);
         userAge = (TextView)rowView.findViewById(R.id.userAge);
         location = (TextView)rowView.findViewById(R.id.location);
     }
@@ -50,7 +49,4 @@ public class GroupPageAdapter extends ArrayAdapter<User> {
         location.setText(selectedUser.getLocation());
         userId = selectedUser.getId();
     }
-
-
-
 }

@@ -16,7 +16,7 @@ import java.util.List;
 
 public class GroupPage extends AppCompatActivity {
 
-    private long id;
+    private String groupId;
     private ListView userListView;
     private List<User> userList;
     private GroupPageAdapter groupPageAdapter;
@@ -39,12 +39,12 @@ public class GroupPage extends AppCompatActivity {
     }
 
     private void initialiseLocalVariables() {
-        id = getIntent().getLongExtra(GROUP_ID, 1);
+        groupId = getIntent().getStringExtra(GROUP_ID);
         userListView = (ListView) findViewById(R.id.users);
         userList = new ArrayList<>();
         groupPageContext = GroupPage.this;
         groupPageAdapter = new GroupPageAdapter(groupPageContext, userList);
-        groupPageServices = new GroupPageServices(groupPageContext, groupPageAdapter, userList, id);
+        groupPageServices = new GroupPageServices(groupPageContext, groupPageAdapter, userList, groupId);
         groupPageListViewListener = new GroupPageListViewListener(groupPageContext);
         setListViewParameters();
     }

@@ -5,6 +5,8 @@ import android.util.Log;
 import android.widget.ArrayAdapter;
 import com.android.volley.Response;
 import com.example.samridhamla06.aptitude.Modals.User;
+import com.example.samridhamla06.aptitude.Views.LoginPage;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -59,10 +61,9 @@ public class GroupPageResponseListener implements Response.Listener<JSONArray> {
     }
 
     private User addJSONToUserObject(JSONObject myJson) throws JSONException{
-        String name = myJson.getString("name");
-        int age = myJson.getInt("age");
+        String name = myJson.getString(LoginPage.USER_NAME);
         String location = myJson.getString("location");
-        long id = myJson.getLong("userId");
-        return User.createUser(name, age, location,id);
+        String id = myJson.getString("userId");
+        return User.createUser(name,location,id);
     }
 }

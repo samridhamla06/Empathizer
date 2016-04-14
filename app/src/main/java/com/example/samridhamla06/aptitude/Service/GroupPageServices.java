@@ -2,6 +2,7 @@ package com.example.samridhamla06.aptitude.Service;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.util.Log;
 import android.widget.ArrayAdapter;
 
 import com.android.volley.AuthFailureError;
@@ -12,6 +13,7 @@ import com.android.volley.toolbox.Volley;
 import com.example.samridhamla06.aptitude.HTTPListeners.Response.ResponseListeners.GroupPageView.GroupPageErrorListener;
 import com.example.samridhamla06.aptitude.HTTPListeners.Response.ResponseListeners.GroupPageView.GroupPageResponseListener;
 import com.example.samridhamla06.aptitude.Modals.User;
+import com.example.samridhamla06.aptitude.Views.LoginPage;
 
 
 import java.util.HashMap;
@@ -21,11 +23,11 @@ import java.util.Map;
 
 public class GroupPageServices {
 
-    private final long id;
+    private final String groupId;
     private  ArrayAdapter adapterForUsers;
     private  List<User> userList;
     private JsonArrayRequest requestToGetGroupInfo;
-    public final String URL_GROUP_DESC = "http://192.168.2.2:8000/groups/";
+    public final String URL_GROUP_DESC = LoginPage.URL + "groups/";
     private RequestQueue requestQueue;
     private final Context groupPageContext;
     private GroupPageResponseListener groupPageResponseListener;
@@ -33,11 +35,11 @@ public class GroupPageServices {
     private String token;
     private SharedPreferences sharedPreferences;
 
-    public GroupPageServices(Context groupPageContext, ArrayAdapter adapterForUsers, List<User> userList, long id) {
+    public GroupPageServices(Context groupPageContext, ArrayAdapter adapterForUsers, List<User> userList, String id) {
         this.groupPageContext = groupPageContext;
         this.adapterForUsers = adapterForUsers;
         this.userList = userList;
-        this.id = id;
+        this.groupId = id;
         initialiseLocalVariables();
     }
 
@@ -50,7 +52,8 @@ public class GroupPageServices {
 
     public void getUsersForParticularGroup() {
         initialiseListenersForUsers();
-        requestToGetGroupInfo = new JsonArrayRequest(Request.Method.GET, URL_GROUP_DESC + Long.toString(id),groupPageResponseListener, groupPageErrorListener){
+        Log.d("GROUP_ID_SENT",groupId);
+        requestToGetGroupInfo = new JsonArrayRequest(Request.Method.GET, URL_GROUP_DESC + groupId,groupPageResponseListener, groupPageErrorListener){
             @Override
             public Map<String, String> getHeaders() throws AuthFailureError {
                 HashMap<String, String> headers = new HashMap<String, String>();

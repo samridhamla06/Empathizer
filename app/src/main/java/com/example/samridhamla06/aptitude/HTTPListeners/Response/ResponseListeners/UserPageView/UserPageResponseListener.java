@@ -3,6 +3,7 @@ package com.example.samridhamla06.aptitude.HTTPListeners.Response.ResponseListen
 import android.util.Log;
 import com.android.volley.Response;
 import com.example.samridhamla06.aptitude.Modals.User;
+import com.example.samridhamla06.aptitude.Views.LoginPage;
 import com.example.samridhamla06.aptitude.Views.UserPage;
 
 import org.json.JSONArray;
@@ -41,21 +42,16 @@ public class UserPageResponseListener implements Response.Listener<JSONArray>{
     private void sendFullUserInfoToUserPage(JSONArray jsonArrayReceived) throws JSONException{
         User userReceived;
         JSONObject jsonReceived;
-
-
         jsonReceived = jsonArrayReceived.getJSONObject(0);//because we know it will return a single object :)
-        Log.d("USER_JSON_RECEIVED_2", jsonReceived.toString());
-
         userReceived = convertJSONToUser(jsonReceived);
         userPageReference.fillAllTextViews(userReceived);
     }
 
     private User convertJSONToUser(JSONObject jsonObjectReceived) throws JSONException {
-        String name = jsonObjectReceived.getString("name");
-        int age = jsonObjectReceived.getInt("age");
+        String name = jsonObjectReceived.getString(LoginPage.USER_NAME);
         String location = jsonObjectReceived.getString("location");
-        long userId = jsonObjectReceived.getLong("userId");
-        return User.createUser(name,age,location,userId);
+        String userId = jsonObjectReceived.getString("_id");
+        return User.createUser(name,location,userId);
     }
 
 

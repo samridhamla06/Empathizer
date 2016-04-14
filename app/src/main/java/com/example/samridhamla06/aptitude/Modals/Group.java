@@ -5,9 +5,9 @@ package com.example.samridhamla06.aptitude.Modals;
  */
 public class Group {
     private String name;
-    private long id;
+    private String id;
 
-    public Group(String name, long id) {
+    public Group(String name, String id) {
         this.name = name;
         this.id = id;
     }
@@ -20,11 +20,11 @@ public class Group {
         this.name = name;
     }
 
-    public long getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
 

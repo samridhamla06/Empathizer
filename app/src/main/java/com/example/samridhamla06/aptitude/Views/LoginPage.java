@@ -18,11 +18,21 @@ public class LoginPage extends AppCompatActivity {
     public static final String VALID = "Valid";
     public static final String INVALID = "Invalid";
     public static final String URL = "http://192.168.2.2:8000/";
+    public static final String STATUS = "status";
+    public static final String TOKEN = "token";
+    public static final String USER_ID = "userId";
+    public static final String USER_NAME = "userName";
+    public static final String SUFFERING_NAME = "sufferingName";
+    public static final String GROUP_NAME = "groupName";
+    public static final String PASSWORD = "password";
+    public static final String EMAIL = "email";
+    public static final String LOCATION = "location";
+
 
     //Other Objects
-    private EditText userName;
+    private EditText email;
     private EditText password;
-    private String username_android;
+    private String email_android;
     private String password_android;
     private LoginServices loginServices;
     private Intent intentToRegisterPage;
@@ -49,16 +59,16 @@ public class LoginPage extends AppCompatActivity {
     }
 
     private void instantiateLocalVariables() {
-        userName = (EditText) findViewById(R.id.name);
+        email = (EditText) findViewById(R.id.email);
         password = (EditText) findViewById(R.id.password);
         loginServices = new LoginServices(this);
     }
 
     public void onLogIn(View view) {
 
-        username_android = userName.getText().toString();//CREATE A FUNCTION FOR THIS
+        email_android = email.getText().toString();//CREATE A FUNCTION FOR THIS
         password_android = password.getText().toString();
-        loginServices.hitLogInRequest(username_android, password_android);
+        loginServices.hitLogInRequest(email_android, password_android);
     }
 
     public void onRegister(View view) {

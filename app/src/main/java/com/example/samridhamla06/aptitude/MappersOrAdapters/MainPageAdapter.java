@@ -20,7 +20,7 @@ public class MainPageAdapter extends ArrayAdapter<Group> {
     private TextView groupName;
     private List<Group> groupList;
     private Context mainPageContext;
-    private long groupId;//as groupID could be huge one day or may be
+    private String groupId;//as groupID could be huge one day or may be
 
     public MainPageAdapter(Context mainPageContext, List<Group> groupList) {
         super(mainPageContext, R.layout.main_page_list_view_layout, groupList);

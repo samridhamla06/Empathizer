@@ -23,9 +23,9 @@ public class GroupPageListViewListener implements AdapterView.OnItemClickListene
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        long userId = (long) view.getTag(R.string.UserID);
+        String userId = (String) view.getTag(R.string.UserID);
         intentToUserPage.putExtra(UserPage.USER_ID, userId);
-        intentToUserPage.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        intentToUserPage.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);//WHY?
         groupPageContext.startActivity(intentToUserPage);
     }
 }

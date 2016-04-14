@@ -25,13 +25,13 @@ public class MainPageListViewListener implements AdapterView.OnItemClickListener
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         Log.d("id selected:", Long.toString(id) + " position Selected: " + Integer.toString(position));
-        long groupId = retrieveGroupIdFromViewSelected(view,position);
+        String groupId = retrieveGroupIdFromViewSelected(view,position);
         intentToGroupPage.putExtra(GroupPage.GROUP_ID, groupId);
         intentToGroupPage.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         mainPageContext.startActivity(intentToGroupPage);
     }
 
-    private long retrieveGroupIdFromViewSelected(View view, int position) {
-        return (long)view.getTag(R.string.GroupID);
+    private String retrieveGroupIdFromViewSelected(View view, int position) {
+        return (String)view.getTag(R.string.GroupID);
     }
 }

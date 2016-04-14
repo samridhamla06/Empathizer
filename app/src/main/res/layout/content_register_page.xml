@@ -31,23 +31,23 @@
             android:src="@drawable/logo_login" />
 
         <EditText
+            android:id="@+id/email"
+            style="@style/editext_graybg"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/pad_5dp"
+            android:hint="@string/email" >
+            <requestFocus />
+        </EditText>
+
+
+        <EditText
             android:id="@+id/name"
             style="@style/editext_graybg"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/pad_5dp"
             android:hint="@string/name" >
-            <requestFocus />
-        </EditText>
-
-
-        <EditText
-            android:id="@+id/userName"
-            style="@style/editext_graybg"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/pad_5dp"
-            android:hint="@string/username" >
         </EditText>
 
         <EditText
@@ -130,17 +130,7 @@
         </Spinner>
 
 
-        <EditText
-            android:id="@+id/email"
-            style="@style/editext_graybg"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:hint="@string/email"
-            android:layout_marginTop="@dimen/pad_5dp"
-            android:inputType="textEmailAddress" >
 
-
-        </EditText>
 
         <EditText
             android:id="@+id/aboutMe"

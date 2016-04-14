@@ -15,7 +15,7 @@ public class UserPage extends AppCompatActivity {
 
     public static final String USER_ID = "USER_ID";
     private UserPageServices userPageServices;
-    private long userId;
+    private String userId;
     private TextView name ;
     private TextView aboutme ;
     private TextView location ;
@@ -43,15 +43,15 @@ public class UserPage extends AppCompatActivity {
 
     public void fillAllTextViews(User userSelected) {
         name.setText(userSelected.getName());
-        aboutme.setText("My age is /n/n/n" + Integer.toString(userSelected.getAge()));
+        aboutme.setText("I am a sufferer..........HELP ME" );
         location.setText(userSelected.getLocation());
     }
 
     private void initialiseLocalVariables() {
-        userId = getIntent().getLongExtra(USER_ID,0);
-        Log.d("USER_ID_SELECTED", Long.toString(userId));
+        userId = getIntent().getStringExtra(USER_ID);
+        Log.d("USER_ID_SELECTED", userId);
         userPageServices = new UserPageServices(this,userId);
-        name = (TextView)findViewById(R.id.name);
+        name = (TextView)findViewById(R.id.email);
         aboutme = (TextView)findViewById(R.id.aboutMe);
         location = (TextView)findViewById(R.id.location);
     }

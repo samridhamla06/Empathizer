@@ -1,16 +1,12 @@
 package com.example.samridhamla06.aptitude.Modals;
 
-import android.os.Parcel;
-import android.os.Parcelable;
-
-public class User  {
-    private String username;
+public class User {
     private String name;
     private int age;
     private String location;
-    private long id;
+    private String id;
 
-    public long getId() {
+    public String getId() {
         return id;
     }
 
@@ -20,23 +16,20 @@ public class User  {
     }
 
     public String toString() {
-        return username;
+        return name;
     }
 
-    public User(String name, int age, String location,long id) {
+    public User(String name,String location, String id) {
         this.name = name;
         this.age = age;
         this.location = location;
         this.id = id;
     }
 
-    public static User createUser(String username, int age, String location,long id){
-        return new User(username,age,location,id);
+    public static User createUser(String username, String location, String id) {
+        return new User(username,location, id);
     }
 
-    public String getUsername() {
-        return username;
-    }
 
     public int getAge() {
         return age;

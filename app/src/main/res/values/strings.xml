@@ -45,5 +45,9 @@
     <string name="other">Other</string>
     <string name="suffering">Suffering</string>
     <string name="log_out">Log Out</string>
+    <string name="title_activity_add_group_page">AddGroupPage</string>
+    <string name="group_name">Group Name</string>
+    <string name="group_description">Group Description</string>
+    <string name="add_group">Add Group</string>
 
 </resources>
