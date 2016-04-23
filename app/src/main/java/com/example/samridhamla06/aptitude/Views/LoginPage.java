@@ -5,11 +5,17 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 
 import com.example.samridhamla06.aptitude.R;
 import com.example.samridhamla06.aptitude.Service.LoginServices;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 
 public class LoginPage extends AppCompatActivity {
@@ -28,7 +34,6 @@ public class LoginPage extends AppCompatActivity {
     public static final String EMAIL = "email";
     public static final String LOCATION = "location";
 
-
     //Other Objects
     private EditText email;
     private EditText password;
@@ -38,6 +43,9 @@ public class LoginPage extends AppCompatActivity {
     private Intent intentToRegisterPage;
     private SharedPreferences sharedPreferences;
     private Intent intentToMainPage;
+    private Intent intentToCommunityPage;
+    private JSONObject userLoginDetails;
+    private Toolbar toolbar;
 
 
     @Override
@@ -53,6 +61,18 @@ public class LoginPage extends AppCompatActivity {
         }
     }
 
+
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.menu_login_page, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem menu) {
+        return true;
+    }
+
     private void instantiateSharedPreferencesAndIntent() {
         sharedPreferences = getApplicationContext().getSharedPreferences("PREFERENCES", Context.MODE_PRIVATE);
         intentToMainPage = new Intent(this, MainPage.class);
@@ -62,18 +82,36 @@ public class LoginPage extends AppCompatActivity {
         email = (EditText) findViewById(R.id.email);
         password = (EditText) findViewById(R.id.password);
         loginServices = new LoginServices(this);
+        userLoginDetails = new JSONObject();
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
     }
 
     public void onLogIn(View view) {
-
         email_android = email.getText().toString();//CREATE A FUNCTION FOR THIS
         password_android = password.getText().toString();
-        loginServices.hitLogInRequest(email_android, password_android);
+        prepareJSONObjectToSend(email_android, password_android);
+        loginServices.hitLogInRequest(userLoginDetails);
     }
 
     public void onRegister(View view) {
         intentToRegisterPage = new Intent(this, RegisterPage.class);
         startActivity(intentToRegisterPage);
+    }
+
+    private void prepareJSONObjectToSend(String email_android, String password_android) {
+        try {
+            userLoginDetails.put(LoginPage.EMAIL, email_android);
+            userLoginDetails.put(LoginPage.PASSWORD, password_android);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    public void onLogInAsGuest(View view) {
+        intentToCommunityPage = new Intent(getBaseContext(), CommunityPage.class);
+        startActivity(intentToCommunityPage);
     }
 
 }

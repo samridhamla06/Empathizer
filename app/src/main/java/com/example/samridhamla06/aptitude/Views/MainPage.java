@@ -10,7 +10,7 @@ import android.widget.ListView;
 
 import com.example.samridhamla06.aptitude.MappersOrAdapters.MainPageAdapter;
 import com.example.samridhamla06.aptitude.AndroidListeners.MainPageView.MainPageListViewListener;
-import com.example.samridhamla06.aptitude.Modals.Group;
+import com.example.samridhamla06.aptitude.Models.Group;
 import com.example.samridhamla06.aptitude.R;
 import com.example.samridhamla06.aptitude.Service.MainPageServices;
 import java.util.ArrayList;

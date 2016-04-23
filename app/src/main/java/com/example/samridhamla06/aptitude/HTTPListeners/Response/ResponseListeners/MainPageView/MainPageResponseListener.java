@@ -5,7 +5,7 @@ import android.util.Log;
 import android.widget.ArrayAdapter;
 
 import com.android.volley.Response;
-import com.example.samridhamla06.aptitude.Modals.Group;
+import com.example.samridhamla06.aptitude.Models.Group;
 import com.example.samridhamla06.aptitude.Views.LoginPage;
 
 import org.json.JSONArray;

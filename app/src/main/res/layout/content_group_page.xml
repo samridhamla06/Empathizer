@@ -15,7 +15,40 @@
     <ListView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/users"/>
+        android:id="@+id/users"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="113dp" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Join Group"
+        android:id="@+id/joinGroup"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:onClick="onJoinGroup"/>
+
+    <Button
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Invite Others"
+        android:id="@+id/inviteOthers"
+        android:layout_alignBottom="@+id/joinGroup"
+        android:layout_toRightOf="@+id/joinGroup"
+        android:layout_toEndOf="@+id/joinGroup" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="FAQs"
+        android:id="@+id/button4"
+        android:layout_alignParentTop="true"
+        android:layout_toRightOf="@+id/inviteOthers"
+        android:layout_toEndOf="@+id/inviteOthers" />
 
 
 </RelativeLayout>

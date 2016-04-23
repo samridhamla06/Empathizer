@@ -22,7 +22,7 @@ public class UserPageServices {
     //private final Context userPageContext;
     private final UserPage userPageReference;
     private String userId;
-    public final String URL = LoginPage.URL + "users/";
+    public final String URL = LoginPage.URL + "auth/users/";
     private UserPageResponseListener userPageResponseListener;
     private UserPageErrorListener userPageErrorListener;
     private JsonArrayRequest requestToGetUserInfo;

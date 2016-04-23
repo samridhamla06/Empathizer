@@ -2,27 +2,19 @@ package com.example.samridhamla06.aptitude.Service;
 
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.util.Log;
 import android.widget.ArrayAdapter;
 import android.widget.Toast;
-
-import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
-import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.samridhamla06.aptitude.HTTPListeners.Response.ResponseListeners.MainPageView.MainPageErrorListener;
 import com.example.samridhamla06.aptitude.HTTPListeners.Response.ResponseListeners.MainPageView.MainPageResponseListener;
-import com.example.samridhamla06.aptitude.Modals.Group;
+import com.example.samridhamla06.aptitude.Models.Group;
+import com.example.samridhamla06.aptitude.Service.HTTPRequests.AuthJsonObjectRequestForGroups;
+import com.example.samridhamla06.aptitude.Service.HTTPRequests.UnAuthJsonObjectRequestForGroups;
 import com.example.samridhamla06.aptitude.Views.LoginPage;
-
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 
 public class MainPageServices {
@@ -30,11 +22,11 @@ public class MainPageServices {
 
     private final Context mainPageContext;
     private ArrayAdapter arrayAdapterForGroups;
-    public final String LOGIN_URL = LoginPage.URL + "readGroups/";
+    public final String AUTH_READ_GROUP_URL = LoginPage.URL + "auth/readGroups/";
+    public final String UNAUTH_READ_GROUP_URL = LoginPage.URL + "readGroups/";
     private SharedPreferences sharedPreferences;
     private String token;
-    private JSONObject myJson;
-    private JsonObjectRequest jsonObjectRequestForGroups;
+    private JsonObjectRequest jsonObjectRequest;
     private MainPageResponseListener mainPageResponseListener;
     private MainPageErrorListener mainPageErrorListener;
     private RequestQueue mainPageRequestQueue;
@@ -50,38 +42,29 @@ public class MainPageServices {
 
     private void initialiseLocalVariables() {
         sharedPreferences = mainPageContext.getSharedPreferences("PREFERENCES", Context.MODE_PRIVATE);
-        myJson = new JSONObject();
         mainPageRequestQueue = Volley.newRequestQueue(mainPageContext);
-        token = sharedPreferences.getString(LoginPage.TOKEN, "000");
         sufferingName = sharedPreferences.getString(LoginPage.SUFFERING_NAME, "Stammer");
     }
 
     public void getGroupsFromTheServer() {
 
         try {
-            prepareJSONObjectToSend(token);
-            Log.d("JSON_SENT", myJson.toString());
+            initializeTokenVariable();
             initialiseListenersForGroups();
-            jsonObjectRequestForGroups = new JsonObjectRequest(Request.Method.GET, LOGIN_URL + sufferingName, mainPageResponseListener, mainPageErrorListener) {
-                @Override
-                public Map<String, String> getHeaders() throws AuthFailureError {
-                    HashMap<String, String> headers = new HashMap<String, String>();
-                    headers.put("Content-Type", "application/json");
-                    headers.put("User-agent", System.getProperty("http.agent"));
-                    headers.put("authorization", token);
-                    return headers;
-                }
-            };
-            mainPageRequestQueue.add(jsonObjectRequestForGroups);
-        } catch (JSONException e) {
-            Toast.makeText(mainPageContext, "Connection gone suddenly", Toast.LENGTH_LONG).show();//when after login connection goes away
-            e.printStackTrace();
+            jsonObjectRequest = new AuthJsonObjectRequestForGroups(Request.Method.GET, AUTH_READ_GROUP_URL + sufferingName, mainPageResponseListener, mainPageErrorListener, token);
+        } catch (NullPointerException e) {//------------WHEN TOKEN IS NULL IS SHARED-PREFERENCES..SEND UNAUTHREQUEST
+            Toast.makeText(mainPageContext, "Loggin In As GUEST", Toast.LENGTH_LONG).show();
+            //e.printStackTrace();
+            jsonObjectRequest = new UnAuthJsonObjectRequestForGroups(Request.Method.GET, UNAUTH_READ_GROUP_URL + sufferingName, mainPageResponseListener, mainPageErrorListener);
         }
-
+        mainPageRequestQueue.add(jsonObjectRequest);
     }
 
-    private void prepareJSONObjectToSend(String token) throws JSONException {
-        myJson.put("token", token);
+    private void initializeTokenVariable() throws NullPointerException {
+        token = sharedPreferences.getString(LoginPage.TOKEN, null);
+        if (token == null) {
+            throw new NullPointerException();//IMPORTANT
+        }
     }
 
     private void initialiseListenersForGroups() {

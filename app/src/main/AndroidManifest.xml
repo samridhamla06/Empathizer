@@ -40,6 +40,10 @@
         <activity
             android:name=".Views.AddGroupPage"
             android:label="@string/title_activity_add_group_page"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".Views.CommunityPage"
+            android:label="@string/title_activity_community_page"
             android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 

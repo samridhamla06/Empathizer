@@ -49,5 +49,7 @@
     <string name="group_name">Group Name</string>
     <string name="group_description">Group Description</string>
     <string name="add_group">Add Group</string>
+    <string name="title_activity_community_page">CommunityPage</string>
+    <string name="choose_your_suffering">Choose Your Suffering ...</string>
 
 </resources>

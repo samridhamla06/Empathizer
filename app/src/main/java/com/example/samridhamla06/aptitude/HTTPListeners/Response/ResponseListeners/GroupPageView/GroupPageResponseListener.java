@@ -1,10 +1,10 @@
 package com.example.samridhamla06.aptitude.HTTPListeners.Response.ResponseListeners.GroupPageView;
 
-import android.content.Context;
+import android.app.Activity;
 import android.util.Log;
 import android.widget.ArrayAdapter;
 import com.android.volley.Response;
-import com.example.samridhamla06.aptitude.Modals.User;
+import com.example.samridhamla06.aptitude.Models.User;
 import com.example.samridhamla06.aptitude.Views.LoginPage;
 
 import org.json.JSONArray;
@@ -14,14 +14,14 @@ import java.util.List;
 
 
 public class GroupPageResponseListener implements Response.Listener<JSONArray> {
-    private final Context groupPageContext;
+    private final Activity groupPageReference;
     private  ArrayAdapter groupPageAdapter;
     private  List<User> userList;
     private JSONArray jsonArrayReceived;
 
 
-    public GroupPageResponseListener(Context groupPageContext, ArrayAdapter adapterForUsers, List<User> userList) {
-        this.groupPageContext = groupPageContext;
+    public GroupPageResponseListener(Activity groupPageReference, ArrayAdapter adapterForUsers, List<User> userList) {
+        this.groupPageReference = groupPageReference;
         this.groupPageAdapter = adapterForUsers;
         this.userList = userList;
     }
@@ -30,14 +30,14 @@ public class GroupPageResponseListener implements Response.Listener<JSONArray> {
     public void onResponse(JSONArray response) {
         jsonArrayReceived = response;
         Log.d("RECEIVED_JSON_ARRAY", jsonArrayReceived.toString());
-        actOnResponse(jsonArrayReceived);
+        actOnResponse();
     }
 
-    private void actOnResponse(JSONArray jsonArrayReceived){
-        sendUsersInfoToGroupPage(jsonArrayReceived);
+    private void actOnResponse(){
+        sendUsersInfoToGroupPage();
     }
 
-    private void sendUsersInfoToGroupPage(JSONArray jsonArrayReceived) {
+    private void sendUsersInfoToGroupPage() {
         User user;
         JSONObject myJson;
         JSONArray actualJSONArray;                  //*****without other fields*****

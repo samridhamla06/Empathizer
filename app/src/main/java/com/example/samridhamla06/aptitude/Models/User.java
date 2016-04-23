@@ -1,4 +1,4 @@
-package com.example.samridhamla06.aptitude.Modals;
+package com.example.samridhamla06.aptitude.Models;
 
 public class User {
     private String name;

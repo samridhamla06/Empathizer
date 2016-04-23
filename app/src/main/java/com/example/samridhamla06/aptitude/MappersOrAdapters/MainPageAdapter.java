@@ -7,7 +7,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
-import com.example.samridhamla06.aptitude.Modals.Group;
+import com.example.samridhamla06.aptitude.Models.Group;
 import com.example.samridhamla06.aptitude.R;
 
 import java.util.List;

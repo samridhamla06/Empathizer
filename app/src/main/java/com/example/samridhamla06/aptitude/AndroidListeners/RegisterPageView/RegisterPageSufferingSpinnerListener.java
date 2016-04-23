@@ -14,9 +14,9 @@ public class RegisterPageSufferingSpinnerListener implements AdapterView.OnItemS
 
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-        String suffering = parent.getItemAtPosition(position).toString();
-        Log.d("SUFFERING_SELECTED", suffering);
-        registerPage.setSuffering(suffering);
+        String sufferingName = parent.getItemAtPosition(position).toString();
+        Log.d("SUFFERING_SELECTED", sufferingName);
+        registerPage.setSuffering(sufferingName);
     }
 
     @Override

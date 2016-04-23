@@ -7,7 +7,7 @@ import android.util.Log;
 import android.widget.TextView;
 
 
-import com.example.samridhamla06.aptitude.Modals.User;
+import com.example.samridhamla06.aptitude.Models.User;
 import com.example.samridhamla06.aptitude.R;
 import com.example.samridhamla06.aptitude.Service.UserPageServices;
 

@@ -1,4 +1,4 @@
-package com.example.samridhamla06.aptitude.Modals;
+package com.example.samridhamla06.aptitude.Models;
 
 import android.os.Looper;
 

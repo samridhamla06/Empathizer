@@ -9,6 +9,7 @@ import android.widget.Toast;
 import com.android.volley.Response;
 import com.example.samridhamla06.aptitude.Views.LoginPage;
 import com.example.samridhamla06.aptitude.Views.MainPage;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -30,7 +31,7 @@ public class LoginButtonResponseListener implements Response.Listener<JSONObject
 
     public LoginButtonResponseListener(LoginPage loginPageReference) {
         this.loginPageReference = loginPageReference;
-        sharedPreferences = loginPageReference.getSharedPreferences("PREFERENCES",Context.MODE_PRIVATE);
+        sharedPreferences = loginPageReference.getSharedPreferences("PREFERENCES", Context.MODE_PRIVATE);
     }
 
     @Override
@@ -38,7 +39,7 @@ public class LoginButtonResponseListener implements Response.Listener<JSONObject
         Log.d("ReceivedJSONwithToken", response.toString());
         responseServer = response;
         try {
-            actOnResponse(responseServer);
+            actOnResponse();
         } catch (JSONException e) {
             e.printStackTrace();
             Log.d("receivedJSON", "JSON NOT IN RIGHT FORMAT");
@@ -46,57 +47,73 @@ public class LoginButtonResponseListener implements Response.Listener<JSONObject
         }
     }
 
-    private void actOnResponse(JSONObject responseServer) throws JSONException{
-        if(insertIntoSharedPreferencesIfTokenReceived(responseServer))
+    private void actOnResponse() throws JSONException {
+        if (insertIntoSharedPreferencesIfTokenReceived())
             logInToMainPage();//HAVE TO ADD ELSE AS RESET CREDENTIALS ..LETS SEE
-        else{
+        else {
             Toast.makeText(loginPageReference, "Invalid USERNAME OR PASSWORD", Toast.LENGTH_LONG).show();
         }
     }
-    
-    private boolean insertIntoSharedPreferencesIfTokenReceived(JSONObject responseServer) throws JSONException{
-        extractStatusAndToken(responseServer);//--THESE TWO ARE MAPPED FIRST AS IF STATUS = 'INVALID',
+
+    private boolean insertIntoSharedPreferencesIfTokenReceived() throws JSONException {
+        extractStatusAndToken();//--THESE TWO ARE MAPPED FIRST AS IF STATUS = 'INVALID',
         // OTHER WONT BE RECEIVED
-        Log.d("STATUS AND TOKEN", status+"  ------   " + token);
-        if(status.equals("Valid") && token != null){
-            initialiseOtherVariablesUsingJSONReceived(responseServer);
-            addTokenToSharedPreferences(status, token, suffering);
+        Log.d("STATUS AND TOKEN", status + "  ------   " + token);
+        if (validateStatusAndToken()) {
+            addTokenAndSufferingToSharedPreferences();
+            validateOtherFieldsReceivedAndAddToSharedPreferences();
             return true;
-        }else{
+        } else {
             return false;
         }
     }
 
-    private void extractStatusAndToken(JSONObject responseServer) throws JSONException{
+    private boolean validateStatusAndToken() {
+        return status.equals("Valid") && token != null;
+    }
+
+    private void extractStatusAndToken() throws JSONException {
         status = responseServer.getString(LoginPage.STATUS);//COULD BE SHIFTED TO ANOTHER FUNCTION
         token = responseServer.getString(LoginPage.TOKEN);
     }
 
 
-    private void initialiseOtherVariablesUsingJSONReceived(JSONObject responseServer) throws JSONException{
-        suffering =responseServer.getString(LoginPage.SUFFERING_NAME);
-        userName =responseServer.getString(LoginPage.USER_NAME);
-        userId = responseServer.getString(LoginPage.USER_ID);
-        email = responseServer.getString(LoginPage.EMAIL);
-        location = responseServer.getString(LoginPage.LOCATION);
-    }
+    private void validateOtherFieldsReceivedAndAddToSharedPreferences() throws JSONException {
 
-    private void addTokenToSharedPreferences(String status, String token,String suffering) {
-        if(status.equals("Valid") && token != null) {//could move to another func...IMPORTANT NOT ==
-            Log.d("TokenInsertion", "Passed");
-            SharedPreferences.Editor editor = sharedPreferences.edit();
-            editor.putString(LoginPage.TOKEN,token);
-            editor.putString(LoginPage.SUFFERING_NAME,suffering);
-            editor.putString(LoginPage.USER_NAME, userName);
-            editor.putString(LoginPage.USER_ID,userId);
-            editor.putString(LoginPage.EMAIL,email);
-            editor.putString(LoginPage.LOCATION,location);
-            editor.commit();
-        }else{
-            Log.d("TokenInsertion", "Failed");
-            Toast.makeText(loginPageReference,"No Token Received...Wrong UserName or Password",Toast.LENGTH_LONG).show();
+        try {
+            userName = responseServer.getString(LoginPage.USER_NAME);
+            userId = responseServer.getString(LoginPage.USER_ID);
+            email = responseServer.getString(LoginPage.EMAIL);
+            location = responseServer.getString(LoginPage.LOCATION);
+            addOtherFieldsToSharedPreferences();
+        } catch(NullPointerException e) {
+            e.printStackTrace();
+            Log.d("LOGIN_ERROR","NULL_FIELD_RECEIVED_VIA_LOGIN");
         }
     }
+
+    private void addTokenAndSufferingToSharedPreferences() throws JSONException{
+            Log.d("TokenInsertion", "Passed");
+            SharedPreferences.Editor editor = sharedPreferences.edit();
+            extractSuffering();
+            editor.putString(LoginPage.TOKEN, token);
+            editor.commit();
+    }
+
+    private void extractSuffering() throws JSONException{
+        suffering = responseServer.getString(LoginPage.SUFFERING_NAME);
+    }
+
+    private void addOtherFieldsToSharedPreferences() {
+            Log.d("TokenInsertion", "Passed");
+            SharedPreferences.Editor editor = sharedPreferences.edit();
+            editor.putString(LoginPage.SUFFERING_NAME, suffering);
+            editor.putString(LoginPage.USER_NAME, userName);
+            editor.putString(LoginPage.USER_ID, userId);
+            editor.putString(LoginPage.EMAIL, email);
+            editor.putString(LoginPage.LOCATION, location);
+            editor.commit();
+        }
 
     private void logInToMainPage() {
         intentToMainPage = new Intent(loginPageReference, MainPage.class);

@@ -10,6 +10,7 @@ import android.widget.EditText;
 
 import com.example.samridhamla06.aptitude.R;
 import com.example.samridhamla06.aptitude.Service.AddGroupPageServices;
+import com.example.samridhamla06.aptitude.Utility.UserRelated;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -25,7 +26,7 @@ public class AddGroupPage extends AppCompatActivity {
     //OTHER OBJECTS
     private AddGroupPageServices addGroupPageServices;
     private JSONObject groupJSONObject;
-    private SharedPreferences sharedPreferences;
+    private  SharedPreferences sharedPreferences;
     private JSONArray userJsonArray;
     //CONSTANTS
     private final String GROUP_NAME = LoginPage.GROUP_NAME;
@@ -82,25 +83,8 @@ public class AddGroupPage extends AppCompatActivity {
     }
 
     private void mapUserInfoToUserJSONArray() throws JSONException{
-        userJsonArray.put(createUserJSONObject());
+        userJsonArray.put(UserRelated.createUserJSONObjectFromSharedPreferences(sharedPreferences));
     }
-
-    private JSONObject createUserJSONObject() throws JSONException{
-        JSONObject userJson = new JSONObject();
-        String userName = sharedPreferences.getString(LoginPage.USER_NAME, "000");
-        String email = sharedPreferences.getString(LoginPage.EMAIL, "000");
-        String suffering = sharedPreferences.getString(LoginPage.SUFFERING_NAME,"000");
-        String userId = sharedPreferences.getString(LoginPage.USER_ID,"000");
-        String user_location = sharedPreferences.getString(LoginPage.LOCATION, "000");
-        userJson.put(LoginPage.USER_NAME,userName);
-        userJson.put(LoginPage.EMAIL,email);
-        userJson.put(LoginPage.SUFFERING_NAME,suffering);
-        userJson.put(LoginPage.USER_ID,userId);
-        userJson.put(LoginPage.LOCATION,user_location);
-        return userJson;
-    }
-
-
 
 
     private String getValueForEditTextView(EditText view) {
