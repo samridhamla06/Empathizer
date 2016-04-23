@@ -8,7 +8,7 @@ import com.android.volley.toolbox.Volley;
 import com.example.samridhamla06.aptitude.HTTPListeners.Response.ResponseListeners.AddGroupPageView.AddGroupPageErrorListener;
 import com.example.samridhamla06.aptitude.HTTPListeners.Response.ResponseListeners.AddGroupPageView.AddGroupPageResponseListener;
 import com.example.samridhamla06.aptitude.Views.AddGroupPage;
-import com.example.samridhamla06.aptitude.Views.LoginPage;
+import com.example.samridhamla06.aptitude.Views.Activities.LoginPage;
 
 public class AddGroupPageServices {
 

@@ -11,6 +11,8 @@ import android.widget.Spinner;
 import com.example.samridhamla06.aptitude.AndroidListeners.CommunityPageView.CommunityPageSufferingSpinnerListener;
 import com.example.samridhamla06.aptitude.R;
 import com.example.samridhamla06.aptitude.Utility.SharedPreferencesRelated;
+import com.example.samridhamla06.aptitude.Views.Activities.LoginPage;
+import com.example.samridhamla06.aptitude.Views.Activities.MainPage;
 
 public class CommunityPage extends AppCompatActivity {
 

@@ -1,4 +1,4 @@
-package com.example.samridhamla06.aptitude.Views;
+package com.example.samridhamla06.aptitude.Views.Activities;
 
 import android.content.Context;
 import android.content.Intent;
@@ -13,6 +13,8 @@ import android.widget.EditText;
 
 import com.example.samridhamla06.aptitude.R;
 import com.example.samridhamla06.aptitude.Service.LoginServices;
+import com.example.samridhamla06.aptitude.Views.CommunityPage;
+import com.example.samridhamla06.aptitude.Views.RegisterPage;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -33,6 +35,9 @@ public class LoginPage extends AppCompatActivity {
     public static final String PASSWORD = "password";
     public static final String EMAIL = "email";
     public static final String LOCATION = "location";
+    public static final String MY_GROUPS = "My Groups";
+    public static final String NOTIFICATIONS = "Notifications";
+
 
     //Other Objects
     private EditText email;
@@ -83,7 +88,7 @@ public class LoginPage extends AppCompatActivity {
         password = (EditText) findViewById(R.id.password);
         loginServices = new LoginServices(this);
         userLoginDetails = new JSONObject();
-        toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar = (Toolbar) findViewById(R.id.main_page_toolbar);
         setSupportActionBar(toolbar);
     }
 

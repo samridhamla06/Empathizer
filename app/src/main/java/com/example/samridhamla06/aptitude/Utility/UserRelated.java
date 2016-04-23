@@ -1,7 +1,7 @@
 package com.example.samridhamla06.aptitude.Utility;
 
 import android.content.SharedPreferences;
-import com.example.samridhamla06.aptitude.Views.LoginPage;
+import com.example.samridhamla06.aptitude.Views.Activities.LoginPage;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -26,7 +26,4 @@ public class UserRelated {
         userJson.put(LoginPage.LOCATION, user_location);
         return userJson;
     }
-
-
-
 }

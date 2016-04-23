@@ -6,8 +6,8 @@ import android.widget.Toast;
 
 import com.android.volley.Response;
 import com.example.samridhamla06.aptitude.Views.AddGroupPage;
-import com.example.samridhamla06.aptitude.Views.LoginPage;
-import com.example.samridhamla06.aptitude.Views.MainPage;
+import com.example.samridhamla06.aptitude.Views.Activities.LoginPage;
+import com.example.samridhamla06.aptitude.Views.Activities.MainPage;
 
 import org.json.JSONException;
 import org.json.JSONObject;

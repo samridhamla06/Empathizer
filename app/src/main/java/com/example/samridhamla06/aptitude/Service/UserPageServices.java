@@ -11,7 +11,7 @@ import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.samridhamla06.aptitude.HTTPListeners.Response.ResponseListeners.UserPageView.UserPageErrorListener;
 import com.example.samridhamla06.aptitude.HTTPListeners.Response.ResponseListeners.UserPageView.UserPageResponseListener;
-import com.example.samridhamla06.aptitude.Views.LoginPage;
+import com.example.samridhamla06.aptitude.Views.Activities.LoginPage;
 import com.example.samridhamla06.aptitude.Views.UserPage;
 
 import java.util.HashMap;

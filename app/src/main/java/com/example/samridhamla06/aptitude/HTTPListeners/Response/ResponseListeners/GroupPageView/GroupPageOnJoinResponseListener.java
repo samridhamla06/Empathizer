@@ -3,8 +3,7 @@ package com.example.samridhamla06.aptitude.HTTPListeners.Response.ResponseListen
 import android.app.Activity;
 import android.widget.Toast;
 import com.android.volley.Response;
-import com.example.samridhamla06.aptitude.Views.GroupPage;
-import com.example.samridhamla06.aptitude.Views.LoginPage;
+import com.example.samridhamla06.aptitude.Views.Activities.LoginPage;
 import org.json.JSONException;
 import org.json.JSONObject;
 

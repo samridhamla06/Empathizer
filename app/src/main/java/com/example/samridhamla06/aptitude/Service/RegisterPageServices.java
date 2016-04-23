@@ -6,7 +6,7 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.samridhamla06.aptitude.HTTPListeners.Response.ResponseListeners.RegisterPageView.RegisterPageErrorListener;
 import com.example.samridhamla06.aptitude.HTTPListeners.Response.ResponseListeners.RegisterPageView.RegisterPageResponseListener;
-import com.example.samridhamla06.aptitude.Views.LoginPage;
+import com.example.samridhamla06.aptitude.Views.Activities.LoginPage;
 import com.example.samridhamla06.aptitude.Views.RegisterPage;
 
 import org.json.JSONObject;
