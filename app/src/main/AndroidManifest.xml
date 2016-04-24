@@ -26,7 +26,7 @@
             android:label="@string/title_activity_main_page"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".Views.GroupPage"
+            android:name=".Views.Activities.GroupPage"
             android:label="@string/title_activity_group_page"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity

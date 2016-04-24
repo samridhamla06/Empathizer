@@ -3,10 +3,23 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context=".Views.Activities.MainPage">
     <item
-        android:id="@+id/action_settings"
-        android:orderInCategory="100"
-        android:title="@string/action_settings"
+    android:id="@+id/action_settings"
+    android:orderInCategory="100"
+    android:title="@string/action_settings"
+    android:icon="@drawable/ic_pwd"
+    app:showAsAction="never" />
+
+    <item
+        android:id="@+id/logoutButton"
+        android:title="@string/log_out"
         android:icon="@drawable/ic_pwd"
         app:showAsAction="never" />
+
+    <item
+        android:id="@+id/refreshButton"
+        android:title="@string/refresh"
+        android:icon="@drawable/ic_pwd"
+        app:showAsAction="never"/>
+
 
 </menu>

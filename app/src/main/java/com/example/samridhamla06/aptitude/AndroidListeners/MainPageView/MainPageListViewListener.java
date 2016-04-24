@@ -7,7 +7,7 @@ import android.view.View;
 import android.widget.AdapterView;
 
 import com.example.samridhamla06.aptitude.R;
-import com.example.samridhamla06.aptitude.Views.GroupPage;
+import com.example.samridhamla06.aptitude.Views.Activities.GroupPage;
 
 public class MainPageListViewListener implements AdapterView.OnItemClickListener{
     private Intent intentToGroupPage;

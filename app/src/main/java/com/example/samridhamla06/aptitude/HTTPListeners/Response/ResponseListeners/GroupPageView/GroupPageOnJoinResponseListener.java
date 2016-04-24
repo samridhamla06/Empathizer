@@ -40,7 +40,7 @@ public class GroupPageOnJoinResponseListener implements Response.Listener<JSONOb
             Toast.makeText(groupPageReference, "You have joined the group", Toast.LENGTH_LONG).show();
             refreshGroupPage(groupPageReference);
         }else{
-            Toast.makeText(groupPageReference, "Couldnt join the group..try again", Toast.LENGTH_LONG).show();
+            Toast.makeText(groupPageReference, "Couldn't join the group..try again", Toast.LENGTH_LONG).show();
         }
     }
 }

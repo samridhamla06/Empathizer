@@ -1,7 +1,6 @@
 package com.example.samridhamla06.aptitude.Service;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.SharedPreferences;
 import android.util.Log;
 import android.widget.ArrayAdapter;
@@ -16,6 +15,7 @@ import com.example.samridhamla06.aptitude.HTTPListeners.Response.ResponseListene
 import com.example.samridhamla06.aptitude.HTTPListeners.Response.ResponseListeners.GroupPageView.GroupPageOnJoinResponseListener;
 import com.example.samridhamla06.aptitude.HTTPListeners.Response.ResponseListeners.GroupPageView.GroupPageResponseListener;
 import com.example.samridhamla06.aptitude.Models.User;
+import com.example.samridhamla06.aptitude.Utility.SharedPreferencesRelated;
 import com.example.samridhamla06.aptitude.Views.Activities.LoginPage;
 
 import org.json.JSONObject;
@@ -49,11 +49,18 @@ public class GroupPageServices {
         this.userList = userList;
         this.groupId = id;
         initialiseLocalVariables();
+    }  //---------------------------------------------------------------FOR ALL_MEMBERS_REQUEST
+
+    public GroupPageServices(Activity groupPageReference, String id) { //FOR JOIN GROUP,INVITE GROUP STUFF
+        this.groupPageReference = groupPageReference;
+        this.groupId = id;
+        initialiseLocalVariables();
     }
+
 
     private void initialiseLocalVariables() {
         requestQueue = Volley.newRequestQueue(groupPageReference);
-        sharedPreferences = groupPageReference.getSharedPreferences("PREFERENCES", Context.MODE_PRIVATE);
+        sharedPreferences = SharedPreferencesRelated.getInstanceOfSharedPreferences(groupPageReference);
         token = sharedPreferences.getString("token", "000");
     }
 
@@ -82,7 +89,7 @@ public class GroupPageServices {
 
     public void sendRequestToJoinGroup(JSONObject userJsonObject) {
         initialiseListenersToJoinGroup();
-        requestToJoinGroup = new JsonObjectRequest(Request.Method.POST, URL_JOIN_GROUP + groupId, userJsonObject, groupPageOnJoinResponseListener, groupPageErrorListener){
+        requestToJoinGroup = new JsonObjectRequest(Request.Method.POST, URL_JOIN_GROUP + groupId, userJsonObject, groupPageOnJoinResponseListener, groupPageErrorListener) {
             @Override
             public Map<String, String> getHeaders() throws AuthFailureError {
                 HashMap<String, String> headers = new HashMap<String, String>();

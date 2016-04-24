@@ -37,6 +37,10 @@ public class LoginPage extends AppCompatActivity {
     public static final String LOCATION = "location";
     public static final String MY_GROUPS = "My Groups";
     public static final String NOTIFICATIONS = "Notifications";
+    public static final String MEMBERS = "MEMBERS";
+    public static final String MEETINGS = "PAST MEETINGS";
+    public static final String RECOMMENDATIONS = "OUR RECOMMENDATIONS";
+    public static final String GROUP_ID = "GROUP_ID";
 
 
     //Other Objects
@@ -118,5 +122,6 @@ public class LoginPage extends AppCompatActivity {
         intentToCommunityPage = new Intent(getBaseContext(), CommunityPage.class);
         startActivity(intentToCommunityPage);
     }
+
 
 }
