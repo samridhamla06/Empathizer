@@ -9,10 +9,10 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.samridhamla06.aptitude.Constants;
 import com.example.samridhamla06.aptitude.HTTPListeners.Response.ResponseListeners.UserPageView.UserPageErrorListener;
 import com.example.samridhamla06.aptitude.HTTPListeners.Response.ResponseListeners.UserPageView.UserPageResponseListener;
-import com.example.samridhamla06.aptitude.Views.Activities.LoginPage;
-import com.example.samridhamla06.aptitude.Views.UserPage;
+import com.example.samridhamla06.aptitude.Views.Activities.UserPage;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -22,7 +22,7 @@ public class UserPageServices {
     //private final Context userPageContext;
     private final UserPage userPageReference;
     private String userId;
-    public final String URL = LoginPage.URL + "auth/users/";
+    public final String URL = Constants.URL + "auth/users/";
     private UserPageResponseListener userPageResponseListener;
     private UserPageErrorListener userPageErrorListener;
     private JsonArrayRequest requestToGetUserInfo;
@@ -39,7 +39,7 @@ public class UserPageServices {
     private void initialiseLocalVariables() {
         requestQueue = Volley.newRequestQueue(userPageReference);
         sharedPreferences = userPageReference.getSharedPreferences("PREFERENCES", Context.MODE_PRIVATE);
-        token = sharedPreferences.getString(LoginPage.TOKEN, "000");
+        token = sharedPreferences.getString(Constants.TOKEN, "000");
 
     }
 

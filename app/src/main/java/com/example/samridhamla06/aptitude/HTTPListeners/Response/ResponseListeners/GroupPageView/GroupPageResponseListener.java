@@ -1,11 +1,14 @@
 package com.example.samridhamla06.aptitude.HTTPListeners.Response.ResponseListeners.GroupPageView;
 
 import android.app.Activity;
+import android.content.SharedPreferences;
 import android.util.Log;
 import android.widget.ArrayAdapter;
 import com.android.volley.Response;
+import com.example.samridhamla06.aptitude.Constants;
 import com.example.samridhamla06.aptitude.Models.User;
-import com.example.samridhamla06.aptitude.Views.Activities.LoginPage;
+import com.example.samridhamla06.aptitude.Utility.SharedPreferencesRelated;
+import com.example.samridhamla06.aptitude.Utility.UserRelated;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -18,6 +21,7 @@ public class GroupPageResponseListener implements Response.Listener<JSONArray> {
     private  ArrayAdapter groupPageAdapter;
     private  List<User> userList;
     private JSONArray jsonArrayReceived;
+    private SharedPreferences sharedPreferences;
 
 
     public GroupPageResponseListener(Activity groupPageReference, ArrayAdapter adapterForUsers, List<User> userList) {
@@ -41,7 +45,6 @@ public class GroupPageResponseListener implements Response.Listener<JSONArray> {
         User user;
         JSONObject myJson;
         JSONArray actualJSONArray;                  //*****without other fields*****
-
         try {
             myJson = jsonArrayReceived.getJSONObject(0);
             actualJSONArray = myJson.getJSONArray("users");
@@ -51,7 +54,6 @@ public class GroupPageResponseListener implements Response.Listener<JSONArray> {
                 user =  addJSONToUserObject(myJson);
                 userList.add(user);
             }
-
             groupPageAdapter.notifyDataSetChanged();
         }catch (JSONException e){
             e.printStackTrace();
@@ -61,9 +63,8 @@ public class GroupPageResponseListener implements Response.Listener<JSONArray> {
     }
 
     private User addJSONToUserObject(JSONObject myJson) throws JSONException{
-        String name = myJson.getString(LoginPage.USER_NAME);
-        String location = myJson.getString("location");
-        String id = myJson.getString("userId");
-        return User.createUser(name,location,id);
+        String userInfo = myJson.toString();
+        User user = UserRelated.getUserObjectFromJson(userInfo);
+        return user;
     }
 }

@@ -5,8 +5,8 @@ import android.util.Log;
 import android.widget.ArrayAdapter;
 
 import com.android.volley.Response;
+import com.example.samridhamla06.aptitude.Constants;
 import com.example.samridhamla06.aptitude.Models.Group;
-import com.example.samridhamla06.aptitude.Views.Activities.LoginPage;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -60,7 +60,7 @@ public class MainPageResponseListener implements Response.Listener<JSONObject> {
     }
 
     private Group convertJSONToObject(JSONObject communityJSONObject) throws JSONException {
-        return new Group(communityJSONObject.getString(LoginPage.GROUP_NAME), communityJSONObject.getString("_id"));
+        return new Group(communityJSONObject.getString(Constants.GROUP_NAME), communityJSONObject.getString("_id"));
     }
 }
 

@@ -3,8 +3,8 @@ package com.example.samridhamla06.aptitude.HTTPListeners.Response.ResponseListen
 import android.util.Log;
 import android.widget.Toast;
 import com.android.volley.Response;
-import com.example.samridhamla06.aptitude.Views.Activities.LoginPage;
-import com.example.samridhamla06.aptitude.Views.RegisterPage;
+import com.example.samridhamla06.aptitude.Constants;
+import com.example.samridhamla06.aptitude.Views.Activities.RegisterPage;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -32,7 +32,7 @@ public class RegisterPageResponseListener implements Response.Listener<JSONObjec
     }
 
     private void actOnResponse(JSONObject responseReceived) throws JSONException {
-        if(responseReceived.getString("status").equals(LoginPage.VALID)){
+        if(responseReceived.getString("status").equals(Constants.VALID)){
             Toast.makeText(registerPageReference, "You are Registered", Toast.LENGTH_LONG).show();
             goToLogInPage();
             registerPageReference.finish();

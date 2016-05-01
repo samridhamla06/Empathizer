@@ -2,9 +2,9 @@ package com.example.samridhamla06.aptitude.HTTPListeners.Response.ResponseListen
 
 import android.util.Log;
 import com.android.volley.Response;
+import com.example.samridhamla06.aptitude.Constants;
 import com.example.samridhamla06.aptitude.Models.User;
-import com.example.samridhamla06.aptitude.Views.Activities.LoginPage;
-import com.example.samridhamla06.aptitude.Views.UserPage;
+import com.example.samridhamla06.aptitude.Views.Activities.UserPage;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -48,10 +48,11 @@ public class UserPageResponseListener implements Response.Listener<JSONArray>{
     }
 
     private User convertJSONToUser(JSONObject jsonObjectReceived) throws JSONException {
-        String name = jsonObjectReceived.getString(LoginPage.USER_NAME);
+        String name = jsonObjectReceived.getString(Constants.USER_NAME);
         String location = jsonObjectReceived.getString("location");
         String userId = jsonObjectReceived.getString("_id");
-        return User.createUser(name,location,userId);
+        //return User.createUser(name,location,userId);
+        return null;
     }
 
 

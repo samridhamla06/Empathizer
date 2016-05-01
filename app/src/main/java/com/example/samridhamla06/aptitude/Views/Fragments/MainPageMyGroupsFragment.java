@@ -12,15 +12,15 @@ import android.widget.Button;
 import android.widget.ListView;
 
 import com.example.samridhamla06.aptitude.AndroidListeners.MainPageView.MainPageListViewListener;
-import com.example.samridhamla06.aptitude.MappersOrAdapters.MainPageAdapter;
+import com.example.samridhamla06.aptitude.Adapters.MainPageAdapter;
+import com.example.samridhamla06.aptitude.Constants;
 import com.example.samridhamla06.aptitude.Models.Group;
 import com.example.samridhamla06.aptitude.R;
 import com.example.samridhamla06.aptitude.Service.MainPageServices;
-import com.example.samridhamla06.aptitude.Views.AddGroupPage;
+import com.example.samridhamla06.aptitude.Views.Activities.AddGroupPage;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
 
 public class MainPageMyGroupsFragment extends Fragment {
@@ -32,7 +32,6 @@ public class MainPageMyGroupsFragment extends Fragment {
     private MainPageListViewListener mainPageListViewListener;
     private MainPageAdapter mainPageAdapter;
     private Intent intentToAddGroupPage;
-    public static final int REQUEST_CODE_FOR_ADD_GROUP_PAGE = new Random().nextInt(10);//limit [0,10]
     private Button addGroupButton;
 
 
@@ -58,6 +57,8 @@ public class MainPageMyGroupsFragment extends Fragment {
         initialiseLocalVariables();
         retrieveGroupsFromTheServer();
     }
+
+
 
 
     private void retrieveGroupsFromTheServer() {
@@ -93,7 +94,7 @@ public class MainPageMyGroupsFragment extends Fragment {
     }
 
     public void onAddGroup() {
-        startActivityForResult(intentToAddGroupPage, REQUEST_CODE_FOR_ADD_GROUP_PAGE);
+        startActivityForResult(intentToAddGroupPage, Constants.REQUEST_CODE_FOR_ADD_GROUP_PAGE);
     }
 
 

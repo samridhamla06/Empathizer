@@ -1,7 +1,6 @@
 package com.example.samridhamla06.aptitude.Views.Fragments;
 
 import android.content.Context;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -10,20 +9,16 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
 
+import com.example.samridhamla06.aptitude.Adapters.GroupPageAdapter;
 import com.example.samridhamla06.aptitude.AndroidListeners.GroupPageView.GroupPageListViewListener;
-import com.example.samridhamla06.aptitude.MappersOrAdapters.GroupPageAdapter;
+import com.example.samridhamla06.aptitude.Constants;
 import com.example.samridhamla06.aptitude.Models.User;
 import com.example.samridhamla06.aptitude.R;
 import com.example.samridhamla06.aptitude.Service.GroupPageServices;
-import com.example.samridhamla06.aptitude.Views.Activities.GroupPage;
-import com.example.samridhamla06.aptitude.Views.Activities.LoginPage;
 
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by samridhamla06 on 24/04/16.
- */
 
 public class GroupPageMembersFragment extends Fragment {
 
@@ -52,13 +47,13 @@ public class GroupPageMembersFragment extends Fragment {
     public static GroupPageMembersFragment newInstance(String groupId) {
         GroupPageMembersFragment myFragment = new GroupPageMembersFragment();
         Bundle args = new Bundle();
-        args.putString(LoginPage.GROUP_ID, groupId);
+        args.putString(Constants.GROUP_ID, groupId);
         myFragment.setArguments(args);
         return myFragment;
     }
 
     private void initialiseLocalVariables(Bundle savedInstanceState) {
-        groupId = getArguments().getString(LoginPage.GROUP_ID);
+        groupId = getArguments().getString(Constants.GROUP_ID);
         userListView = (ListView) getView().findViewById(R.id.users);
         userList = new ArrayList<>();
         groupPageContext = getContext();

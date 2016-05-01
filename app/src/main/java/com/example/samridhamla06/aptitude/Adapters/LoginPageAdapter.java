@@ -1,4 +1,4 @@
-package com.example.samridhamla06.aptitude.MappersOrAdapters;
+package com.example.samridhamla06.aptitude.Adapters;
 
 import android.content.Context;
 

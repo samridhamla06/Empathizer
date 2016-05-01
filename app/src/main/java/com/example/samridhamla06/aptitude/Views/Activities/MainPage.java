@@ -11,13 +11,12 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
 
-import com.example.samridhamla06.aptitude.MappersOrAdapters.MainPageViewPagerAdapter;
+import com.example.samridhamla06.aptitude.Adapters.ViewPagerAdapter;
+import com.example.samridhamla06.aptitude.Constants;
 import com.example.samridhamla06.aptitude.R;
 import com.example.samridhamla06.aptitude.Utility.SharedPreferencesRelated;
 import com.example.samridhamla06.aptitude.Views.Fragments.MainPageMyGroupsFragment;
 import com.example.samridhamla06.aptitude.Views.Fragments.MainPageNotificationsFragment;
-
-import java.util.Random;
 
 
 public class MainPage extends AppCompatActivity {
@@ -28,7 +27,6 @@ public class MainPage extends AppCompatActivity {
     private TabLayout mainPageTabLayout;
     private Intent intentToLoginPage;
     private SharedPreferences sharedPreferences;
-    public static final int REQUEST_CODE_FOR_ADD_GROUP_PAGE = new Random().nextInt(10);//limit [0,10]
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -92,10 +90,10 @@ public class MainPage extends AppCompatActivity {
 
 
     private void initialiseViewPagerAndLinkWithTabLayout() {
-        MainPageViewPagerAdapter mainPageViewPagerAdapter = new MainPageViewPagerAdapter(getSupportFragmentManager());
-        mainPageViewPagerAdapter.addFragment(new MainPageMyGroupsFragment(), LoginPage.MY_GROUPS);
-        mainPageViewPagerAdapter.addFragment(new MainPageNotificationsFragment(), LoginPage.NOTIFICATIONS);
-        mainPageViewPager.setAdapter(mainPageViewPagerAdapter);
+        ViewPagerAdapter viewPagerAdapter = new ViewPagerAdapter(getSupportFragmentManager());
+        viewPagerAdapter.addFragment(new MainPageMyGroupsFragment(), Constants.MY_GROUPS);
+        viewPagerAdapter.addFragment(new MainPageNotificationsFragment(), Constants.NOTIFICATIONS);
+        mainPageViewPager.setAdapter(viewPagerAdapter);
         mainPageTabLayout.setupWithViewPager(mainPageViewPager);
     }
 
@@ -117,7 +115,7 @@ public class MainPage extends AppCompatActivity {
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (requestCode == REQUEST_CODE_FOR_ADD_GROUP_PAGE) {
+        if (requestCode == Constants.REQUEST_CODE_FOR_ADD_GROUP_PAGE) {
             refreshPage();
         }
     }

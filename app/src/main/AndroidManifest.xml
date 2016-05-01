@@ -30,19 +30,19 @@
             android:label="@string/title_activity_group_page"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".Views.UserPage"
+            android:name=".Views.Activities.UserPage"
             android:label="@string/title_activity_user_page"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".Views.RegisterPage"
+            android:name=".Views.Activities.RegisterPage"
             android:label="@string/title_activity_register_page"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".Views.AddGroupPage"
+            android:name=".Views.Activities.AddGroupPage"
             android:label="@string/title_activity_add_group_page"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".Views.CommunityPage"
+            android:name=".Views.Activities.CommunityPage"
             android:label="@string/title_activity_community_page"
             android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>

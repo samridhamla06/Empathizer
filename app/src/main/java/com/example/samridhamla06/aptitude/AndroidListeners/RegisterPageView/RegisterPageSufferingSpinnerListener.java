@@ -4,7 +4,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 
-import com.example.samridhamla06.aptitude.Views.RegisterPage;
+import com.example.samridhamla06.aptitude.Views.Activities.RegisterPage;
 
 public class RegisterPageSufferingSpinnerListener implements AdapterView.OnItemSelectedListener {
     private RegisterPage registerPage;

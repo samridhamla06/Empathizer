@@ -8,7 +8,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 
-import com.example.samridhamla06.aptitude.Views.CommunityPage;
+import com.example.samridhamla06.aptitude.Views.Activities.CommunityPage;
 
 public class CommunityPageSufferingSpinnerListener implements AdapterView.OnItemSelectedListener{
     private CommunityPage communityPage;

@@ -1,4 +1,4 @@
-package com.example.samridhamla06.aptitude.Views;
+package com.example.samridhamla06.aptitude.Views.Activities;
 
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -8,10 +8,10 @@ import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 
+import com.example.samridhamla06.aptitude.Constants;
 import com.example.samridhamla06.aptitude.R;
 import com.example.samridhamla06.aptitude.Service.AddGroupPageServices;
 import com.example.samridhamla06.aptitude.Utility.UserRelated;
-import com.example.samridhamla06.aptitude.Views.Activities.LoginPage;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -30,7 +30,7 @@ public class AddGroupPage extends AppCompatActivity {
     private  SharedPreferences sharedPreferences;
     private JSONArray userJsonArray;
     //CONSTANTS
-    private final String GROUP_NAME = LoginPage.GROUP_NAME;
+    private final String GROUP_NAME = Constants.GROUP_NAME;
     private final String LOCATION = "location";
     private final String GROUP_DESCRIPTION = "description";
 
@@ -78,7 +78,7 @@ public class AddGroupPage extends AppCompatActivity {
     }
 
     private void addAdditionalInfoToGroupJSONObject() throws JSONException{
-        groupJSONObject.put(LoginPage.SUFFERING_NAME,sharedPreferences.getString(LoginPage.SUFFERING_NAME, "000"));
+        groupJSONObject.put(Constants.SUFFERING_NAME,sharedPreferences.getString(Constants.SUFFERING_NAME, "000"));
         mapUserInfoToUserJSONArray();
         groupJSONObject.put("users", userJsonArray);
     }

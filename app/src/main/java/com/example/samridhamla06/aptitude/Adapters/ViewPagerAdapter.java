@@ -1,16 +1,16 @@
-package com.example.samridhamla06.aptitude.MappersOrAdapters;
+package com.example.samridhamla06.aptitude.Adapters;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.app.FragmentStatePagerAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class MainPageViewPagerAdapter extends FragmentPagerAdapter {
+public class ViewPagerAdapter extends FragmentStatePagerAdapter {
     List<Fragment> fragmentList = new ArrayList<>();
     List<String> nameFragmentList = new ArrayList<>();
-    public MainPageViewPagerAdapter(FragmentManager fm) {
+    public ViewPagerAdapter(FragmentManager fm) {
         super(fm);
     }
 

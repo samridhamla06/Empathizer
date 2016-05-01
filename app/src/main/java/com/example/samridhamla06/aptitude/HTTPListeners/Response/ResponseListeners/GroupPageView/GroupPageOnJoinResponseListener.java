@@ -3,7 +3,8 @@ package com.example.samridhamla06.aptitude.HTTPListeners.Response.ResponseListen
 import android.app.Activity;
 import android.widget.Toast;
 import com.android.volley.Response;
-import com.example.samridhamla06.aptitude.Views.Activities.LoginPage;
+import com.example.samridhamla06.aptitude.Constants;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -27,7 +28,7 @@ public class GroupPageOnJoinResponseListener implements Response.Listener<JSONOb
     }
 
     private boolean validateResponse() throws JSONException{
-        return responseReceived.getString(LoginPage.STATUS).equals(LoginPage.VALID);
+        return responseReceived.getString(Constants.STATUS).equals(Constants.VALID);
     }
 
     private void refreshGroupPage(Activity groupPageReference){

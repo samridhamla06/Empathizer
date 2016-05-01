@@ -1,4 +1,4 @@
-package com.example.samridhamla06.aptitude.MappersOrAdapters;
+package com.example.samridhamla06.aptitude.Adapters;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -22,6 +22,8 @@ public class MainPageAdapter extends ArrayAdapter<Group> {
     private Context mainPageContext;
     private String groupId;//as groupID could be huge one day or may be
 
+
+
     public MainPageAdapter(Context mainPageContext, List<Group> groupList) {
         super(mainPageContext, R.layout.main_page_list_view_layout, groupList);
         this.mainPageContext = mainPageContext;
@@ -34,7 +36,7 @@ public class MainPageAdapter extends ArrayAdapter<Group> {
         View rowView = inflater.inflate(R.layout.main_page_list_view_layout,null,false);//to add some layout to parent
         initializeTextViewsForSelectedView(rowView);
         mapViewsWithCommunityList(position);
-        rowView.setTag(R.string.GroupID,groupId);//STORED THE ID OF GROUP SELECTED IN THE TAG....CAN STORE A WHOLE OBJECT AS WELL,
+        rowView.setTag(R.string.GroupID, groupId);//STORED THE ID OF GROUP SELECTED IN THE TAG....CAN STORE A WHOLE OBJECT AS WELL,
         return rowView;                         //USED R.string AS THIS FUNCTION DEMANDS UNIQUENESS...THIS IS HOW ANDROID WANTS IT..FUCK
     }
 

@@ -11,12 +11,12 @@ import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.samridhamla06.aptitude.Constants;
 import com.example.samridhamla06.aptitude.HTTPListeners.Response.ResponseListeners.GroupPageView.GroupPageErrorListener;
 import com.example.samridhamla06.aptitude.HTTPListeners.Response.ResponseListeners.GroupPageView.GroupPageOnJoinResponseListener;
 import com.example.samridhamla06.aptitude.HTTPListeners.Response.ResponseListeners.GroupPageView.GroupPageResponseListener;
 import com.example.samridhamla06.aptitude.Models.User;
 import com.example.samridhamla06.aptitude.Utility.SharedPreferencesRelated;
-import com.example.samridhamla06.aptitude.Views.Activities.LoginPage;
 
 import org.json.JSONObject;
 
@@ -31,8 +31,8 @@ public class GroupPageServices {
     private ArrayAdapter adapterForUsers;
     private List<User> userList;
     private JsonArrayRequest requestToGetGroupInfo;
-    private final String URL_GROUP_DESC = LoginPage.URL + "auth/groups/";
-    private final String URL_JOIN_GROUP = LoginPage.URL + "joinGroup/";
+    private final String URL_GROUP_DESC = Constants.URL + "auth/groups/";
+    private final String URL_JOIN_GROUP = Constants.URL + "joinGroup/";
     private RequestQueue requestQueue;
     private final Activity groupPageReference;
     private GroupPageResponseListener groupPageResponseListener;
@@ -71,7 +71,7 @@ public class GroupPageServices {
         requestToGetGroupInfo = new JsonArrayRequest(Request.Method.GET, URL_GROUP_DESC + groupId, groupPageResponseListener, groupPageErrorListener) {
             @Override
             public Map<String, String> getHeaders() throws AuthFailureError {
-                HashMap<String, String> headers = new HashMap<String, String>();
+                HashMap<String, String> headers = new HashMap<>();
                 headers.put("Content-Type", "application/json");
                 headers.put("User-agent", System.getProperty("http.agent"));
                 headers.put("authorization", token);

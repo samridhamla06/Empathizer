@@ -1,6 +1,6 @@
 package com.example.samridhamla06.aptitude.Views.Activities;
 
-import android.content.Context;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -11,36 +11,17 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 
+import com.example.samridhamla06.aptitude.Constants;
 import com.example.samridhamla06.aptitude.R;
 import com.example.samridhamla06.aptitude.Service.LoginServices;
-import com.example.samridhamla06.aptitude.Views.CommunityPage;
-import com.example.samridhamla06.aptitude.Views.RegisterPage;
+import com.example.samridhamla06.aptitude.Utility.LoginPageAsyncTaskRunner;
+import com.example.samridhamla06.aptitude.Utility.SharedPreferencesRelated;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
 
 public class LoginPage extends AppCompatActivity {
-
-    //GLOBAL VARIABLES
-    public static final String VALID = "Valid";
-    public static final String INVALID = "Invalid";
-    public static final String URL = "http://192.168.2.2:8000/";
-    public static final String STATUS = "status";
-    public static final String TOKEN = "token";
-    public static final String USER_ID = "userId";
-    public static final String USER_NAME = "userName";
-    public static final String SUFFERING_NAME = "sufferingName";
-    public static final String GROUP_NAME = "groupName";
-    public static final String PASSWORD = "password";
-    public static final String EMAIL = "email";
-    public static final String LOCATION = "location";
-    public static final String MY_GROUPS = "My Groups";
-    public static final String NOTIFICATIONS = "Notifications";
-    public static final String MEMBERS = "MEMBERS";
-    public static final String MEETINGS = "PAST MEETINGS";
-    public static final String RECOMMENDATIONS = "OUR RECOMMENDATIONS";
-    public static final String GROUP_ID = "GROUP_ID";
 
 
     //Other Objects
@@ -55,6 +36,10 @@ public class LoginPage extends AppCompatActivity {
     private Intent intentToCommunityPage;
     private JSONObject userLoginDetails;
     private Toolbar toolbar;
+    private ProgressDialog progressBar;
+    private LoginPageAsyncTaskRunner loginPageAsyncTaskRunner;
+    private Boolean RESPONSE_RECEIVED_FLAG = false;
+    private JSONObject responseReceived;
 
 
     @Override
@@ -62,12 +47,16 @@ public class LoginPage extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_first_page);
         instantiateSharedPreferencesAndIntent();
-        if (sharedPreferences.contains("token")) {
+        if (containsToken()) {
             startActivity(intentToMainPage);
             finish();
         } else {
             instantiateLocalVariables();
         }
+    }
+
+    private boolean containsToken() {
+        return sharedPreferences.contains("token");
     }
 
 
@@ -83,7 +72,7 @@ public class LoginPage extends AppCompatActivity {
     }
 
     private void instantiateSharedPreferencesAndIntent() {
-        sharedPreferences = getApplicationContext().getSharedPreferences("PREFERENCES", Context.MODE_PRIVATE);
+        sharedPreferences = SharedPreferencesRelated.getInstanceOfSharedPreferences(getBaseContext());
         intentToMainPage = new Intent(this, MainPage.class);
     }
 
@@ -92,15 +81,31 @@ public class LoginPage extends AppCompatActivity {
         password = (EditText) findViewById(R.id.password);
         loginServices = new LoginServices(this);
         userLoginDetails = new JSONObject();
+        responseReceived = new JSONObject();
         toolbar = (Toolbar) findViewById(R.id.main_page_toolbar);
         setSupportActionBar(toolbar);
+        progressBar = new ProgressDialog(this);
+        setUpProgressBar();
+    }
+
+    private void setUpProgressBar() {
+        progressBar.setMessage("Loading... ");
+        progressBar.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+        progressBar.setIndeterminate(true);
+
     }
 
     public void onLogIn(View view) {
-        email_android = email.getText().toString();//CREATE A FUNCTION FOR THIS
-        password_android = password.getText().toString();
+        loginPageAsyncTaskRunner = LoginPageAsyncTaskRunner.getInstance(this, progressBar);
+        loginPageAsyncTaskRunner.execute();
+        email_android = getToString(email);//CREATE A FUNCTION FOR THIS
+        password_android = getToString(password);
         prepareJSONObjectToSend(email_android, password_android);
         loginServices.hitLogInRequest(userLoginDetails);
+    }
+
+    private String getToString(EditText editText) {
+        return editText.getText().toString();
     }
 
     public void onRegister(View view) {
@@ -110,8 +115,8 @@ public class LoginPage extends AppCompatActivity {
 
     private void prepareJSONObjectToSend(String email_android, String password_android) {
         try {
-            userLoginDetails.put(LoginPage.EMAIL, email_android);
-            userLoginDetails.put(LoginPage.PASSWORD, password_android);
+            userLoginDetails.put(Constants.EMAIL, email_android);
+            userLoginDetails.put(Constants.PASSWORD, password_android);
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -121,6 +126,12 @@ public class LoginPage extends AppCompatActivity {
     public void onLogInAsGuest(View view) {
         intentToCommunityPage = new Intent(getBaseContext(), CommunityPage.class);
         startActivity(intentToCommunityPage);
+    }
+
+    public void sendResponseReceivedToLoginPage(JSONObject responseReceived) {
+        this.responseReceived = responseReceived;
+        RESPONSE_RECEIVED_FLAG = true;//to intimate asynctaskrunner
+        loginPageAsyncTaskRunner.acknowledgeAndSendResponse(responseReceived);
     }
 
 

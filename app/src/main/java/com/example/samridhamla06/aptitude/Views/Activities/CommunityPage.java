@@ -1,4 +1,4 @@
-package com.example.samridhamla06.aptitude.Views;
+package com.example.samridhamla06.aptitude.Views.Activities;
 
 
 import android.content.Intent;
@@ -9,10 +9,9 @@ import android.view.View;
 import android.widget.Spinner;
 
 import com.example.samridhamla06.aptitude.AndroidListeners.CommunityPageView.CommunityPageSufferingSpinnerListener;
+import com.example.samridhamla06.aptitude.Constants;
 import com.example.samridhamla06.aptitude.R;
 import com.example.samridhamla06.aptitude.Utility.SharedPreferencesRelated;
-import com.example.samridhamla06.aptitude.Views.Activities.LoginPage;
-import com.example.samridhamla06.aptitude.Views.Activities.MainPage;
 
 public class CommunityPage extends AppCompatActivity {
 
@@ -49,7 +48,7 @@ public class CommunityPage extends AppCompatActivity {
 
     private void addSufferingAndLocationToSharedPreferences() {
         SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putString(LoginPage.LOCATION, "Pune");//FOR THE TIME BEING
-        editor.putString(LoginPage.SUFFERING_NAME, sufferingName);
+        editor.putString(Constants.LOCATION, "Pune");//FOR THE TIME BEING
+        editor.putString(Constants.SUFFERING_NAME, sufferingName);
     }
 }

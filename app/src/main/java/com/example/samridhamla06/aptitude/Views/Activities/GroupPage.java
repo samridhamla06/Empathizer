@@ -11,7 +11,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
 
-import com.example.samridhamla06.aptitude.MappersOrAdapters.MainPageViewPagerAdapter;
+import com.example.samridhamla06.aptitude.Adapters.ViewPagerAdapter;
+import com.example.samridhamla06.aptitude.Constants;
 import com.example.samridhamla06.aptitude.R;
 import com.example.samridhamla06.aptitude.Service.GroupPageServices;
 import com.example.samridhamla06.aptitude.Utility.SharedPreferencesRelated;
@@ -40,11 +41,7 @@ public class GroupPage extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_group_page);
-        initialiseLocalVariables(savedInstanceState);
-    }
-
-    private Bundle instantiateBundle() {//AFTER WORDS YOU CAN CHECK WHETHER IT'S NULL N BLA BLA BLA
-        return new Bundle();
+        initialiseLocalVariables();
     }
 
     @Override
@@ -69,7 +66,7 @@ public class GroupPage extends AppCompatActivity {
                 return true;
 
             case R.id.inviteOthers:
-                Toast.makeText(this, "inviting", Toast.LENGTH_LONG).show();
+                Toast.makeText(this, "Inviting", Toast.LENGTH_LONG).show();
                 return true;
 
             case R.id.faqs:
@@ -84,7 +81,7 @@ public class GroupPage extends AppCompatActivity {
     }
 
 
-    private void initialiseLocalVariables(Bundle savedInstanceState) {
+    private void initialiseLocalVariables() {
         groupId = getIntent().getStringExtra(GROUP_ID);
         groupPageContext = getBaseContext();
         groupPageServices = new GroupPageServices(this, groupId);
@@ -99,11 +96,11 @@ public class GroupPage extends AppCompatActivity {
     }
 
     private void initialiseViewPagerAndLinkWithTabLayout() {
-        MainPageViewPagerAdapter mainPageViewPagerAdapter = new MainPageViewPagerAdapter(getSupportFragmentManager());
-        mainPageViewPagerAdapter.addFragment(groupPageMembersFragment, LoginPage.MEMBERS);
-        mainPageViewPagerAdapter.addFragment(new MainPageNotificationsFragment(), LoginPage.MEETINGS);
-        mainPageViewPagerAdapter.addFragment(new MainPageNotificationsFragment(), LoginPage.RECOMMENDATIONS);
-        groupPageViewPager.setAdapter(mainPageViewPagerAdapter);
+        ViewPagerAdapter viewPagerAdapter = new ViewPagerAdapter(getSupportFragmentManager());
+        viewPagerAdapter.addFragment(groupPageMembersFragment, Constants.MEMBERS);
+        viewPagerAdapter.addFragment(new MainPageNotificationsFragment(), Constants.EVENTS);
+        viewPagerAdapter.addFragment(new MainPageNotificationsFragment(), Constants.RECOMMENDATIONS);
+        groupPageViewPager.setAdapter(viewPagerAdapter);
         groupPageTabLayout.setupWithViewPager(groupPageViewPager);
     }
 

@@ -4,10 +4,10 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.samridhamla06.aptitude.Constants;
 import com.example.samridhamla06.aptitude.HTTPListeners.Response.ResponseListeners.RegisterPageView.RegisterPageErrorListener;
 import com.example.samridhamla06.aptitude.HTTPListeners.Response.ResponseListeners.RegisterPageView.RegisterPageResponseListener;
-import com.example.samridhamla06.aptitude.Views.Activities.LoginPage;
-import com.example.samridhamla06.aptitude.Views.RegisterPage;
+import com.example.samridhamla06.aptitude.Views.Activities.RegisterPage;
 
 import org.json.JSONObject;
 
@@ -16,7 +16,7 @@ public class RegisterPageServices {
     //CONSTANTS----------
     private final RegisterPage registerPageReference;
     private final JSONObject user_JSON_object;
-    private final String REGISTER_URL = LoginPage.URL + "register";
+    private final String REGISTER_URL = Constants.URL + "register";
 
     //OTHER OBJECTS--------
     private JsonObjectRequest requestToregister;

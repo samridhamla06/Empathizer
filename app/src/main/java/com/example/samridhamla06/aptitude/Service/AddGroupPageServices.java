@@ -5,15 +5,15 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.samridhamla06.aptitude.Constants;
 import com.example.samridhamla06.aptitude.HTTPListeners.Response.ResponseListeners.AddGroupPageView.AddGroupPageErrorListener;
 import com.example.samridhamla06.aptitude.HTTPListeners.Response.ResponseListeners.AddGroupPageView.AddGroupPageResponseListener;
-import com.example.samridhamla06.aptitude.Views.AddGroupPage;
-import com.example.samridhamla06.aptitude.Views.Activities.LoginPage;
+import com.example.samridhamla06.aptitude.Views.Activities.AddGroupPage;
 
 public class AddGroupPageServices {
 
     //CONSTANTS
-    private final String ADD_GROUP_URL = LoginPage.URL + "addGroup";
+    private final String ADD_GROUP_URL = Constants.URL + "addGroup";
 
     //OBJECTS
     private JsonObjectRequest requestToCreateGroupOnServer;

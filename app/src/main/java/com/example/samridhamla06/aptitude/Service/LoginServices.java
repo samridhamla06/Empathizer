@@ -7,6 +7,7 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.samridhamla06.aptitude.Constants;
 import com.example.samridhamla06.aptitude.HTTPListeners.Response.ResponseListeners.LoginView.LoginButtonErrorListener;
 import com.example.samridhamla06.aptitude.HTTPListeners.Response.ResponseListeners.LoginView.LoginButtonResponseListener;
 import com.example.samridhamla06.aptitude.Views.Activities.LoginPage;
@@ -19,7 +20,7 @@ import java.util.Map;
 public class LoginServices {
 
     private JsonObjectRequest myJsonRequest;
-    private final String URL = LoginPage.URL + "login";
+    private final String URL = Constants.URL + "login";
     private RequestQueue loginRequestQueue;
     private LoginButtonResponseListener loginButtonResponseListener;
     private LoginButtonErrorListener loginButtonErrorListener;

@@ -1,4 +1,4 @@
-package com.example.samridhamla06.aptitude.Views;
+package com.example.samridhamla06.aptitude.Views.Activities;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -13,9 +13,9 @@ import android.widget.Spinner;
 
 import com.example.samridhamla06.aptitude.AndroidListeners.RegisterPageView.RegisterPageCurrentStatusSpinnerListener;
 import com.example.samridhamla06.aptitude.AndroidListeners.RegisterPageView.RegisterPageSufferingSpinnerListener;
+import com.example.samridhamla06.aptitude.Constants;
 import com.example.samridhamla06.aptitude.R;
 import com.example.samridhamla06.aptitude.Service.RegisterPageServices;
-import com.example.samridhamla06.aptitude.Views.Activities.LoginPage;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -113,13 +113,13 @@ public class RegisterPage extends AppCompatActivity {
     }
 
     private void mapUserInfoToUserJSONObject() throws JSONException {
-        user_JSON_object.put(LoginPage.USER_NAME, getValueForEditTextView(userName));
+        user_JSON_object.put(Constants.USER_NAME, getValueForEditTextView(userName));
         user_JSON_object.put("password", getValueForEditTextView(password));
         user_JSON_object.put("location", getValueForEditTextView(location));
         user_JSON_object.put("age", getValueForEditTextView(age));
         user_JSON_object.put("email", getValueForEditTextView(email));
         user_JSON_object.put("aboutMe", getValueForEditTextView(aboutMe));
-        user_JSON_object.put(LoginPage.SUFFERING_NAME, suffering);
+        user_JSON_object.put(Constants.SUFFERING_NAME, suffering);
         user_JSON_object.put("currentStatus", currentStatus);
         user_JSON_object.put("gender", getValueForRadioGroup(genderGroup));//radio
     }

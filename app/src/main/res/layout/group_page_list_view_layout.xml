@@ -9,7 +9,7 @@
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="Large Text"
-        android:id="@+id/email"
+        android:id="@+id/userName"
         android:layout_gravity="right" />
 
     <TextView
