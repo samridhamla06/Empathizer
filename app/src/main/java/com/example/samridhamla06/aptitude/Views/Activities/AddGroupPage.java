@@ -1,6 +1,5 @@
 package com.example.samridhamla06.aptitude.Views.Activities;
 
-import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -9,8 +8,10 @@ import android.view.View;
 import android.widget.EditText;
 
 import com.example.samridhamla06.aptitude.Constants;
+import com.example.samridhamla06.aptitude.Models.User;
 import com.example.samridhamla06.aptitude.R;
 import com.example.samridhamla06.aptitude.Service.AddGroupPageServices;
+import com.example.samridhamla06.aptitude.Utility.SharedPreferencesRelated;
 import com.example.samridhamla06.aptitude.Utility.UserRelated;
 
 import org.json.JSONArray;
@@ -27,15 +28,13 @@ public class AddGroupPage extends AppCompatActivity {
     //OTHER OBJECTS
     private AddGroupPageServices addGroupPageServices;
     private JSONObject groupJSONObject;
-    private  SharedPreferences sharedPreferences;
+    private SharedPreferences sharedPreferences;
     private JSONArray userJsonArray;
+    private User currentUser;
     //CONSTANTS
     private final String GROUP_NAME = Constants.GROUP_NAME;
     private final String LOCATION = "location";
     private final String GROUP_DESCRIPTION = "description";
-
-
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,7 +49,7 @@ public class AddGroupPage extends AppCompatActivity {
         groupDescription = (EditText)findViewById(R.id.groupDescription);
         groupJSONObject = new JSONObject();
         addGroupPageServices = new AddGroupPageServices(this);
-        sharedPreferences = getApplicationContext().getSharedPreferences("PREFERENCES", Context.MODE_PRIVATE);
+        sharedPreferences = SharedPreferencesRelated.getInstanceOfSharedPreferences(getBaseContext());
         userJsonArray = new JSONArray();
     }
 
@@ -64,7 +63,7 @@ public class AddGroupPage extends AppCompatActivity {
     }
 
     private void sendGroupDataToServer() {
-        Log.d("groupJSONObject_SENT",groupJSONObject.toString());
+        Log.d("groupJSONObject_SENT", groupJSONObject.toString());
         addGroupPageServices.addGroupToServer(groupJSONObject);
     }
 
@@ -73,23 +72,37 @@ public class AddGroupPage extends AppCompatActivity {
         groupJSONObject.put(GROUP_NAME,getValueForEditTextView(groupName));
         groupJSONObject.put(LOCATION,getValueForEditTextView(location));
         groupJSONObject.put(GROUP_DESCRIPTION, getValueForEditTextView(groupDescription));
-
+        instantiateCurrentUser();
         addAdditionalInfoToGroupJSONObject();
     }
 
     private void addAdditionalInfoToGroupJSONObject() throws JSONException{
-        groupJSONObject.put(Constants.SUFFERING_NAME,sharedPreferences.getString(Constants.SUFFERING_NAME, "000"));
-        mapUserInfoToUserJSONArray();
+        groupJSONObject.put(Constants.SUFFERING_NAME,getSufferingNameForCurrentUser());
+        populateUserJsonArray();
         groupJSONObject.put("users", userJsonArray);
+        groupJSONObject.put("creatorId", getCurrentUserId());
     }
 
-    private void mapUserInfoToUserJSONArray() throws JSONException{
-        userJsonArray.put(UserRelated.createUserJSONObjectFromSharedPreferences(sharedPreferences));
+    private String getCurrentUserId() {
+        return UserRelated.getUserIdForCurrentUser(sharedPreferences);
+    }
+
+    private void populateUserJsonArray() {
+        userJsonArray.put(UserRelated.getJsonStringForCurrentUser(sharedPreferences));
+    }
+
+    private void instantiateCurrentUser() {
+        currentUser = UserRelated.getUserPOJOForCurrentUser(sharedPreferences);
+    }
+
+    private String getSufferingNameForCurrentUser() {
+        return currentUser.getSufferingName();
     }
 
 
     private String getValueForEditTextView(EditText view) {
         return view.getText().toString();
     }
+
 
 }

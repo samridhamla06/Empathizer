@@ -32,13 +32,11 @@ public class RegisterPageServices {
 
     private void initializeLocalVariables() {
         requestQueue = Volley.newRequestQueue(registerPageReference);
-
     }
 
     public void sendUserDataToServer() {
         initialiseListeners();
-        requestToregister = new JsonObjectRequest(Request.Method.POST, REGISTER_URL, user_JSON_object,
-                registerPageResponseListener, registerPageErrorListener);
+        requestToregister = new JsonObjectRequest(Request.Method.POST, REGISTER_URL, user_JSON_object,registerPageResponseListener, registerPageErrorListener);
         requestQueue.add(requestToregister);
     }
 

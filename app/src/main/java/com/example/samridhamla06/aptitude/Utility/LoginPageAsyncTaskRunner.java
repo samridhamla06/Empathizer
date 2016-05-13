@@ -33,16 +33,19 @@ public class LoginPageAsyncTaskRunner extends AsyncTask<String, String, String> 
     }
 
     @Override
-    protected void onProgressUpdate(String... values) {
+    protected void onProgressUpdate(String... values) {//to-handle-timeout-error
         super.onProgressUpdate(values);
-        if (values[0].equals(Constants.TIME_OUT_ERROR))
+        if (values[0].equals(Constants.TIME_OUT_ERROR)) {
             Toast.makeText(loginPageReference, "Couldn't Connect to Server", Toast.LENGTH_SHORT).show();
-        progressBar.dismiss();
+            progressBar.dismiss();
+            onCancelled();
+        }
     }
 
     @Override
     protected void onPostExecute(String s) {
         super.onPostExecute(s);
+        progressBar.dismiss();
         try {
             extractStatusAndToken();
             if (validateStatusAndToken()) {
@@ -63,7 +66,7 @@ public class LoginPageAsyncTaskRunner extends AsyncTask<String, String, String> 
 
     @Override
     protected String doInBackground(String... params) {
-        runTillResponseComes();
+        //runTillResponseComes();
         publishProgress(Constants.VALID);
         return null;
     }
@@ -72,21 +75,19 @@ public class LoginPageAsyncTaskRunner extends AsyncTask<String, String, String> 
 
         Log.e("STATUS & TOKEN RECEIVED", status + "  ------   " + token);
         if (validateStatusAndToken()) {
+            removeStatusAndTokenFromResponseReceived();
             addResponseReceivedToSharedPreferences();
         } else {
             Toast.makeText(loginPageReference, "Invalid UserName or Password", Toast.LENGTH_LONG).show();
         }
     }
 
-    private void runTillResponseComes() {
-        while (!RESPONSE_RECEIVED_FLAG) {
-            try {
-                Thread.sleep(3000);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-        }
+    private void removeStatusAndTokenFromResponseReceived() {
+        responseReceived.remove(Constants.TOKEN);
+        responseReceived.remove(Constants.STATUS);
     }
+
+
 
     private void addResponseReceivedToSharedPreferences() {
         sharedPreferences = SharedPreferencesRelated.getInstanceOfSharedPreferences(loginPageReference);
@@ -102,7 +103,7 @@ public class LoginPageAsyncTaskRunner extends AsyncTask<String, String, String> 
     }
 
     private void extractStatusAndToken() throws JSONException {
-        status = responseReceived.getString(Constants.STATUS);//COULD BE SHIFTED TO ANOTHER FUNCTION
+        status = responseReceived.getString(Constants.STATUS);
         token = responseReceived.getString(Constants.TOKEN);
     }
 

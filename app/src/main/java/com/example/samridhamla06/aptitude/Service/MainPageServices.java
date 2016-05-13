@@ -52,7 +52,7 @@ public class MainPageServices {
     }
 
     private String getSufferingNameFromSharedPreferences() {
-        return UserRelated.getUserObjectFromUserInfo(sharedPreferences).getSufferingName();
+        return UserRelated.getUserPOJOForCurrentUser(sharedPreferences).getSufferingName();
     }
 
     public void getGroupsFromTheServer() {
@@ -60,7 +60,9 @@ public class MainPageServices {
         try {
             initializeTokenVariable();
             initialiseListenersForGroups();
-            jsonObjectRequest = new AuthJsonObjectRequestForGroups(Request.Method.GET, AUTH_READ_GROUP_URL + sufferingName, mainPageResponseListener, mainPageErrorListener, token);
+            String userId = UserRelated.getUserIdForCurrentUser(sharedPreferences);
+            jsonObjectRequest = new AuthJsonObjectRequestForGroups(Request.Method.GET, AUTH_READ_GROUP_URL + sufferingName + "/" +userId,
+                    mainPageResponseListener, mainPageErrorListener, token);
         } catch (NullPointerException e) {//------------WHEN TOKEN IS NULL In SHARED-PREFERENCES..SEND UNAUTHREQUEST
             Toast.makeText(mainPageContext, "Loggin In As GUEST", Toast.LENGTH_LONG).show();
             jsonObjectRequest = new UnAuthJsonObjectRequestForGroups(Request.Method.GET, UNAUTH_READ_GROUP_URL + sufferingName, mainPageResponseListener, mainPageErrorListener);

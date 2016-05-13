@@ -12,21 +12,34 @@
         android:layout_height="wrap_content"
         android:theme="@style/AppTheme.AppBarOverlay">
 
-
-        <include layout="@layout/tool_bar"  android:id="@+id/main_page_toolbar"/>
-
-        <android.support.design.widget.TabLayout
+        <android.support.v7.widget.Toolbar xmlns:android="http://schemas.android.com/apk/res/android"
+            android:id="@+id/main_page_toolbar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/main_page_tabLayout">
+            android:background="@color/colorPrimary">
+
+            <Button
+                android:id="@+id/currentLocationView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="bottom"
+                android:minWidth="150dp"
+                android:onClick="onCurrentLocationClicked"/>
+
+        </android.support.v7.widget.Toolbar>
+
+        <android.support.design.widget.TabLayout
+            android:id="@+id/main_page_tabLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_scrollFlags="scroll|enterAlways">
 
         </android.support.design.widget.TabLayout>
 
         <android.support.v4.view.ViewPager
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/main_page_viewPager"
-        android:layout_marginTop="@dimen/activity_vertical_margin"
-        />
+            android:id="@+id/main_page_viewPager"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="@dimen/activity_vertical_margin" />
     </android.support.design.widget.AppBarLayout>
 </android.support.design.widget.CoordinatorLayout>

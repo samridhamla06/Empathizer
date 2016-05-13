@@ -29,4 +29,9 @@ public class Constants {
     public static final String TRUE = "true";
     public static final String USER_INFO = "user_info";
     public static final String TIME_OUT_ERROR = "TIME_OUT_ERROR";
+    public static final String LATITUDE = "latitude";
+    public static final String LONGITUDE = "longitude";
+    public static final int REQUEST_CODE_FOR_RESOLUTION_GOOGLE_API = 1;
+    public static final double DEFAULT_LATITUDE_VALUE = 18.5175565999999989;
+    public static final double DEFAULT_LONGITUDE_VALUE = 73.8416599999999903;
 }

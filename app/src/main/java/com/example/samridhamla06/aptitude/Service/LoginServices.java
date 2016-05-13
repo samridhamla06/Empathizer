@@ -31,10 +31,11 @@ public class LoginServices {
         initialiseLocalVariables();
     }
 
-    public void hitLogInRequest(JSONObject userLoginDetails) {
+    public void hitLogInRequest(JSONObject userLoginDetails)  {
 
         Log.d("JSON_SENT", userLoginDetails.toString());
         initialiseListeners();
+        loginPageReference.showProgressBar();
         myJsonRequest = new JsonObjectRequest(Request.Method.POST, URL, userLoginDetails, loginButtonResponseListener, loginButtonErrorListener) {
             @Override
             public Map<String, String> getHeaders() throws AuthFailureError {
@@ -45,8 +46,15 @@ public class LoginServices {
             }
         };
         loginRequestQueue.add(myJsonRequest);
+    }
 
-
+    public void showProgressBar(){
+        try {
+            loginPageReference.showProgressBar();
+            Thread.sleep(2000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 
     private void initialiseLocalVariables() {

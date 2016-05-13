@@ -1,13 +1,11 @@
 package com.example.samridhamla06.aptitude.HTTPListeners.Response.ResponseListeners.GroupPageView;
 
 import android.app.Activity;
-import android.content.SharedPreferences;
 import android.util.Log;
 import android.widget.ArrayAdapter;
+
 import com.android.volley.Response;
-import com.example.samridhamla06.aptitude.Constants;
 import com.example.samridhamla06.aptitude.Models.User;
-import com.example.samridhamla06.aptitude.Utility.SharedPreferencesRelated;
 import com.example.samridhamla06.aptitude.Utility.UserRelated;
 
 import org.json.JSONArray;
@@ -18,10 +16,9 @@ import java.util.List;
 
 public class GroupPageResponseListener implements Response.Listener<JSONArray> {
     private final Activity groupPageReference;
-    private  ArrayAdapter groupPageAdapter;
-    private  List<User> userList;
+    private ArrayAdapter groupPageAdapter;
+    private List<User> userList;
     private JSONArray jsonArrayReceived;
-    private SharedPreferences sharedPreferences;
 
 
     public GroupPageResponseListener(Activity groupPageReference, ArrayAdapter adapterForUsers, List<User> userList) {
@@ -37,7 +34,7 @@ public class GroupPageResponseListener implements Response.Listener<JSONArray> {
         actOnResponse();
     }
 
-    private void actOnResponse(){
+    private void actOnResponse() {
         sendUsersInfoToGroupPage();
     }
 
@@ -48,21 +45,21 @@ public class GroupPageResponseListener implements Response.Listener<JSONArray> {
         try {
             myJson = jsonArrayReceived.getJSONObject(0);
             actualJSONArray = myJson.getJSONArray("users");
-            Log.d("JSON_ARRAY_RECEIVED",actualJSONArray.toString());
+            Log.d("JSON_ARRAY_RECEIVED", actualJSONArray.toString());
             for (int i = 0; i < actualJSONArray.length(); i++) {
                 myJson = actualJSONArray.getJSONObject(i);
-                user =  addJSONToUserObject(myJson);
+                user = addJSONToUserObject(myJson);
                 userList.add(user);
             }
             groupPageAdapter.notifyDataSetChanged();
-        }catch (JSONException e){
+        } catch (JSONException e) {
             e.printStackTrace();
-            Log.d("Error","Wrong JSON received");
+            Log.d("Error", "Wrong JSON received");
         }
 
     }
 
-    private User addJSONToUserObject(JSONObject myJson) throws JSONException{
+    private User addJSONToUserObject(JSONObject myJson) throws JSONException {
         String userInfo = myJson.toString();
         User user = UserRelated.getUserObjectFromJson(userInfo);
         return user;

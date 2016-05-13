@@ -18,8 +18,6 @@ import com.example.samridhamla06.aptitude.HTTPListeners.Response.ResponseListene
 import com.example.samridhamla06.aptitude.Models.User;
 import com.example.samridhamla06.aptitude.Utility.SharedPreferencesRelated;
 
-import org.json.JSONObject;
-
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -87,7 +85,7 @@ public class GroupPageServices {
         groupPageErrorListener = new GroupPageErrorListener();
     }
 
-    public void sendRequestToJoinGroup(JSONObject userJsonObject) {
+    public void sendRequestToJoinGroup(String userJsonObject) {
         initialiseListenersToJoinGroup();
         requestToJoinGroup = new JsonObjectRequest(Request.Method.POST, URL_JOIN_GROUP + groupId, userJsonObject, groupPageOnJoinResponseListener, groupPageErrorListener) {
             @Override

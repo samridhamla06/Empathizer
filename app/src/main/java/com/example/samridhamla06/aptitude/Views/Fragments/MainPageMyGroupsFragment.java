@@ -67,6 +67,7 @@ public class MainPageMyGroupsFragment extends Fragment {
 
     private void initialiseLocalVariables() {
         listView = (ListView) getView().findViewById(R.id.groups);
+        listView.setFastScrollEnabled(true);
         groupList = new ArrayList<>();
         mainPageContext = getContext();
         mainPageAdapter = new MainPageAdapter(mainPageContext, groupList);

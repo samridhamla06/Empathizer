@@ -23,6 +23,26 @@ public class User {
     private String gender;
     @SerializedName("_id")
     private String id;
+    @SerializedName("latitude")
+    private double latitude;
+    @SerializedName("longitude")
+    private double longitude;
+
+    public double getLatitude() {
+        return latitude;
+    }
+
+    public void setLatitude(double latitude) {
+        this.latitude = latitude;
+    }
+
+    public double getLongitude() {
+        return longitude;
+    }
+
+    public void setLongitude(double longitude) {
+        this.longitude = longitude;
+    }
 
     public User(String name, int age, String location, String email, String aboutMe, String sufferingName, String currentStatus, String gender, String id) {
         this.name = name;

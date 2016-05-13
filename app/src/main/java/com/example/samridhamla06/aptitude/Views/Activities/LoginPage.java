@@ -14,7 +14,6 @@ import android.widget.EditText;
 import com.example.samridhamla06.aptitude.Constants;
 import com.example.samridhamla06.aptitude.R;
 import com.example.samridhamla06.aptitude.Service.LoginServices;
-import com.example.samridhamla06.aptitude.Utility.LoginPageAsyncTaskRunner;
 import com.example.samridhamla06.aptitude.Utility.SharedPreferencesRelated;
 
 import org.json.JSONException;
@@ -37,9 +36,7 @@ public class LoginPage extends AppCompatActivity {
     private JSONObject userLoginDetails;
     private Toolbar toolbar;
     private ProgressDialog progressBar;
-    private LoginPageAsyncTaskRunner loginPageAsyncTaskRunner;
-    private Boolean RESPONSE_RECEIVED_FLAG = false;
-    private JSONObject responseReceived;
+
 
 
     @Override
@@ -81,7 +78,6 @@ public class LoginPage extends AppCompatActivity {
         password = (EditText) findViewById(R.id.password);
         loginServices = new LoginServices(this);
         userLoginDetails = new JSONObject();
-        responseReceived = new JSONObject();
         toolbar = (Toolbar) findViewById(R.id.main_page_toolbar);
         setSupportActionBar(toolbar);
         progressBar = new ProgressDialog(this);
@@ -92,15 +88,13 @@ public class LoginPage extends AppCompatActivity {
         progressBar.setMessage("Loading... ");
         progressBar.setProgressStyle(ProgressDialog.STYLE_SPINNER);
         progressBar.setIndeterminate(true);
-
+        progressBar.setCancelable(false);
     }
 
     public void onLogIn(View view) {
-        loginPageAsyncTaskRunner = LoginPageAsyncTaskRunner.getInstance(this, progressBar);
-        loginPageAsyncTaskRunner.execute();
-        email_android = getToString(email);//CREATE A FUNCTION FOR THIS
+        email_android = getToString(email);
         password_android = getToString(password);
-        prepareJSONObjectToSend(email_android, password_android);
+        prepareJSONObjectToSend();
         loginServices.hitLogInRequest(userLoginDetails);
     }
 
@@ -113,7 +107,7 @@ public class LoginPage extends AppCompatActivity {
         startActivity(intentToRegisterPage);
     }
 
-    private void prepareJSONObjectToSend(String email_android, String password_android) {
+    private void prepareJSONObjectToSend() {
         try {
             userLoginDetails.put(Constants.EMAIL, email_android);
             userLoginDetails.put(Constants.PASSWORD, password_android);
@@ -128,11 +122,12 @@ public class LoginPage extends AppCompatActivity {
         startActivity(intentToCommunityPage);
     }
 
-    public void sendResponseReceivedToLoginPage(JSONObject responseReceived) {
-        this.responseReceived = responseReceived;
-        RESPONSE_RECEIVED_FLAG = true;//to intimate asynctaskrunner
-        loginPageAsyncTaskRunner.acknowledgeAndSendResponse(responseReceived);
+
+    public void showProgressBar() {
+        progressBar.show();
     }
 
-
+    public void dismissProgressBar() {
+        progressBar.dismiss();
+    }
 }

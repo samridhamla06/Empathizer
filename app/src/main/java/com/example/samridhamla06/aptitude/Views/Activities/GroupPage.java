@@ -20,9 +20,6 @@ import com.example.samridhamla06.aptitude.Utility.UserRelated;
 import com.example.samridhamla06.aptitude.Views.Fragments.GroupPageMembersFragment;
 import com.example.samridhamla06.aptitude.Views.Fragments.MainPageNotificationsFragment;
 
-import org.json.JSONException;
-import org.json.JSONObject;
-
 public class GroupPage extends AppCompatActivity {
 
     public static final String GROUP_ID = "GROUP_ID";
@@ -107,12 +104,8 @@ public class GroupPage extends AppCompatActivity {
 
     public void onJoinGroup() {
         //ALERT BOX......REQUEST SENT TO ADMIN...probably...filhaal krde
-        try {
-            JSONObject userJsonObject = UserRelated.createUserJSONObjectFromSharedPreferences(sharedPreferences);
-            groupPageServices.sendRequestToJoinGroup(userJsonObject);
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
+        String userJsonString = UserRelated.getJsonStringForCurrentUser(sharedPreferences);
+        groupPageServices.sendRequestToJoinGroup(userJsonString);
     }
 
     private void initialiseSharedPreferences() {
