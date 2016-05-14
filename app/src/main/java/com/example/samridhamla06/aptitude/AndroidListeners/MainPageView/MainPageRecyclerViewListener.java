@@ -9,11 +9,11 @@ import android.widget.AdapterView;
 import com.example.samridhamla06.aptitude.R;
 import com.example.samridhamla06.aptitude.Views.Activities.GroupPage;
 
-public class MainPageListViewListener implements AdapterView.OnItemClickListener{
+public class MainPageRecyclerViewListener implements View.OnClickListener{
     private Intent intentToGroupPage;
     private Context mainPageContext;
 
-    public MainPageListViewListener(Context mainPageContext) {
+    public MainPageRecyclerViewListener(Context mainPageContext) {
         this.mainPageContext = mainPageContext;
         initialiseVariables();
     }
@@ -22,16 +22,18 @@ public class MainPageListViewListener implements AdapterView.OnItemClickListener
         intentToGroupPage = new Intent(mainPageContext,GroupPage.class);
     }
 
-    @Override
-    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        Log.d("id selected:", Long.toString(id) + " position Selected: " + Integer.toString(position));
-        String groupId = retrieveGroupIdFromViewSelected(view,position);
-        intentToGroupPage.putExtra(GroupPage.GROUP_ID, groupId);
-        intentToGroupPage.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        mainPageContext.startActivity(intentToGroupPage);
-    }
+
 
     private String retrieveGroupIdFromViewSelected(View view, int position) {
         return (String)view.getTag(R.string.GroupID);
+    }
+
+    @Override
+    public void onClick(View v) {
+        //Log.d(" Position Selected: " + Integer.toString(position));
+        //String groupId = retrieveGroupIdFromViewSelected(view,position);
+       // intentToGroupPage.putExtra(GroupPage.GROUP_ID, groupId);
+        intentToGroupPage.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        mainPageContext.startActivity(intentToGroupPage);
     }
 }

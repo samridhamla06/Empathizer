@@ -4,13 +4,13 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ListView;
 
-import com.example.samridhamla06.aptitude.Adapters.GroupPageAdapter;
-import com.example.samridhamla06.aptitude.AndroidListeners.GroupPageView.GroupPageListViewListener;
+import com.example.samridhamla06.aptitude.Adapters.GroupPageRecyclerViewAdapter;
 import com.example.samridhamla06.aptitude.Constants;
 import com.example.samridhamla06.aptitude.Models.User;
 import com.example.samridhamla06.aptitude.R;
@@ -24,12 +24,11 @@ public class GroupPageMembersFragment extends Fragment {
 
 
     private String groupId;
-    private ListView userListView;
+    private RecyclerView recyclerView;
     private List<User> userList;
-    private GroupPageAdapter groupPageAdapter;
+    private GroupPageRecyclerViewAdapter groupPageRecyclerViewAdapter;
     private GroupPageServices groupPageServices;
     private Context groupPageContext;
-    private GroupPageListViewListener groupPageListViewListener;
 
     @Nullable
     @Override
@@ -54,18 +53,17 @@ public class GroupPageMembersFragment extends Fragment {
 
     private void initialiseLocalVariables(Bundle savedInstanceState) {
         groupId = getArguments().getString(Constants.GROUP_ID);
-        userListView = (ListView) getView().findViewById(R.id.users);
+        recyclerView = (RecyclerView) getView().findViewById(R.id.users);
         userList = new ArrayList<>();
         groupPageContext = getContext();
-        groupPageAdapter = new GroupPageAdapter(getContext(), userList);
-        groupPageServices = new GroupPageServices(getActivity(), groupPageAdapter, userList, groupId);
-        groupPageListViewListener = new GroupPageListViewListener(groupPageContext);
-        setListViewParameters();
+        groupPageRecyclerViewAdapter = new GroupPageRecyclerViewAdapter(userList);
+        groupPageServices = new GroupPageServices(getActivity(), groupPageRecyclerViewAdapter, userList, groupId);
+        setRecyclerViewParameters();
     }
 
-    private void setListViewParameters() {
-        userListView.setAdapter(groupPageAdapter);
-        userListView.setOnItemClickListener(groupPageListViewListener);
+    private void setRecyclerViewParameters() {
+        recyclerView.setAdapter(groupPageRecyclerViewAdapter);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
     }
 
 

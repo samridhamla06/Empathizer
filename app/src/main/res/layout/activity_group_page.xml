@@ -12,24 +12,35 @@
         android:layout_height="wrap_content"
         android:theme="@style/AppTheme.AppBarOverlay">
 
-        <include layout="@layout/tool_bar" android:id = "@+id/group_page_toolbar" />
 
-        <android.support.design.widget.TabLayout
+        <android.support.v7.widget.Toolbar xmlns:android="http://schemas.android.com/apk/res/android"
+            android:id="@+id/group_page_toolbar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/group_page_tabLayout"/>
+            android:background="@color/colorPrimary"
+            android:fitsSystemWindows="true"
+            app:layout_scrollFlags="scroll|enterAlways"
+            android:minWidth="150dp">
 
-        <android.support.v4.view.ViewPager
+
+        </android.support.v7.widget.Toolbar>
+
+        <android.support.design.widget.TabLayout
+            android:id="@+id/group_page_tabLayout"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:id="@+id/group_page_viewPager"
-            android:layout_marginTop="@dimen/activity_vertical_margin"
-            />
-
-
+            android:layout_height="wrap_content"
+            app:layout_collapseMode="pin"
+            app:layout_scrollFlags="scroll|enterAlways"
+            app:tabMode="fixed"/>
     </android.support.design.widget.AppBarLayout>
 
 
+        <android.support.v4.view.ViewPager
+            android:id="@+id/group_page_viewPager"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior"
+            />
 
 
 </android.support.design.widget.CoordinatorLayout>

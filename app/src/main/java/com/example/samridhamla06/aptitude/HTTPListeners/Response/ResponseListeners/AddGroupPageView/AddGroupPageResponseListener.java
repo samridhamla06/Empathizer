@@ -40,8 +40,7 @@ public class AddGroupPageResponseListener implements Response.Listener<JSONObjec
         if(validateResponse()){
             Toast.makeText(addGroupPageReference,"Group Successfully Created",Toast.LENGTH_LONG).show();
             intentToMainPage = new Intent(addGroupPageReference, MainPage.class);
-            addGroupPageReference.startActivity(intentToMainPage);
-            addGroupPageReference.finish();//TO GET BACK TO GroupPage
+            addGroupPageReference.onBackPressed();//TO GET BACK TO GroupPage
         }else{
             Toast.makeText(addGroupPageReference,"Couldnt add the group..Try again",Toast.LENGTH_LONG).show();
             //CAN RESET VALUES for editViews

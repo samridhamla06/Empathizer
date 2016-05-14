@@ -1,16 +1,37 @@
 package com.example.samridhamla06.aptitude.Models;
 
-/**
- * Created by samridhamla06 on 14/03/16.
- */
-public class Group {
-    private String name;
-    private String id;
+import com.google.gson.annotations.SerializedName;
 
-    public Group(String name, String id) {
+
+public class Group {
+    @SerializedName("groupName")
+    private String name;
+    @SerializedName("_id")
+    private String id;
+    @SerializedName("location")
+    private String location;
+    @SerializedName("description")
+    private String description;
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public void setLocation(String location) {
+        this.location = location;
+    }
+
+    public Group(String name, String id, String location, String description) {
         this.name = name;
         this.id = id;
+        this.location = location;
+        this.description = description;
     }
+
 
     public String getName() {
         return name;
@@ -31,5 +52,9 @@ public class Group {
     @Override
     public String toString() {
         return this.name;
+    }
+
+    public String getLocation() {
+        return location;
     }
 }

@@ -2,22 +2,18 @@ package com.example.samridhamla06.aptitude.Views.Fragments;
 
 
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.ListView;
 
-import com.example.samridhamla06.aptitude.AndroidListeners.MainPageView.MainPageListViewListener;
-import com.example.samridhamla06.aptitude.Adapters.MainPageAdapter;
-import com.example.samridhamla06.aptitude.Constants;
+import com.example.samridhamla06.aptitude.Adapters.MainPageRecyclerViewAdapter;
 import com.example.samridhamla06.aptitude.Models.Group;
 import com.example.samridhamla06.aptitude.R;
 import com.example.samridhamla06.aptitude.Service.MainPageServices;
-import com.example.samridhamla06.aptitude.Views.Activities.AddGroupPage;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,14 +21,12 @@ import java.util.List;
 
 public class MainPageMyGroupsFragment extends Fragment {
 
-    private ListView listView;
+    private static final int SPAN_COUNT = 2;
     private List<Group> groupList;
     private Context mainPageContext;
     private MainPageServices mainPageServices;
-    private MainPageListViewListener mainPageListViewListener;
-    private MainPageAdapter mainPageAdapter;
-    private Intent intentToAddGroupPage;
-    private Button addGroupButton;
+    private MainPageRecyclerViewAdapter mainPageRecyclerViewAdapter;
+    private RecyclerView recyclerView;
 
 
     public MainPageMyGroupsFragment() {
@@ -59,43 +53,24 @@ public class MainPageMyGroupsFragment extends Fragment {
     }
 
 
-
-
     private void retrieveGroupsFromTheServer() {
         mainPageServices.getGroupsFromTheServer();
     }
 
     private void initialiseLocalVariables() {
-        listView = (ListView) getView().findViewById(R.id.groups);
-        listView.setFastScrollEnabled(true);
+        recyclerView = (RecyclerView) getView().findViewById(R.id.groups);
         groupList = new ArrayList<>();
         mainPageContext = getContext();
-        mainPageAdapter = new MainPageAdapter(mainPageContext, groupList);
-        mainPageServices = new MainPageServices(mainPageContext, mainPageAdapter, groupList);
-        mainPageListViewListener = new MainPageListViewListener(mainPageContext);
-        addListViewParameters(listView);
-        intentToAddGroupPage = new Intent(getActivity(), AddGroupPage.class);
-        addGroupButton = (Button) getView().findViewById(R.id.addGroup);
-        setUpAddGroupButton();
-    }
-
-    private void setUpAddGroupButton() {
-        addGroupButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                onAddGroup();
-            }
-        });
+        mainPageRecyclerViewAdapter = new MainPageRecyclerViewAdapter(groupList);
+        mainPageServices = new MainPageServices(mainPageContext, mainPageRecyclerViewAdapter, groupList);
+        addListViewParameters(recyclerView);
     }
 
 
-    private void addListViewParameters(ListView listView) {
-        listView.setAdapter(mainPageAdapter);
-        listView.setOnItemClickListener(mainPageListViewListener);
-    }
-
-    public void onAddGroup() {
-        startActivityForResult(intentToAddGroupPage, Constants.REQUEST_CODE_FOR_ADD_GROUP_PAGE);
+    private void addListViewParameters(RecyclerView recyclerView) {
+        recyclerView.setAdapter(mainPageRecyclerViewAdapter);
+        GridLayoutManager gridLayoutManager = new GridLayoutManager(getContext(), SPAN_COUNT);
+        recyclerView.setLayoutManager(gridLayoutManager);
     }
 
 

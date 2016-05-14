@@ -50,8 +50,11 @@ public class MainPage extends AppCompatActivity implements GoogleApiClient.OnCon
     private Geocoder geocoder;
     private Address address;
 
+
+
     //GOOGLE API OBJECTS
     private GoogleApiClient googleApiClient;
+    private Intent intentToAddGroupPage;
 
 
     @Override
@@ -71,16 +74,22 @@ public class MainPage extends AppCompatActivity implements GoogleApiClient.OnCon
     private void initialiseLocalVariables() {
 
         mainPageToolBar = (Toolbar) findViewById(R.id.main_page_toolbar);
-        setSupportActionBar(mainPageToolBar);
+        setUpToolBar();
         mainPageViewPager = (ViewPager) findViewById(R.id.main_page_viewPager);
         mainPageTabLayout = (TabLayout) findViewById(R.id.main_page_tabLayout);
         sharedPreferences = SharedPreferencesRelated.getInstanceOfSharedPreferences(getBaseContext());
         initialiseViewPagerAndLinkWithTabLayout();
         intentToLoginPage = new Intent(this, LoginPage.class);
         currentLocationView = (Button) findViewById(R.id.currentLocationView);
+        intentToAddGroupPage = new Intent(getBaseContext(), AddGroupPage.class);
         geocoder = new Geocoder(this, Locale.getDefault());
         setUpGoogleApiClient();
         setValueForCurrentLocation();
+    }
+
+    private void setUpToolBar() {
+        setSupportActionBar(mainPageToolBar);
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
     }
 
     private void setValueForCurrentLocation() {
@@ -152,6 +161,10 @@ public class MainPage extends AppCompatActivity implements GoogleApiClient.OnCon
             case R.id.refreshButton:
                 Toast.makeText(this, "Refreshing", Toast.LENGTH_LONG).show();
                 onRefresh();
+                return true;
+            case R.id.addGroup:
+                Toast.makeText(this, "Add group Selected", Toast.LENGTH_LONG).show();
+                onAddGroup();
                 return true;
 
             default:
@@ -226,5 +239,10 @@ public class MainPage extends AppCompatActivity implements GoogleApiClient.OnCon
             e.printStackTrace();
         }
     }
+
+    public void onAddGroup() {
+        startActivityForResult(intentToAddGroupPage, Constants.REQUEST_CODE_FOR_ADD_GROUP_PAGE);
+    }
+
 }
 

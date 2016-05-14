@@ -3,7 +3,6 @@ package com.example.samridhamla06.aptitude.Service;
 import android.app.Activity;
 import android.content.SharedPreferences;
 import android.util.Log;
-import android.widget.ArrayAdapter;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
@@ -11,6 +10,7 @@ import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.samridhamla06.aptitude.Adapters.GroupPageRecyclerViewAdapter;
 import com.example.samridhamla06.aptitude.Constants;
 import com.example.samridhamla06.aptitude.HTTPListeners.Response.ResponseListeners.GroupPageView.GroupPageErrorListener;
 import com.example.samridhamla06.aptitude.HTTPListeners.Response.ResponseListeners.GroupPageView.GroupPageOnJoinResponseListener;
@@ -26,7 +26,7 @@ import java.util.Map;
 public class GroupPageServices {
 
     private final String groupId;
-    private ArrayAdapter adapterForUsers;
+    private GroupPageRecyclerViewAdapter adapterForUsers;
     private List<User> userList;
     private JsonArrayRequest requestToGetGroupInfo;
     private final String URL_GROUP_DESC = Constants.URL + "auth/groups/";
@@ -41,7 +41,7 @@ public class GroupPageServices {
     private GroupPageOnJoinResponseListener groupPageOnJoinResponseListener;
 
 
-    public GroupPageServices(Activity groupPageReference, ArrayAdapter adapterForUsers, List<User> userList, String id) {
+    public GroupPageServices(Activity groupPageReference, GroupPageRecyclerViewAdapter adapterForUsers, List<User> userList, String id) {
         this.groupPageReference = groupPageReference;
         this.adapterForUsers = adapterForUsers;
         this.userList = userList;

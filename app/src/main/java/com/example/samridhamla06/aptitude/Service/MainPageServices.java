@@ -2,13 +2,13 @@ package com.example.samridhamla06.aptitude.Service;
 
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.widget.ArrayAdapter;
 import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.samridhamla06.aptitude.Adapters.MainPageRecyclerViewAdapter;
 import com.example.samridhamla06.aptitude.Constants;
 import com.example.samridhamla06.aptitude.HTTPListeners.Response.ResponseListeners.MainPageView.MainPageErrorListener;
 import com.example.samridhamla06.aptitude.HTTPListeners.Response.ResponseListeners.MainPageView.MainPageResponseListener;
@@ -25,7 +25,7 @@ public class MainPageServices {
 
 
     private final Context mainPageContext;
-    private ArrayAdapter arrayAdapterForGroups;
+    private MainPageRecyclerViewAdapter adapterForGroups;
     public final String AUTH_READ_GROUP_URL = Constants.URL + "auth/readGroups/";
     public final String UNAUTH_READ_GROUP_URL = Constants.URL + "readGroups/";
     private SharedPreferences sharedPreferences;
@@ -38,9 +38,9 @@ public class MainPageServices {
     private String sufferingName;
 
 
-    public MainPageServices(Context mainPageContext, ArrayAdapter arrayAdapterForGroups, List<Group> groupList) {
+    public MainPageServices(Context mainPageContext, MainPageRecyclerViewAdapter arrayAdapterForGroups, List<Group> groupList) {
         this.mainPageContext = mainPageContext;
-        this.arrayAdapterForGroups = arrayAdapterForGroups;
+        this.adapterForGroups = arrayAdapterForGroups;
         this.groupList = groupList;
         initialiseLocalVariables();
     }
@@ -78,7 +78,7 @@ public class MainPageServices {
     }
 
     private void initialiseListenersForGroups() {
-        mainPageResponseListener = new MainPageResponseListener(mainPageContext, arrayAdapterForGroups, groupList);
+        mainPageResponseListener = new MainPageResponseListener(mainPageContext, adapterForGroups, groupList);
         mainPageErrorListener = new MainPageErrorListener();
     }
 

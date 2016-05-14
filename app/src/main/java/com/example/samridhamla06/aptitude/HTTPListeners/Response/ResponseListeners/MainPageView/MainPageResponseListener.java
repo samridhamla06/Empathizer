@@ -2,11 +2,12 @@ package com.example.samridhamla06.aptitude.HTTPListeners.Response.ResponseListen
 
 import android.content.Context;
 import android.util.Log;
-import android.widget.ArrayAdapter;
 
 import com.android.volley.Response;
+import com.example.samridhamla06.aptitude.Adapters.MainPageRecyclerViewAdapter;
 import com.example.samridhamla06.aptitude.Constants;
 import com.example.samridhamla06.aptitude.Models.Group;
+import com.example.samridhamla06.aptitude.Utility.GroupRelated;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -17,12 +18,13 @@ import java.util.List;
 public class MainPageResponseListener implements Response.Listener<JSONObject> {
 
     private final Context mainPageContext;
-    private ArrayAdapter adapterForGroups;
+    private int POSITION_AT_TOP = 0;
+    private MainPageRecyclerViewAdapter adapterForGroups;
     private JSONObject groupJSONReceived;
     private List<Group> groupList;
     private final String GROUPS = "groups";
 
-    public MainPageResponseListener(Context mainPageContext, ArrayAdapter arrayAdapterForGroups, List<Group> groupList) {
+    public MainPageResponseListener(Context mainPageContext, MainPageRecyclerViewAdapter arrayAdapterForGroups, List<Group> groupList) {
         this.mainPageContext = mainPageContext;
         this.adapterForGroups = arrayAdapterForGroups;
         this.groupList = groupList;
@@ -54,13 +56,13 @@ public class MainPageResponseListener implements Response.Listener<JSONObject> {
             group = convertJSONToObject(groupJSONObject);
             groupList.add(group);
         }
-        adapterForGroups.notifyDataSetChanged();
+        adapterForGroups.notifyItemChanged(POSITION_AT_TOP);//ITEM ADDED AT TOP
         System.out.println("ended addJSONArrayToList");
 
     }
 
     private Group convertJSONToObject(JSONObject communityJSONObject) throws JSONException {
-        return new Group(communityJSONObject.getString(Constants.GROUP_NAME), communityJSONObject.getString("_id"));
+        return GroupRelated.getGroupObjectFromJson(communityJSONObject.toString());
     }
 }
 

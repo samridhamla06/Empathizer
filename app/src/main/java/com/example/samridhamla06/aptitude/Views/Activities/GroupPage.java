@@ -71,10 +71,9 @@ public class GroupPage extends AppCompatActivity {
                 return true;
 
             default:
-                Toast.makeText(this, "Maa chuda", Toast.LENGTH_LONG).show();
+                return super.onOptionsItemSelected(item);
 
         }
-        return super.onOptionsItemSelected(item);
     }
 
 
@@ -83,13 +82,18 @@ public class GroupPage extends AppCompatActivity {
         groupPageContext = getBaseContext();
         groupPageServices = new GroupPageServices(this, groupId);
         initialiseSharedPreferences();
-
         groupPageToolBar = (Toolbar) findViewById(R.id.group_page_toolbar);
-        setSupportActionBar(groupPageToolBar);
+        setUpToolBar();
         groupPageViewPager = (ViewPager) findViewById(R.id.group_page_viewPager);
         groupPageTabLayout = (TabLayout) findViewById(R.id.group_page_tabLayout);
         groupPageMembersFragment = GroupPageMembersFragment.newInstance(groupId);
         initialiseViewPagerAndLinkWithTabLayout();
+    }
+
+    private void setUpToolBar() {
+        setSupportActionBar(groupPageToolBar);
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 
     private void initialiseViewPagerAndLinkWithTabLayout() {
