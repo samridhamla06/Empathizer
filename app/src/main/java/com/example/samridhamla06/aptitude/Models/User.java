@@ -11,6 +11,10 @@ public class User {
     private int age;
     @SerializedName("location")
     private String location;
+    @SerializedName("city")
+    private String city;
+    @SerializedName("country")
+    private String country;
     @SerializedName("email")
     private String email;
     @SerializedName("aboutMe")
@@ -23,10 +27,52 @@ public class User {
     private String gender;
     @SerializedName("_id")
     private String id;
+    @SerializedName("password")
+    private String password;
     @SerializedName("latitude")
     private double latitude;
     @SerializedName("longitude")
     private double longitude;
+    @SerializedName("loc")
+    private Location loc;
+
+    public void setLoc(Location loc) {
+        this.loc = loc;
+    }
+
+    public Location getLoc() {
+        return loc;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public User() {
+
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
+    }
+
+    public String getCountry() {
+        return country;
+    }
+
+    public void setCountry(String country) {
+        this.country = country;
+    }
+
+
 
     public double getLatitude() {
         return latitude;

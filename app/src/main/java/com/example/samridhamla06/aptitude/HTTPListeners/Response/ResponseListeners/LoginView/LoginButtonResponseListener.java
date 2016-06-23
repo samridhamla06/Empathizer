@@ -54,9 +54,10 @@ public class LoginButtonResponseListener implements Response.Listener<JSONObject
                 addResponseReceivedToSharedPreferences();//could be done by another thread..if u want
                 dismissProgressBar();
                 logInToMainPage();
-            } else
+            } else {
                 dismissProgressBar();
                 Toast.makeText(loginPageReference, "Invalid UserName or Password", Toast.LENGTH_LONG).show();
+            }
         } catch (JSONException e) {
             e.printStackTrace();
         }

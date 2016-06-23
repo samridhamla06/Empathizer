@@ -17,6 +17,7 @@ import com.example.samridhamla06.aptitude.Utility.UserRelated;
 public class UserPageAboutMeFragment extends Fragment {
 
 
+    private  static String TAG = UserPageAboutMeFragment.class.getSimpleName();
     private TextView aboutMeTextView;
     private TextView nameTextView;
     private TextView locationTextView;
@@ -25,7 +26,7 @@ public class UserPageAboutMeFragment extends Fragment {
     public static UserPageAboutMeFragment newInstance(String userInfo) {
         UserPageAboutMeFragment myFragment = new UserPageAboutMeFragment();
         Bundle args = new Bundle();
-        Log.e("user_info_putFragment",userInfo);
+        Log.e(TAG + " : user_info",userInfo);
         args.putString(Constants.USER_INFO, userInfo);
         myFragment.setArguments(args);
         return myFragment;

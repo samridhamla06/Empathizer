@@ -15,9 +15,7 @@ import com.example.samridhamla06.aptitude.ViewHolders.GroupPageViewHolder;
 import java.util.Collections;
 import java.util.List;
 
-/**
- * Created by samridhamla06 on 14/05/16.
- */
+
 public class GroupPageRecyclerViewAdapter extends RecyclerView.Adapter<GroupPageViewHolder> {
 
     private List<User> userList = Collections.EMPTY_LIST;

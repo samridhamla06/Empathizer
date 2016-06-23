@@ -15,7 +15,6 @@ public class RegisterPageServices {
 
     //CONSTANTS----------
     private final RegisterPage registerPageReference;
-    private final JSONObject user_JSON_object;
     private final String REGISTER_URL = Constants.URL + "register";
 
     //OTHER OBJECTS--------
@@ -24,9 +23,8 @@ public class RegisterPageServices {
     private RegisterPageErrorListener registerPageErrorListener;
     private RequestQueue requestQueue;
 
-    public RegisterPageServices(RegisterPage registerPageReference, JSONObject user_JSON_object) {
+    public RegisterPageServices(RegisterPage registerPageReference) {
         this.registerPageReference = registerPageReference;
-        this.user_JSON_object = user_JSON_object;
         initializeLocalVariables();
     }
 
@@ -34,9 +32,9 @@ public class RegisterPageServices {
         requestQueue = Volley.newRequestQueue(registerPageReference);
     }
 
-    public void sendUserDataToServer() {
+    public void sendUserDataToServer(String userInfo) {
         initialiseListeners();
-        requestToregister = new JsonObjectRequest(Request.Method.POST, REGISTER_URL, user_JSON_object,registerPageResponseListener, registerPageErrorListener);
+        requestToregister = new JsonObjectRequest(Request.Method.POST, REGISTER_URL, userInfo,registerPageResponseListener, registerPageErrorListener);
         requestQueue.add(requestToregister);
     }
 

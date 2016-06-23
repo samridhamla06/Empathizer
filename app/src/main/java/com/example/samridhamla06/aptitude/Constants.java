@@ -1,5 +1,7 @@
 package com.example.samridhamla06.aptitude;
 
+import com.google.android.gms.maps.model.LatLng;
+
 import java.util.Random;
 
 
@@ -34,4 +36,9 @@ public class Constants {
     public static final int REQUEST_CODE_FOR_RESOLUTION_GOOGLE_API = 1;
     public static final double DEFAULT_LATITUDE_VALUE = 18.5175565999999989;
     public static final double DEFAULT_LONGITUDE_VALUE = 73.8416599999999903;
+    public static final String ALL_GROUPS = "ALL GROUPS";
+    public static final String GROUP_DESCRIPTION = "description";
+    public static final String COORDINATES = "coordinates";
+    public static final String POINT = "Point";
+    public static final String LOC = "loc";
 }

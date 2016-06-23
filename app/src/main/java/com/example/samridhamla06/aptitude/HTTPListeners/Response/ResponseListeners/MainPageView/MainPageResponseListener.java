@@ -2,6 +2,7 @@ package com.example.samridhamla06.aptitude.HTTPListeners.Response.ResponseListen
 
 import android.content.Context;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.android.volley.Response;
 import com.example.samridhamla06.aptitude.Adapters.MainPageRecyclerViewAdapter;
@@ -15,12 +16,12 @@ import org.json.JSONObject;
 
 import java.util.List;
 
-public class MainPageResponseListener implements Response.Listener<JSONObject> {
+public class MainPageResponseListener implements Response.Listener<JSONArray> {
 
     private final Context mainPageContext;
     private int POSITION_AT_TOP = 0;
     private MainPageRecyclerViewAdapter adapterForGroups;
-    private JSONObject groupJSONReceived;
+    private JSONArray groupJSONReceived;
     private List<Group> groupList;
     private final String GROUPS = "groups";
 
@@ -31,17 +32,18 @@ public class MainPageResponseListener implements Response.Listener<JSONObject> {
     }
 
     @Override
-    public void onResponse(JSONObject response) {
+    public void onResponse(JSONArray response) {
         groupJSONReceived = response;
         Log.d("RECEIVED_JSON_ARRAY", groupJSONReceived.toString());
         actOnResponse(groupJSONReceived);
     }
 
-    private void actOnResponse(JSONObject groupJSONObjectReceived) {
+    private void actOnResponse(JSONArray groupJSONObjectReceived) {
         try {
-            addJSONArrayToList(groupJSONObjectReceived.getJSONArray(GROUPS));
+            addJSONArrayToList(groupJSONObjectReceived);
         } catch (JSONException e) {
-            e.printStackTrace();
+            e.printStackTrace();//means groups not present, so never added.
+            Toast.makeText(mainPageContext, "No Group yet!!!, ADD Group ", Toast.LENGTH_LONG).show();
         }
     }
 

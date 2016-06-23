@@ -1,16 +1,12 @@
 package com.example.samridhamla06.aptitude.Views.Activities;
 
 import android.content.Intent;
-import android.content.IntentSender;
 import android.content.SharedPreferences;
-import android.location.Address;
-import android.location.Geocoder;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -19,23 +15,18 @@ import android.widget.Toast;
 
 import com.example.samridhamla06.aptitude.Adapters.ViewPagerAdapter;
 import com.example.samridhamla06.aptitude.Constants;
+import com.example.samridhamla06.aptitude.Models.User;
 import com.example.samridhamla06.aptitude.R;
 import com.example.samridhamla06.aptitude.Utility.SharedPreferencesRelated;
 import com.example.samridhamla06.aptitude.Utility.UserRelated;
+import com.example.samridhamla06.aptitude.Views.Fragments.MainPageAllGroupsFragment;
 import com.example.samridhamla06.aptitude.Views.Fragments.MainPageMyGroupsFragment;
 import com.example.samridhamla06.aptitude.Views.Fragments.MainPageNotificationsFragment;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesUtil;
-import com.google.android.gms.common.api.GoogleApiClient;
-import com.google.android.gms.location.LocationServices;
-import com.google.android.gms.location.places.Places;
-
-import java.io.IOException;
-import java.util.List;
-import java.util.Locale;
 
 
-public class MainPage extends AppCompatActivity implements GoogleApiClient.OnConnectionFailedListener, GoogleApiClient.ConnectionCallbacks {
+public class MainPage extends AppCompatActivity {
 
 
     private static final String TAG = MainPage.class.getSimpleName();
@@ -45,15 +36,7 @@ public class MainPage extends AppCompatActivity implements GoogleApiClient.OnCon
     private Intent intentToLoginPage;
     private SharedPreferences sharedPreferences;
     private Button currentLocationView;
-    private double latitude = Constants.DEFAULT_LATITUDE_VALUE;
-    private double longitude = Constants.DEFAULT_LONGITUDE_VALUE;
-    private Geocoder geocoder;
-    private Address address;
-
-
-
-    //GOOGLE API OBJECTS
-    private GoogleApiClient googleApiClient;
+    private User currentUser;
     private Intent intentToAddGroupPage;
 
 
@@ -82,57 +65,24 @@ public class MainPage extends AppCompatActivity implements GoogleApiClient.OnCon
         intentToLoginPage = new Intent(this, LoginPage.class);
         currentLocationView = (Button) findViewById(R.id.currentLocationView);
         intentToAddGroupPage = new Intent(getBaseContext(), AddGroupPage.class);
-        geocoder = new Geocoder(this, Locale.getDefault());
-        setUpGoogleApiClient();
+        instantiateCurrentUser();
         setValueForCurrentLocation();
+
+    }
+
+    private void instantiateCurrentUser() {
+        currentUser = UserRelated.getUserPOJOForCurrentUser(sharedPreferences);
     }
 
     private void setUpToolBar() {
         setSupportActionBar(mainPageToolBar);
-        getSupportActionBar().setDisplayShowTitleEnabled(false);
+        getSupportActionBar().setDisplayShowTitleEnabled(false);//activty name wont be visible
     }
 
     private void setValueForCurrentLocation() {
-        validateAndInitialiseLatitudeAndLongitude();
-        try {
-            List<Address> addressList = geocoder.getFromLocation(latitude, longitude, 1);
-            if (!addressList.isEmpty()) {
-                address = addressList.get(0);//you get one address list
-                String locality = address.getLocality();
-                currentLocationView.setText(Constants.LOCATION + " : " + locality);
-                Toast.makeText(this, "you are in " + locality, Toast.LENGTH_LONG).show();
-            } else {
-                Toast.makeText(this, "Latitude longitude not stored :(", Toast.LENGTH_LONG).show();
-            }
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        currentLocationView.setText(Constants.LOCATION + " : " + currentUser.getCity());
     }
 
-    private void validateAndInitialiseLatitudeAndLongitude() {
-        latitude = UserRelated.getLatitudeForCurrentUser(sharedPreferences);
-        longitude = UserRelated.getLongitudeForCurrentUser(sharedPreferences);
-    }
-
-
-    private void setUpGoogleApiClient() {
-        googleApiClient = new GoogleApiClient.Builder(this)
-                .addApi(Places.GEO_DATA_API)
-                .addApi(Places.PLACE_DETECTION_API)
-                .addApi(LocationServices.API)
-                .enableAutoManage(this, this)
-                .addConnectionCallbacks(this)
-                .addOnConnectionFailedListener(this)
-                .build();
-        connectGoogleApiClient();
-    }
-
-    private void connectGoogleApiClient() {
-        if (checkGooglePlayServices()) {
-            googleApiClient.connect();
-        }
-    }
 
     private boolean checkGooglePlayServices() {
         int resultCode = GooglePlayServicesUtil.isGooglePlayServicesAvailable(this);
@@ -185,6 +135,7 @@ public class MainPage extends AppCompatActivity implements GoogleApiClient.OnCon
 
     private void initialiseViewPagerAndLinkWithTabLayout() {
         ViewPagerAdapter viewPagerAdapter = new ViewPagerAdapter(getSupportFragmentManager());
+        viewPagerAdapter.addFragment(new MainPageAllGroupsFragment(), Constants.ALL_GROUPS);
         viewPagerAdapter.addFragment(new MainPageMyGroupsFragment(), Constants.MY_GROUPS);
         viewPagerAdapter.addFragment(new MainPageNotificationsFragment(), Constants.NOTIFICATIONS);
         mainPageViewPager.setAdapter(viewPagerAdapter);
@@ -219,26 +170,6 @@ public class MainPage extends AppCompatActivity implements GoogleApiClient.OnCon
         //start new Activity Place Auto complete
     }
 
-
-    @Override
-    public void onConnected(Bundle bundle) {
-
-    }
-
-    @Override
-    public void onConnectionSuspended(int i) {
-        connectGoogleApiClient();
-    }
-
-    @Override
-    public void onConnectionFailed(ConnectionResult connectionResult) {
-        try {
-            connectionResult.startResolutionForResult(this, Constants.REQUEST_CODE_FOR_RESOLUTION_GOOGLE_API);
-        } catch (IntentSender.SendIntentException e) {
-            Log.d(TAG, "GOOGLE API disconnected");
-            e.printStackTrace();
-        }
-    }
 
     public void onAddGroup() {
         startActivityForResult(intentToAddGroupPage, Constants.REQUEST_CODE_FOR_ADD_GROUP_PAGE);

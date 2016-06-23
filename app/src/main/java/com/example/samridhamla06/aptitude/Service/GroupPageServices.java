@@ -3,7 +3,6 @@ package com.example.samridhamla06.aptitude.Service;
 import android.app.Activity;
 import android.content.SharedPreferences;
 import android.util.Log;
-
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;

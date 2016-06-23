@@ -34,26 +34,27 @@
         </EditText>
 
         <EditText
-            android:id="@+id/location"
-            style="@style/editext_graybg"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/pad_5dp"
-            android:hint="@string/location" >
-        </EditText>
-
-
-
-        <EditText
             android:id="@+id/groupDescription"
             style="@style/editext_graybg"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:hint="@string/group_description"
             android:layout_marginTop="@dimen/pad_5dp">
+       </EditText>
+
+        <TextView
+            android:id="@+id/location"
+            style="@style/Widget.AppCompat.ActionButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/pad_5dp"
+            android:hint="@string/location"
+            android:background="@color/gray_light">
+        </TextView>
 
 
-        </EditText>
+
+
 
         <LinearLayout
             android:id="@+id/main"

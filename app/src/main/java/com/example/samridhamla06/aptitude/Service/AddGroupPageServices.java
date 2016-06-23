@@ -27,10 +27,10 @@ public class AddGroupPageServices {
         requestQueue = Volley.newRequestQueue(addGroupPageReference);
     }
 
-    public void addGroupToServer(JSONObject groupJSONObject){
+    public void addGroupToServer(String groupInfo){
         initialiseListeners();
         requestToCreateGroupOnServer = new JsonObjectRequest(Request.Method.POST, ADD_GROUP_URL,
-                groupJSONObject,addGroupPageResponseListener,addGroupPageErrorListener);
+                groupInfo,addGroupPageResponseListener,addGroupPageErrorListener);
         requestQueue.add(requestToCreateGroupOnServer);
     }
 

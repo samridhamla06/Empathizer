@@ -5,7 +5,6 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
@@ -23,14 +22,6 @@ import com.example.samridhamla06.aptitude.Views.Fragments.UserPageRecommendation
 public class UserPage extends AppCompatActivity {
 
     //USER INFO
-    private String userName;
-    private int age;
-    private String location;
-    private String email;
-    private String aboutMe;
-    private String sufferingName;
-    private String currentStatus;
-    private String gender;
     private String userId;
 
     private User userSelected;
@@ -93,9 +84,9 @@ public class UserPage extends AppCompatActivity {
     }
 
     private void initialiseLocalVariables() {
-        initialiseUserInfoFields();
+
         String userInfo = getIntent().getStringExtra(Constants.USER_INFO);
-        userSelected = UserRelated.getUserObjectFromJson(userInfo);
+        initialiseUserInfoFields(userInfo);
         userPageServices = new UserPageServices(this,userId);
         userPageAboutMeFragment = UserPageAboutMeFragment.newInstance(userInfo);
         userPageMyGroupsFragment = UserPageMyGroupsFragment.newInstance(userId);
@@ -107,15 +98,9 @@ public class UserPage extends AppCompatActivity {
         initialiseViewPagerAndLinkWithTabLayout();
     }
 
-    private void initialiseUserInfoFields() {
-        String userInfo = getIntent().getStringExtra(Constants.USER_INFO);
+    private void initialiseUserInfoFields(String userInfo) {
         userSelected = UserRelated.getUserObjectFromJson(userInfo);
         userId = userSelected.getId();
-        aboutMe = userSelected.getAboutMe();
-        userName = userSelected.getName();
-        location = userSelected.getLocation();
-        age = userSelected.getAge();
-
     }
 
     private void initialiseViewPagerAndLinkWithTabLayout() {

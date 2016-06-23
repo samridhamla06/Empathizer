@@ -6,7 +6,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.example.samridhamla06.aptitude.AndroidListeners.MainPageView.MainPageRecyclerViewListener;
 import com.example.samridhamla06.aptitude.Models.Group;
 import com.example.samridhamla06.aptitude.R;
 import com.example.samridhamla06.aptitude.ViewHolders.MainPageViewHolder;
@@ -14,7 +13,7 @@ import com.example.samridhamla06.aptitude.ViewHolders.MainPageViewHolder;
 import java.util.List;
 
 
-public class MainPageRecyclerViewAdapter extends RecyclerView.Adapter<MainPageViewHolder>{
+public class MainPageRecyclerViewAdapter extends RecyclerView.Adapter<MainPageViewHolder> {
 
     private List<Group> groupList;
 
@@ -24,7 +23,7 @@ public class MainPageRecyclerViewAdapter extends RecyclerView.Adapter<MainPageVi
 
     @Override
     public MainPageViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        Context context = parent.getContext();
+        Context context = parent.getContext();//gives the context no need to pass
         LayoutInflater inflater = LayoutInflater.from(context);
         View rowView = inflater.inflate(R.layout.main_page_list_view_layout, parent, false);
         return new MainPageViewHolder(rowView);

@@ -16,8 +16,11 @@ import android.widget.Toast;
 import com.example.samridhamla06.aptitude.AndroidListeners.RegisterPageView.RegisterPageCurrentStatusSpinnerListener;
 import com.example.samridhamla06.aptitude.AndroidListeners.RegisterPageView.RegisterPageSufferingSpinnerListener;
 import com.example.samridhamla06.aptitude.Constants;
+import com.example.samridhamla06.aptitude.Models.Location;
+import com.example.samridhamla06.aptitude.Models.User;
 import com.example.samridhamla06.aptitude.R;
 import com.example.samridhamla06.aptitude.Service.RegisterPageServices;
+import com.example.samridhamla06.aptitude.Utility.UserRelated;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesNotAvailableException;
 import com.google.android.gms.common.GooglePlayServicesRepairableException;
@@ -27,9 +30,12 @@ import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.location.places.Place;
 import com.google.android.gms.location.places.Places;
 import com.google.android.gms.location.places.ui.PlaceAutocomplete;
+import com.google.android.gms.maps.model.LatLng;
 
 import org.json.JSONException;
-import org.json.JSONObject;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class RegisterPage extends AppCompatActivity implements GoogleApiClient.OnConnectionFailedListener, GoogleApiClient.ConnectionCallbacks {
 
@@ -43,6 +49,7 @@ public class RegisterPage extends AppCompatActivity implements GoogleApiClient.O
     private EditText email;
     private EditText aboutMe;
 
+
     //SPINNERS,BUTTONS-----------------
     private Spinner currentStatusDropDown;//drop box
     private Spinner sufferingsDropMenu;//drop box
@@ -52,10 +59,14 @@ public class RegisterPage extends AppCompatActivity implements GoogleApiClient.O
     private RadioButton gender_other;
 
     //VARIABLES-------------------
-    private String currentStatus;
+    private User currentUser;
+    private Location currentUserLoc;
+    private List<Double> coordinates;
     private String suffering;
+    private String currentStatus;
     private double latitude;
     private double longitude;
+
 
     //CONSTANTS--------------------
     private final String MALE = "Male";
@@ -64,7 +75,6 @@ public class RegisterPage extends AppCompatActivity implements GoogleApiClient.O
 
 
     //OTHER OBJECTS----------
-    private JSONObject user_JSON_object;
     private RegisterPageSufferingSpinnerListener registerPageSufferingSpinnerListener;
     private RegisterPageCurrentStatusSpinnerListener registerPageCurrentStatusSpinnerListener;
     private RegisterPageServices registerPageServices;
@@ -74,6 +84,7 @@ public class RegisterPage extends AppCompatActivity implements GoogleApiClient.O
 
     //GOOGLE API OBJECTS
     private GoogleApiClient googleApiClient;
+    private String city;
 
 
     @Override
@@ -92,6 +103,7 @@ public class RegisterPage extends AppCompatActivity implements GoogleApiClient.O
                 Log.d(TAG + " Name", selectedPlace.getName().toString());
                 Log.d(TAG + " latlng", selectedPlace.getLatLng().toString());
                 Toast.makeText(getApplicationContext(), "AUTO-Address: " + selectedPlace.getName(), Toast.LENGTH_LONG).show();
+                showLocationValueOnScreen(selectedPlace.getAddress().toString());
                 saveLocationParameters(selectedPlace);
             } else if (resultCode == PlaceAutocomplete.RESULT_ERROR) {
                 Toast.makeText(getApplicationContext(), "Error occured while retrieving Address from Google Auto Complete", Toast.LENGTH_LONG).show();
@@ -102,17 +114,32 @@ public class RegisterPage extends AppCompatActivity implements GoogleApiClient.O
     }
 
     private void saveLocationParameters(Place selectedPlace) {
-        location.setText(selectedPlace.getAddress().toString());
-        latitude = selectedPlace.getLatLng().latitude;
-        longitude = selectedPlace.getLatLng().longitude;
+        //retrieving values linked to location from Place object
+        LatLng latLng = selectedPlace.getLatLng();
+        latitude = latLng.latitude;
+        longitude = latLng.longitude;
+        city = selectedPlace.getName().toString();
+        instantiateCoordinatesList(latitude, longitude);
+        currentUserLoc = new Location(coordinates);
+    }
+
+    private void instantiateCoordinatesList(double latitude, double longitude) {
+        coordinates = new ArrayList<>();
+        coordinates.add(longitude);
+        coordinates.add(latitude);
+    }
+
+    private void showLocationValueOnScreen(String text) {
+        location.setText(text);
     }
 
     private void initializeLocalVariables() {
+        currentUser = new User();
         email = (EditText) findViewById(R.id.email);
         userName = (EditText) findViewById(R.id.name);
         password = (EditText) findViewById(R.id.password);
         location = (TextView) findViewById(R.id.location);
-        location.setText("CHOOSE YOUR LOCATION");
+        showLocationValueOnScreen("CHOOSE YOUR LOCATION");
         age = (EditText) findViewById(R.id.age);
         registerPageSufferingSpinnerListener = new RegisterPageSufferingSpinnerListener(this);
         registerPageCurrentStatusSpinnerListener = new RegisterPageCurrentStatusSpinnerListener(this);
@@ -125,8 +152,8 @@ public class RegisterPage extends AppCompatActivity implements GoogleApiClient.O
         gender_male = (RadioButton) findViewById(R.id.male);
         gender_female = (RadioButton) findViewById(R.id.female);
         gender_other = (RadioButton) findViewById(R.id.other);
-        user_JSON_object = new JSONObject();
         intentToLoginPage = new Intent(getBaseContext(), LoginPage.class);
+        registerPageServices = new RegisterPageServices(this);
         setUpGoogleApiClient();
     }
 
@@ -170,8 +197,8 @@ public class RegisterPage extends AppCompatActivity implements GoogleApiClient.O
 
     public void onSignUp(View view) {
         try {
-            mapUserInfoToUserJSONObject();
-            sendUserDataToServer();
+            String userInfo = getUserInfo();
+            sendUserDataToServer(userInfo);
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -179,30 +206,40 @@ public class RegisterPage extends AppCompatActivity implements GoogleApiClient.O
     }
 
 
-    private void sendUserDataToServer() {
-        Log.d("JSON_SENT", user_JSON_object.toString());
-        instantiateRegisterPageServices();
-        registerPageServices.sendUserDataToServer();
+    private void sendUserDataToServer(String userInfo) {
+        Log.d(TAG + " JSON_SENT", userInfo);
+        registerPageServices.sendUserDataToServer(userInfo);
     }
 
 
-
-    private void instantiateRegisterPageServices() {
-        registerPageServices = new RegisterPageServices(this, user_JSON_object);
+    public void setSuffering(String suffering) {
+        this.suffering = suffering;
     }
 
-    private void mapUserInfoToUserJSONObject() throws JSONException {
-        user_JSON_object.put(Constants.USER_NAME, getValueForEditTextView(userName));
-        user_JSON_object.put("password", getValueForEditTextView(password));
-        user_JSON_object.put("location", getValueForEditTextView(location));
-        user_JSON_object.put("age", getValueForEditTextView(age));
-        user_JSON_object.put("email", getValueForEditTextView(email));
-        user_JSON_object.put("aboutMe", getValueForEditTextView(aboutMe));
-        user_JSON_object.put(Constants.SUFFERING_NAME, suffering);
-        user_JSON_object.put("currentStatus", currentStatus);
-        user_JSON_object.put("gender", getValueForRadioGroup(genderGroup));//radio
-        user_JSON_object.put(Constants.LATITUDE,latitude);
-        user_JSON_object.put(Constants.LONGITUDE,longitude);
+
+    public void setCurrentStatus(String currentStatus) {
+        this.currentStatus = currentStatus;
+    }
+
+    private String getUserInfo() throws JSONException {
+        instantiateCurrentUser();
+        return UserRelated.convertUserObjectToJsonString(currentUser);
+    }
+
+    private void instantiateCurrentUser() {
+        currentUser.setAboutMe(getValueForEditTextView(aboutMe));
+        currentUser.setPassword(getValueForEditTextView(password));
+        currentUser.setName(getValueForEditTextView(userName));
+        currentUser.setLocation(getValueForEditTextView(location));
+        currentUser.setAge(Integer.valueOf(getValueForEditTextView(age)));
+        currentUser.setEmail(getValueForEditTextView(email));
+        currentUser.setSufferingName(suffering);
+        currentUser.setCurrentStatus(currentStatus);
+        //location parameters set up via onActivityResult Method from Auto-Complete googl api
+        currentUser.setLatitude(latitude);
+        currentUser.setLongitude(longitude);
+        currentUser.setCity(city);
+        currentUser.setLoc(currentUserLoc);
     }
 
 
@@ -223,13 +260,6 @@ public class RegisterPage extends AppCompatActivity implements GoogleApiClient.O
         return view.getText().toString();
     }
 
-    public void setCurrentStatus(String currentStatus) {
-        this.currentStatus = currentStatus;
-    }
-
-    public void setSuffering(String suffering) {
-        this.suffering = suffering;
-    }
 
     public void resetAllViews() {
         //userName.setText(null);

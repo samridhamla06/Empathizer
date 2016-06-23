@@ -9,11 +9,12 @@ import com.google.gson.Gson;
  * Created by samridhamla06 on 14/05/16.
  */
 public class GroupRelated {
-    private static String getValue(SharedPreferences sharedPreferences, String key) {
-        return sharedPreferences.getString(key, "000");
-    }
 
     public static Group getGroupObjectFromJson(String communityJsonString) {
         return new Gson().fromJson(communityJsonString, Group.class);
+    }
+
+    public static String getJsonFromGroupObject(Group newGroup) {
+        return new Gson().toJson(newGroup);
     }
 }

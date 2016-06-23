@@ -1,24 +1,16 @@
 package com.example.samridhamla06.aptitude.ViewHolders;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.TextView;
 
-import com.example.samridhamla06.aptitude.AndroidListeners.MainPageView.MainPageRecyclerViewListener;
 import com.example.samridhamla06.aptitude.Constants;
-import com.example.samridhamla06.aptitude.Models.Group;
 import com.example.samridhamla06.aptitude.R;
 import com.example.samridhamla06.aptitude.Views.Activities.GroupPage;
 
-import java.util.List;
 
-
-/**
- * Created by samridhamla06 on 14/05/16.
- */
 public class MainPageViewHolder extends RecyclerView.ViewHolder {
     private TextView groupName;
     private TextView location;
@@ -50,7 +42,7 @@ public class MainPageViewHolder extends RecyclerView.ViewHolder {
         itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                intentToGroupPage.putExtra(Constants.GROUP_ID,groupId);
+                intentToGroupPage.putExtra(Constants.GROUP_ID, groupId);
                 intentToGroupPage.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 mainPageContext.startActivity(intentToGroupPage);
             }
@@ -59,7 +51,7 @@ public class MainPageViewHolder extends RecyclerView.ViewHolder {
     }
 
     private void instantiateIntentToMainPage(View itemView) {
-        intentToGroupPage = new Intent(itemView.getContext(),GroupPage.class);
+        intentToGroupPage = new Intent(itemView.getContext(), GroupPage.class);
     }
 
     public TextView getGroupName() {
