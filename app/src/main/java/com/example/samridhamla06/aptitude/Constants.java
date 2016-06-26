@@ -10,7 +10,7 @@ public class Constants {
     public static final String VALID = "Valid";
     public static final String SUFFERING_NAME = "sufferingName";
     public static final String INVALID = "Invalid";
-    public static final String URL = "http://192.168.2.4:8000/";
+    public static final String URL = "http://192.168.0.6:8000/";
     public static final String STATUS = "status";
     public static final String TOKEN = "token";
     public static final String USER_ID = "userId";
