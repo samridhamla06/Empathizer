@@ -1,6 +1,5 @@
 package com.example.samridhamla06.aptitude.Service;
 
-import org.json.JSONObject;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.JsonObjectRequest;
@@ -27,10 +26,10 @@ public class AddGroupPageServices {
         requestQueue = Volley.newRequestQueue(addGroupPageReference);
     }
 
-    public void addGroupToServer(String groupInfo){
+    public void addGroupToServer(String groupInfo) {
         initialiseListeners();
         requestToCreateGroupOnServer = new JsonObjectRequest(Request.Method.POST, ADD_GROUP_URL,
-                groupInfo,addGroupPageResponseListener,addGroupPageErrorListener);
+                groupInfo, addGroupPageResponseListener, addGroupPageErrorListener);
         requestQueue.add(requestToCreateGroupOnServer);
     }
 

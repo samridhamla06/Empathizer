@@ -1,7 +1,4 @@
 package com.example.samridhamla06.aptitude;
-
-import com.google.android.gms.maps.model.LatLng;
-
 import java.util.Random;
 
 
@@ -41,4 +38,5 @@ public class Constants {
     public static final String COORDINATES = "coordinates";
     public static final String POINT = "Point";
     public static final String LOC = "loc";
+    public static final String LOCATION_INFO =  "LOCATION_INFO";
 }
